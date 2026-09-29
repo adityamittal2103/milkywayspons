@@ -16,8 +16,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  // Set NEXT_PUBLIC_SITE_URL to the production origin so social previews resolve.
-  metadataBase: process.env.NEXT_PUBLIC_SITE_URL ? new URL(process.env.NEXT_PUBLIC_SITE_URL) : undefined,
+  // Social previews need an absolute origin; override with NEXT_PUBLIC_SITE_URL on a custom domain.
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? 'https://milkywayspons.vercel.app'),
   title: "Milky Way — Sponsorship 2027 · Masters' Union University",
   description:
     "Milky Way, Masters' Union University's intercollegiate cultural festival. 20th–21st February 2027, Yashobhoomi Convention Center, Delhi. A 7-city Road to Milky Way, 1L+ student registrations, four sponsorship tiers.",
