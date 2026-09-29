@@ -1,0 +1,40 @@
+.footer {
+  position: relative;
+  padding: var(--s-9) 0 calc(var(--s-9) + 3rem);
+}
+
+.inner {
+  display: grid;
+  gap: var(--s-8);
+}
+
+.lockup {
+  width: min(100%, 1180px);
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: end;
+  gap: var(--s-5);
+  padding-top: var(--s-5);
+  border-top: var(--rule) solid var(--paper);
+  font-size: var(--t-small);
+}
+
+.mu {
+  width: 180px;
+}
+
+.small {
+  opacity: 0.75;
+  max-width: 34ch;
+}
+
+@media (max-width: 767px) {
+  .meta {
+    flex-direction: column;
+    align-items: start;
+  }
+}

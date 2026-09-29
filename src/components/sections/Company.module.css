@@ -1,0 +1,135 @@
+.company {
+  overflow: clip;
+}
+
+.title {
+  margin-top: var(--s-7);
+  font-size: var(--t-h1);
+  max-width: 16ch;
+}
+
+.orbit {
+  position: relative;
+  width: min(100%, 1000px, 92svh);
+  margin: var(--s-8) auto 0;
+  aspect-ratio: 1;
+}
+
+.svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.track {
+  fill: none;
+  stroke: var(--paper);
+  stroke-width: 1.5;
+  stroke-dasharray: 1 9;
+  opacity: 0.55;
+}
+
+.names {
+  fill: var(--paper);
+  font-weight: 800;
+  font-variation-settings:
+    'opsz' 72,
+    'wdth' 75;
+  font-size: 40px;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+}
+
+.ring {
+  transform-box: view-box;
+  transform-origin: 50% 50%;
+}
+
+.ring[data-ring='1'] .names {
+  fill: var(--yellow);
+}
+
+.seal {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 26%;
+  translate: -50% -50%;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .ring[data-ring='0'] {
+    animation: spin 220s linear infinite;
+  }
+  .ring[data-ring='1'] {
+    animation: spin 170s linear infinite reverse;
+  }
+  .ring[data-ring='2'] {
+    animation: spin 130s linear infinite;
+  }
+  .seal {
+    animation: spin-seal 90s linear infinite reverse;
+  }
+  .orbit:hover .ring,
+  .orbit:hover .seal {
+    animation-play-state: paused;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spin-seal {
+  to {
+    rotate: 360deg;
+  }
+}
+
+/* The wall: the same names as a plain list. Screen readers always get it;
+   phones see it instead of the rings. */
+.wall {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
+@media (max-width: 767px) {
+  .orbit {
+    display: none;
+  }
+  .wall {
+    position: static;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    clip: auto;
+    white-space: normal;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.1em 0;
+    margin-top: var(--s-7);
+    font-weight: 800;
+    font-variation-settings:
+      'opsz' 72,
+      'wdth' 75;
+    font-size: clamp(1.9rem, 9.5vw, 2.6rem);
+    line-height: 1.02;
+    text-transform: uppercase;
+  }
+  .wall li::after {
+    content: '✱' / '';
+    margin: 0 0.3em;
+    color: var(--yellow);
+    font-size: 0.6em;
+    vertical-align: 0.25em;
+  }
+  .wall li:nth-child(3n + 2) {
+    color: var(--yellow);
+  }
+}

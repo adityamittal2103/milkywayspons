@@ -1,0 +1,71 @@
+.layer {
+  position: absolute;
+  inset: 0;
+  z-index: var(--z-trajectory);
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  overflow: visible;
+}
+
+.casing,
+.planned,
+.flown {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* A cased route, like a road on a printed map: legible on every field */
+.casing {
+  stroke: var(--black);
+  stroke-width: 9;
+}
+
+.planned {
+  stroke: var(--paper);
+  stroke-width: 2;
+  stroke-dasharray: 1 11;
+  opacity: 0.7;
+}
+
+.flown {
+  stroke: var(--paper);
+  stroke-width: 3.5;
+}
+
+.head {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  opacity: 0;
+  transition: opacity 0.3s linear;
+  will-change: transform;
+}
+
+/* Offset so the comet's head, not its box, sits on the line */
+.comet {
+  position: absolute;
+  width: 58px;
+  left: -14px;
+  top: -44px;
+}
+
+@media (max-width: 767px) {
+  .casing {
+    stroke-width: 7;
+  }
+  .comet {
+    width: 40px;
+    left: -10px;
+    top: -30px;
+  }
+}

@@ -1,0 +1,114 @@
+{
+ "ringed-planet-1": {
+  "ratio": 1.42,
+  "source": "03 Planets/Ringed planet 1.svg"
+ },
+ "ringed-planet-2": {
+  "ratio": 1.2558,
+  "source": "03 Planets/Ringed planet 2.svg"
+ },
+ "ringed-planet-4": {
+  "ratio": 1.2381,
+  "source": "03 Planets/Ringed planet 4.svg"
+ },
+ "asteroid": {
+  "ratio": 1.2604,
+  "source": "03 Planets/Asteroid.svg"
+ },
+ "comet-1": {
+  "ratio": 1.232,
+  "source": "02 Comets/Comet 1.svg"
+ },
+ "comet-4": {
+  "ratio": 1.3276,
+  "source": "02 Comets/Comet 4.svg"
+ },
+ "shooting-star-1": {
+  "ratio": 1.5039,
+  "source": "05 Shooting Stars/Shooting star 1.svg"
+ },
+ "shooting-star-6": {
+  "ratio": 1.0993,
+  "source": "05 Shooting Stars/Shooting star 6.svg"
+ },
+ "spiral-galaxy": {
+  "ratio": 1.0131,
+  "source": "04 Phenomena/Spiral galaxy 1.svg"
+ },
+ "portal": {
+  "ratio": 1.0505,
+  "source": "04 Phenomena/Portal 1.svg"
+ },
+ "black-hole": {
+  "ratio": 1.2086,
+  "source": "04 Phenomena/Black hole 1.svg"
+ },
+ "starburst": {
+  "ratio": 1.0195,
+  "source": "04 Phenomena/Starburst 1.svg"
+ },
+ "burst-2": {
+  "ratio": 1.0787,
+  "source": "06 Stars and Bursts/Burst 2.svg"
+ },
+ "star-outline": {
+  "ratio": 0.9098,
+  "source": "06 Stars and Bursts/Star 1.svg"
+ },
+ "star-solid": {
+  "ratio": 1.08,
+  "source": "06 Stars and Bursts/Star 4.svg"
+ },
+ "full-moon": {
+  "ratio": 1.0622,
+  "source": "07 Moons/Full moon 1.svg"
+ },
+ "crescent": {
+  "ratio": 1,
+  "source": "07 Moons/Crescent moon 2.svg"
+ },
+ "playground-1": {
+  "ratio": 0.8971,
+  "source": "01 Planet Playgrounds/Planet playground 1.svg"
+ },
+ "playground-3": {
+  "ratio": 1.0139,
+  "source": "01 Planet Playgrounds/Planet playground 3.svg"
+ },
+ "playground-5": {
+  "ratio": 1.0068,
+  "source": "01 Planet Playgrounds/Planet playground 5.svg"
+ },
+ "playground-9": {
+  "ratio": 0.9949,
+  "source": "01 Planet Playgrounds/Planet playground 9.svg"
+ },
+ "badge-guitar": {
+  "ratio": 1,
+  "source": "01 Planet Playgrounds/Badges/Planet playground badge - Guitar star (light).svg"
+ },
+ "badge-keyboard": {
+  "ratio": 1.0973,
+  "source": "01 Planet Playgrounds/Badges/Planet playground badge - Keyboard star (light).svg"
+ },
+ "badge-rollercoaster": {
+  "ratio": 0.9829,
+  "source": "01 Planet Playgrounds/Badges/Planet playground badge - Rollercoaster (light).svg"
+ },
+ "badge-skate": {
+  "ratio": 0.9464,
+  "source": "01 Planet Playgrounds/Badges/Planet playground badge - Skate ramp (light).svg"
+ },
+ "badge-crystal": {
+  "ratio": 1.0826,
+  "source": "01 Planet Playgrounds/Badges/Planet playground badge - Crystal blocks (light).svg"
+ },
+ "badge-flag": {
+  "ratio": 0.9244,
+  "source": "01 Planet Playgrounds/Badges/Planet playground badge - Flag peak (light).svg"
+ },
+ "sparkle": {
+  "ratio": 0.9474,
+  "source": "08 Icon Sets/All icons 1/Sparkle.svg"
+ }
+}

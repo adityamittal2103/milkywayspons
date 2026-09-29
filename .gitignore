@@ -1,0 +1,10 @@
+node_modules/
+.next/
+out/
+.cache/
+.venv/
+next-env.d.ts
+*.tsbuildinfo
+.DS_Store
+# Source brand kit is large (Figma master is 247 MB); keep it out of version control.
+brand-kit/

@@ -1,0 +1,60 @@
+.mw {
+  overflow: clip;
+}
+
+.galaxy {
+  position: absolute;
+  z-index: var(--z-art);
+  right: -12vw;
+  top: 38%;
+  width: clamp(320px, 52vw, 900px);
+  rotate: -8deg;
+  opacity: 0.9;
+}
+
+.title {
+  display: grid;
+  gap: var(--s-5);
+  margin-top: var(--s-7);
+}
+
+.lead {
+  font-size: var(--t-h1);
+  max-width: 16ch;
+}
+
+.wordmark {
+  width: min(88vw, 1100px);
+  margin-left: -0.6%;
+}
+
+.body {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: var(--s-7);
+  margin-top: var(--s-8);
+  max-width: 1120px;
+}
+
+.body p + p {
+  margin-top: 0;
+}
+
+.ask {
+  margin-top: var(--s-10);
+  font-size: var(--t-display);
+  color: var(--yellow);
+  max-width: 11ch;
+}
+
+@media (max-width: 767px) {
+  .galaxy {
+    top: 30%;
+    right: -40vw;
+    width: 100vw;
+  }
+  .body {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 1em;
+  }
+}

@@ -1,0 +1,230 @@
+.hero {
+  position: relative;
+  min-height: 100svh;
+  overflow: clip;
+}
+
+.stars {
+  position: absolute;
+  inset: 0;
+  z-index: var(--z-art);
+}
+
+.canvas {
+  width: 100%;
+  height: 100%;
+}
+
+/* A large planetary form, cropped by the viewport: scale, per the kit's symbolism */
+.planet {
+  position: absolute;
+  z-index: var(--z-art);
+  top: -10vw;
+  right: -15vw;
+  width: clamp(300px, 46vw, 820px);
+  rotate: -14deg;
+}
+
+.stage {
+  position: relative;
+  z-index: var(--z-content);
+  height: 100svh;
+  min-height: 620px;
+  padding: calc(var(--s-4) + 12px) var(--gutter) var(--s-6);
+}
+
+/* Scroll-flight layers: they fill the stage on desktop so their children keep
+   positioning against it, and fall back into flow on phones. */
+.top,
+.bottom {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.top > *,
+.bottom > * {
+  pointer-events: auto;
+}
+
+.presents {
+  position: absolute;
+  top: calc(var(--s-4) + 10px);
+  left: 50%;
+  translate: -50% 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.mu {
+  width: clamp(140px, 12vw, 200px);
+}
+
+.presentsWord {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.34em;
+  margin-right: -0.34em;
+}
+
+/* The wordmark owns the centre; facts sit in the lower corners it leaves free */
+.markWrap {
+  position: absolute;
+  left: 50%;
+  top: 43%;
+  translate: -50% -50%;
+  width: min(70vw, calc(50svh * 1.5653));
+  color: var(--paper);
+}
+
+.mark {
+  width: 100%;
+  height: auto;
+}
+
+.meta {
+  position: absolute;
+  left: var(--gutter);
+  bottom: var(--s-6);
+  width: min(34vw, 32rem);
+  display: grid;
+  gap: var(--s-3);
+  justify-items: start;
+}
+
+.tagline {
+  font-size: min(4.6vw, 7.4svh);
+  max-width: 9ch;
+}
+
+.yours {
+  color: var(--yellow);
+}
+
+.when {
+  font-size: min(var(--t-lede), 2.6svh);
+  font-weight: 500;
+  font-variation-settings:
+    'opsz' 28,
+    'wdth' 90;
+  line-height: 1.25;
+}
+
+.actions {
+  margin-top: var(--s-2);
+}
+
+.readout {
+  position: absolute;
+  right: var(--gutter);
+  bottom: var(--s-6);
+  width: min(36vw, 36rem);
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border-top: var(--rule) solid var(--paper);
+}
+
+.stat {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: flex-end;
+  gap: var(--s-2);
+  padding: var(--s-4) var(--s-3) 0 0;
+}
+
+.stat + .stat {
+  padding-left: var(--s-3);
+  border-left: var(--rule) solid var(--paper);
+}
+
+.statValue {
+  font-size: min(4.4vw, 7svh);
+  margin: 0;
+}
+
+.statLabel {
+  font-size: var(--t-small);
+  line-height: 1.25;
+  max-width: 16ch;
+}
+
+.coord {
+  position: absolute;
+  left: calc(var(--gutter) * 0.32);
+  top: 42%;
+  writing-mode: vertical-rl;
+  transform: translateY(-50%) rotate(180deg);
+  opacity: 0.8;
+}
+
+/* Mobile is its own composition: the wordmark leads, the facts stack under it */
+@media (max-width: 767px) {
+  .stage {
+    height: auto;
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    padding-top: calc(var(--s-9) - var(--s-2));
+    padding-bottom: calc(var(--s-9) + var(--s-4));
+  }
+  .top,
+  .bottom {
+    position: static;
+    display: flex;
+    flex-direction: column;
+  }
+  .presents,
+  .markWrap,
+  .meta,
+  .readout,
+  .coord {
+    position: static;
+    width: auto;
+  }
+  /* Kept apart from the transform reset: the CSS minifier drops a translate
+     that shares a rule with transform. */
+  .presents,
+  .markWrap {
+    translate: 0 0;
+  }
+  .coord {
+    transform: none;
+  }
+  .presents {
+    align-self: center;
+  }
+  .markWrap {
+    width: 100%;
+    margin-block: var(--s-6);
+  }
+  .planet {
+    top: -18vw;
+    right: -32vw;
+    width: 88vw;
+  }
+  .tagline {
+    font-size: clamp(2.5rem, 12.5vw, 3.6rem);
+  }
+  .when {
+    font-size: var(--t-lede);
+  }
+  .readout {
+    margin-top: var(--s-6);
+  }
+  .stat {
+    padding-top: var(--s-3);
+  }
+  .statValue {
+    font-size: clamp(2rem, 10vw, 2.8rem);
+  }
+  .statLabel {
+    font-size: 0.78rem;
+  }
+  .coord {
+    writing-mode: horizontal-tb;
+    margin-top: var(--s-5);
+  }
+}

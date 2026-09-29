@@ -1,0 +1,13 @@
+.distort {
+  display: inline;
+}
+
+.word {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.char {
+  display: inline-block;
+  transform-origin: 50% 70%;
+}

@@ -1,0 +1,233 @@
+.home,
+.action,
+.readout {
+  position: fixed;
+  z-index: var(--z-nav);
+}
+
+.home {
+  top: var(--s-4);
+  left: var(--gutter);
+  display: block;
+  width: 44px;
+  height: 44px;
+  transition: transform var(--dur-ui) var(--ease-out);
+}
+
+.home:hover {
+  transform: rotate(-6deg);
+}
+
+.home img {
+  width: 100%;
+  height: 100%;
+}
+
+.action {
+  top: var(--s-4);
+  right: var(--gutter);
+}
+
+/* The readout: where you are on the flight plan */
+.readout {
+  left: var(--gutter);
+  bottom: var(--s-4);
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-rows: auto auto;
+  column-gap: var(--s-3);
+  row-gap: 6px;
+  align-items: baseline;
+  min-height: 48px;
+  padding: 10px 14px 11px;
+  border: var(--rule) solid var(--paper);
+  background: var(--black);
+  color: var(--paper);
+  cursor: pointer;
+  text-align: left;
+}
+
+.readout {
+  transition:
+    translate var(--dur-ui) var(--ease-out),
+    background var(--dur-micro) linear,
+    color var(--dur-micro) linear;
+}
+
+/* Focus always brings it back */
+.readout[data-tucked]:not(:focus-visible) {
+  translate: 0 calc(100% + 2rem);
+}
+
+.readout:hover {
+  background: var(--paper);
+  color: var(--black);
+}
+
+.readoutN {
+  font-family: var(--font-mono);
+  font-size: var(--t-micro);
+  font-variant-numeric: tabular-nums;
+}
+
+.readoutLabel {
+  font-weight: 700;
+  font-size: 0.95rem;
+  line-height: 1;
+}
+
+.readoutTrack {
+  grid-column: 1 / -1;
+  display: flex;
+  gap: 3px;
+}
+
+.tick {
+  width: 14px;
+  height: 3px;
+  background: currentColor;
+  opacity: 0.25;
+}
+
+.tick[data-on] {
+  opacity: 1;
+}
+
+/* ---------- index ---------- */
+.index {
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: var(--black);
+  color: var(--paper);
+}
+
+.index::backdrop {
+  background: var(--black);
+}
+
+.index[open] {
+  animation: index-in 0.42s var(--ease-out);
+}
+
+@keyframes index-in {
+  from {
+    clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+  }
+  to {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+}
+
+.indexInner {
+  min-height: 100%;
+  padding: var(--s-4) var(--gutter) var(--s-7);
+}
+
+.indexHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 48px;
+  margin-bottom: var(--s-6);
+}
+
+.indexTitle {
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: var(--t-small);
+}
+
+.close {
+  min-height: 48px;
+  padding: 0 var(--s-4);
+  border: var(--rule) solid var(--paper);
+  background: none;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.close:hover {
+  background: var(--paper);
+  color: var(--black);
+}
+
+.list {
+  display: grid;
+  border-top: var(--rule) solid var(--paper);
+}
+
+.item {
+  display: grid;
+  grid-template-columns: 3.5rem 1fr auto;
+  align-items: center;
+  padding: 0.35rem 0;
+  border-bottom: var(--rule) solid var(--paper);
+  text-decoration: none;
+}
+
+.itemN {
+  align-self: start;
+  padding-top: 0.9em;
+}
+
+.itemLabel {
+  font-weight: 800;
+  font-variation-settings:
+    'opsz' 96,
+    'wdth' 75;
+  text-transform: uppercase;
+  font-size: clamp(2rem, 5.6vh, 4.5rem);
+  line-height: 1;
+  transition:
+    color var(--dur-micro) linear,
+    transform var(--dur-ui) var(--ease-out);
+}
+
+.item:hover .itemLabel,
+.item:focus-visible .itemLabel {
+  color: var(--yellow);
+  transform: translateX(0.12em);
+}
+
+.item[aria-current] .itemLabel {
+  color: var(--yellow);
+}
+
+.itemHere {
+  width: 1.6rem;
+  --ink-color: var(--yellow);
+}
+
+@media (max-width: 767px) {
+  .home {
+    width: 40px;
+    height: 40px;
+  }
+  /* Thumb reach: the readout spans the bottom edge */
+  .readout {
+    right: var(--gutter);
+    bottom: max(var(--s-3), env(safe-area-inset-bottom));
+  }
+  .tick {
+    flex: 1;
+  }
+  .itemLabel {
+    font-size: clamp(1.7rem, 8.5vw, 2.6rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .index[open] {
+    animation: none;
+  }
+  .home,
+  .itemLabel {
+    transition: none;
+  }
+}

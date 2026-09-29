@@ -1,0 +1,45 @@
+.waypoint {
+  margin-left: calc(var(--rail) * -1);
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  font-weight: 650;
+  font-size: var(--t-small);
+}
+
+.node {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: var(--node);
+  height: var(--node);
+  flex: none;
+  background: var(--field);
+  border: var(--rule) solid var(--ink);
+  border-radius: 50%;
+  transition:
+    background var(--dur-ui) var(--ease-out),
+    border-color var(--dur-ui) var(--ease-out);
+}
+
+.glyph {
+  width: calc(var(--node) * 0.44);
+  --ink-color: var(--ink);
+  transition: transform var(--dur-section) var(--ease-out);
+}
+
+.node[data-passed] {
+  background: var(--ink);
+}
+
+.node[data-passed] .glyph {
+  --ink-color: var(--field);
+  transform: rotate(90deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .node,
+  .glyph {
+    transition: none;
+  }
+}

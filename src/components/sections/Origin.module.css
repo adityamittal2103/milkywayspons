@@ -1,0 +1,226 @@
+.origin {
+  overflow: clip;
+}
+
+/* Paths & portals = discovery (brand symbolism) */
+.portal {
+  position: absolute;
+  z-index: var(--z-art);
+  top: clamp(4rem, 9vw, 9rem);
+  right: -7vw;
+  width: clamp(200px, 30vw, 520px);
+  rotate: 18deg;
+}
+
+.head {
+  margin-top: var(--s-7);
+  max-width: 70%;
+}
+
+.title {
+  font-size: var(--t-display);
+  max-width: 11ch;
+}
+
+.tail {
+  margin-top: var(--s-5);
+  color: var(--yellow);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--s-5);
+  margin-top: var(--s-9);
+  align-items: start;
+}
+
+.body {
+  grid-column: 1 / span 5;
+  padding-top: var(--s-4);
+}
+
+.kicker {
+  margin-top: var(--s-5) !important;
+  font-weight: 700;
+  font-size: var(--t-lede);
+  line-height: 1.2;
+  font-variation-settings:
+    'opsz' 28,
+    'wdth' 90;
+  max-width: 22ch !important;
+}
+
+.stats {
+  grid-column: 7 / -1;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.lead {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column-reverse;
+  padding-bottom: var(--s-5);
+  border-bottom: var(--rule) solid var(--ink);
+}
+
+.leadValue {
+  font-size: clamp(5rem, 14vw, 14rem);
+  color: var(--yellow);
+}
+
+.stat {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: flex-end;
+  gap: var(--s-2);
+  padding: var(--s-4) var(--s-3) 0 0;
+}
+
+.stat + .stat {
+  padding-left: var(--s-4);
+  border-left: var(--rule) solid var(--ink);
+}
+
+.statValue {
+  font-size: clamp(2.4rem, 4.6vw, 4.8rem);
+}
+
+.statLabel {
+  font-weight: 600;
+  font-size: var(--t-small);
+  line-height: 1.25;
+}
+
+.lead .statLabel {
+  font-size: var(--t-lede);
+  margin-top: var(--s-2);
+}
+
+/* ---------- visitors: set like a playbill ---------- */
+.visitors {
+  margin-top: var(--s-10);
+}
+
+.subhead {
+  font-size: var(--t-h2);
+  max-width: 20ch;
+}
+
+.people {
+  margin-top: var(--s-7);
+  border-top: var(--rule) solid var(--ink);
+}
+
+.person {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  align-items: end;
+  column-gap: var(--s-6);
+  padding: var(--s-4) 0 var(--s-5);
+  border-bottom: var(--rule) solid var(--ink);
+}
+
+.name {
+  font-size: clamp(3rem, 8.4vw, 8.8rem);
+  transition: color var(--dur-micro) linear;
+}
+
+.person:hover .name {
+  color: var(--yellow);
+}
+
+.note {
+  max-width: 34ch;
+  padding-bottom: 0.5em;
+  font-size: var(--t-lede);
+  line-height: 1.3;
+}
+
+/* ---------- experiences: an index, not a card grid ---------- */
+.experiences {
+  margin-top: var(--s-10);
+}
+
+.index {
+  margin-top: var(--s-7);
+  border-top: var(--rule) solid var(--ink);
+}
+
+.row {
+  display: grid;
+  grid-template-columns: minmax(0, 4fr) minmax(0, 3fr) minmax(0, 5fr);
+  column-gap: var(--s-5);
+  align-items: baseline;
+  padding: var(--s-5) 0;
+  border-bottom: var(--rule) solid var(--ink);
+}
+
+.rowName {
+  font-size: var(--t-h3);
+  font-weight: 750;
+  font-variation-settings:
+    'opsz' 48,
+    'wdth' 85;
+  line-height: 1.05;
+}
+
+.rowFigure {
+  font-size: clamp(2.2rem, 4vw, 4.2rem);
+  color: var(--yellow);
+}
+
+.rowText {
+  max-width: 44ch;
+}
+
+@media (max-width: 1023px) {
+  .body {
+    grid-column: 1 / -1;
+  }
+  .stats {
+    grid-column: 1 / -1;
+    margin-top: var(--s-8);
+  }
+  .row {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    row-gap: var(--s-3);
+  }
+  .rowText {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 767px) {
+  .head {
+    max-width: none;
+  }
+  .portal {
+    top: 2rem;
+    right: -22vw;
+    width: 52vw;
+  }
+  .stats {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .stat + .stat,
+  .stat {
+    padding: var(--s-4) 0;
+    border-left: 0;
+    border-bottom: var(--rule) solid var(--ink);
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+  .person {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: var(--s-2);
+  }
+  .name {
+    font-size: clamp(2.6rem, 13vw, 4rem);
+  }
+  .row {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
