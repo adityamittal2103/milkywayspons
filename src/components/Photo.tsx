@@ -24,7 +24,16 @@ type Props = {
  * sits on (a duotone, like a spot-colour print) so real photography lives
  * inside the brand's flat-ink world. Hover returns it to colour.
  */
-export function Photo({ id, alt, className, treatment = 'print', sizes = '(max-width: 767px) 100vw, 50vw', priority, style, caption }: Props) {
+export function Photo({
+  id,
+  alt,
+  className,
+  treatment = 'print',
+  sizes = '(max-width: 767px) 100vw, 50vw',
+  priority,
+  style,
+  caption,
+}: Props) {
   const p = photos[id];
   const img = (
     <img

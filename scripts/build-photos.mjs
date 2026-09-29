@@ -46,15 +46,24 @@ for (const [id, spec] of Object.entries(map.logos || {})) {
   }
   const img = sharp(file).rotate().ensureAlpha();
   const { data, info } = await img.raw().toBuffer({ resolveWithObject: true });
-  const bg = spec.bg || [255, 255, 255];
+  // The logo's own ground: an opaque corner pixel (a black HYROX plate, a red
+  // SuperYou plate), or white when the corners are transparent.
+  const px = (x, y) => [...data.subarray((y * info.width + x) * 4, (y * info.width + x) * 4 + 4)];
+  const corner = [px(1, 1), px(info.width - 2, 1), px(1, info.height - 2), px(info.width - 2, info.height - 2)].find((c) => c[3] > 200);
+  const bg = spec.bg || (corner ? corner.slice(0, 3) : [255, 255, 255]);
+  const t = spec.threshold ?? 0.12;
   const out = Buffer.alloc(info.width * info.height * 4);
   for (let i = 0; i < info.width * info.height; i++) {
     const r = data[i * 4];
     const g = data[i * 4 + 1];
     const b = data[i * 4 + 2];
     const a = data[i * 4 + 3] / 255;
-    const d = Math.max(Math.abs(r - bg[0]), Math.abs(g - bg[1]), Math.abs(b - bg[2])) / 255;
-    const ink = Math.min(1, Math.max(0, (d - 0.12) / 0.5)) * a;
+    // 'dark' keeps only dark marks (Ferrari's horse off its yellow shield).
+    const d =
+      spec.mode === 'dark'
+        ? 1 - (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255
+        : Math.max(Math.abs(r - bg[0]), Math.abs(g - bg[1]), Math.abs(b - bg[2])) / 255;
+    const ink = Math.min(1, Math.max(0, (d - t) / 0.5)) * a;
     out[i * 4] = 255;
     out[i * 4 + 1] = 255;
     out[i * 4 + 2] = 255;

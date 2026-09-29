@@ -2,6 +2,7 @@ import type { CSSProperties } from 'react';
 import { worlds } from '@/content/milky-way';
 import { CutEdge } from '../CutEdge';
 import { Ink, type InkName } from '../Ink';
+import { Photo } from '../Photo';
 import { Waypoint } from '../Waypoint';
 import styles from './Worlds.module.css';
 
@@ -70,6 +71,13 @@ export function Worlds() {
             ))}
           </ul>
         </div>
+        <ul className={styles.album} aria-label="Festival photographs">
+          {worlds.photos.map((p, n) => (
+            <li key={p.id} className={styles.frame} data-frame={n}>
+              <Photo id={p.id} alt={p.alt} sizes="(max-width: 767px) 50vw, 40vw" />
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
   );

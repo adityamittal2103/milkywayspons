@@ -44,6 +44,23 @@
   margin-right: 8%;
 }
 
+.venue {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: var(--s-4);
+  align-items: start;
+  margin-top: var(--s-9);
+}
+
+.venuePhoto {
+  aspect-ratio: 3 / 2;
+}
+
+.venuePhoto + .venuePhoto {
+  margin-top: var(--s-10);
+  aspect-ratio: 4 / 3;
+}
+
 .facts {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -101,6 +118,17 @@
   }
   .facts {
     grid-template-columns: minmax(0, 1fr);
+  }
+  .venue {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .venue > * {
+    grid-column: 1 !important;
+  }
+  .venuePhoto + .venuePhoto {
+    margin-top: 0;
+    width: 78%;
+    justify-self: end;
   }
   .fact,
   .fact + .fact {

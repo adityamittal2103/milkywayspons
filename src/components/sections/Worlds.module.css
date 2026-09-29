@@ -99,6 +99,48 @@
   line-height: 0.8;
 }
 
+/* ---------- the album: the deck's event-days collage ---------- */
+.album {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  grid-auto-rows: clamp(9rem, 13vw, 14rem);
+  gap: var(--s-3);
+  margin-top: var(--s-9);
+}
+
+.frame > * {
+  height: 100%;
+}
+
+.frame[data-frame='0'] {
+  grid-column: 1 / 8;
+  grid-row: 1 / 3;
+}
+.frame[data-frame='1'] {
+  grid-column: 8 / 13;
+  grid-row: 1 / 3;
+}
+.frame[data-frame='2'] {
+  grid-column: 1 / 5;
+  grid-row: 3 / 4;
+}
+.frame[data-frame='3'] {
+  grid-column: 5 / 9;
+  grid-row: 3 / 5;
+}
+.frame[data-frame='4'] {
+  grid-column: 9 / 13;
+  grid-row: 3 / 4;
+}
+.frame[data-frame='5'] {
+  grid-column: 1 / 5;
+  grid-row: 4 / 5;
+}
+.frame[data-frame='6'] {
+  grid-column: 9 / 13;
+  grid-row: 4 / 5;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .art {
     animation: bob var(--bob) var(--ease-in-out) infinite alternate;
@@ -155,5 +197,17 @@
   }
   .name {
     font-size: 1.2rem;
+  }
+  .album {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-auto-rows: 9.5rem;
+  }
+  .frame[data-frame] {
+    grid-column: auto;
+    grid-row: auto;
+  }
+  .frame[data-frame='0'] {
+    grid-column: 1 / -1;
+    grid-row: span 2;
   }
 }

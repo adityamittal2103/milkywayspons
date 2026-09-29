@@ -2,6 +2,7 @@ import type { CSSProperties } from 'react';
 import { reach } from '@/content/milky-way';
 import { CutEdge } from '../CutEdge';
 import { CutLink } from '../CutLink';
+import { Photo } from '../Photo';
 import { Waypoint } from '../Waypoint';
 import styles from './Reach.module.css';
 
@@ -69,6 +70,13 @@ export function Reach() {
               </div>
             ))}
           </dl>
+          <ul className={styles.feed} aria-label="The channels on the feed">
+            {reach.feed.map((f) => (
+              <li key={f.id}>
+                <Photo id={f.id} alt={f.alt} caption={f.caption} treatment="color" className={styles.phone} sizes="16rem" />
+              </li>
+            ))}
+          </ul>
         </figure>
 
         <div className={styles.launchpad}>
@@ -79,6 +87,13 @@ export function Reach() {
                 <span className={`numeral ${styles.launchValue}`}>{l.value}</span>
                 <span className={styles.launchLabel}>{l.label}</span>
                 <span className={styles.launchNote}>{l.note}</span>
+              </li>
+            ))}
+          </ul>
+          <ul className={styles.launchPhotos}>
+            {reach.launchpadPhotos.map((l) => (
+              <li key={l.id}>
+                <Photo id={l.id} alt={l.alt} caption={l.caption ?? undefined} sizes="(max-width: 767px) 50vw, 25vw" />
               </li>
             ))}
           </ul>

@@ -35,6 +35,16 @@ python3 -m venv .venv && .venv/bin/pip install pymupdf
 npm run assets                           # clean, crop, optimise into public/brand
 ```
 
+## Deck photos and logos
+
+Photos and partner logos come from the sponsorship deck. Export the deck's images into `.cache/deck-images/` (named `s<slide>-<n>.<ext>`), map them in `scripts/photos.map.json`, then:
+
+```bash
+node scripts/build-photos.mjs .cache/deck-images
+```
+
+This writes two WebP widths per photo to `public/deck/`, flattens each logo to a single white ink (the site paints it via CSS mask), and records dimensions plus source slide in `src/content/photos.json`. On the page, photos are printed in the ink of the section they sit on and return to colour on hover.
+
 ## Fonts
 
 The kit names Roadland (cultural fest display) and Brandon Grotesque (support) as brand typefaces. Both are commercial and were not supplied as files, so the site uses Bricolage Grotesque (the face used in the kit's own wordmark-rationale sheet) and Geist Mono for coordinates and data, both open-licensed. Swap in licensed webfont files via `next/font/local` in `src/app/layout.tsx` when available.

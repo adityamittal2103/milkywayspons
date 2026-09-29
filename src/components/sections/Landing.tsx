@@ -1,6 +1,7 @@
 import { festival, landing } from '@/content/milky-way';
 import { CutEdge } from '../CutEdge';
 import { Ink } from '../Ink';
+import { Photo } from '../Photo';
 import { Waypoint } from '../Waypoint';
 import styles from './Landing.module.css';
 
@@ -26,6 +27,20 @@ export function Landing() {
             <span className={`display ${styles.figureLabel}`}>{landing.figureLabel}</span>
           </p>
           <p className={`lede ${styles.note}`}>{landing.figureNote}</p>
+        </div>
+
+        <div className={styles.venue}>
+          {landing.photos.map((p, n) => (
+            <Photo
+              key={p.id}
+              id={p.id}
+              alt={p.alt}
+              caption={p.caption}
+              className={styles.venuePhoto}
+              style={{ gridColumn: n === 0 ? '1 / 8' : '8 / 13' }}
+              sizes="(max-width: 767px) 100vw, 55vw"
+            />
+          ))}
         </div>
 
         <ul className={styles.facts}>

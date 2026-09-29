@@ -1,0 +1,33 @@
+.drift {
+  overflow: hidden;
+  outline-offset: 4px;
+}
+
+.track {
+  display: flex;
+  gap: var(--s-3);
+  width: max-content;
+  will-change: transform;
+}
+
+.track > li {
+  flex: none;
+  height: clamp(15rem, 30vw, 24rem);
+}
+
+.track > li > * {
+  height: 100%;
+  aspect-ratio: var(--ar, 4 / 5);
+}
+
+@media (max-width: 767px), (prefers-reduced-motion: reduce) {
+  .drift {
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: thin;
+  }
+  .track > li {
+    height: 16rem;
+    scroll-snap-align: start;
+  }
+}

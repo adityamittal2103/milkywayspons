@@ -1,1 +1,428 @@
-{}
+{
+ "graduation": {
+  "w": 1600,
+  "h": 1066,
+  "source": "deck slide 4",
+  "file": "s04-01.jpg"
+ },
+ "rohit-sharma": {
+  "w": 1600,
+  "h": 1040,
+  "source": "deck slide 5",
+  "file": "s05-02.jpg"
+ },
+ "samay-raina": {
+  "w": 447,
+  "h": 447,
+  "source": "deck slide 5",
+  "file": "s05-03.png"
+ },
+ "tanmay-bhat": {
+  "w": 1150,
+  "h": 2048,
+  "source": "deck slide 5",
+  "file": "s05-01.jpg"
+ },
+ "guest-01": {
+  "w": 1600,
+  "h": 1066,
+  "source": "deck slide 6",
+  "file": "s06-01.jpg"
+ },
+ "guest-02": {
+  "w": 1600,
+  "h": 898,
+  "source": "deck slide 6",
+  "file": "s06-02.jpg"
+ },
+ "guest-03": {
+  "w": 1600,
+  "h": 900,
+  "source": "deck slide 6",
+  "file": "s06-03.jpg"
+ },
+ "guest-04": {
+  "w": 1150,
+  "h": 2048,
+  "source": "deck slide 6",
+  "file": "s06-04.jpg"
+ },
+ "guest-05": {
+  "w": 1600,
+  "h": 1066,
+  "source": "deck slide 6",
+  "file": "s06-05.jpg"
+ },
+ "guest-06": {
+  "w": 1600,
+  "h": 1066,
+  "source": "deck slide 6",
+  "file": "s06-06.jpg"
+ },
+ "guest-07": {
+  "w": 1365,
+  "h": 2048,
+  "source": "deck slide 6",
+  "file": "s06-07.jpg"
+ },
+ "guest-08": {
+  "w": 1600,
+  "h": 1066,
+  "source": "deck slide 6",
+  "file": "s06-08.jpg"
+ },
+ "guest-09": {
+  "w": 1600,
+  "h": 1066,
+  "source": "deck slide 6",
+  "file": "s06-09.jpg"
+ },
+ "guest-10": {
+  "w": 1600,
+  "h": 1066,
+  "source": "deck slide 6",
+  "file": "s06-10.jpg"
+ },
+ "guest-11": {
+  "w": 1600,
+  "h": 1066,
+  "source": "deck slide 6",
+  "file": "s06-11.jpg"
+ },
+ "guest-12": {
+  "w": 1600,
+  "h": 1067,
+  "source": "deck slide 6",
+  "file": "s06-12.jpg"
+ },
+ "guest-13": {
+  "w": 1365,
+  "h": 2048,
+  "source": "deck slide 6",
+  "file": "s06-13.jpg"
+ },
+ "guest-14": {
+  "w": 1365,
+  "h": 2048,
+  "source": "deck slide 6",
+  "file": "s06-14.jpg"
+ },
+ "guest-15": {
+  "w": 1365,
+  "h": 2048,
+  "source": "deck slide 6",
+  "file": "s06-15.jpg"
+ },
+ "next-gene": {
+  "w": 1600,
+  "h": 1066,
+  "source": "deck slide 7",
+  "file": "s07-01.jpg"
+ },
+ "demo-day": {
+  "w": 1600,
+  "h": 1066,
+  "source": "deck slide 7",
+  "file": "s07-02.jpg"
+ },
+ "hyrox-delhi": {
+  "w": 1365,
+  "h": 2048,
+  "source": "deck slide 7",
+  "file": "s07-03.jpg"
+ },
+ "hyrox-runner": {
+  "w": 1365,
+  "h": 2048,
+  "source": "deck slide 7",
+  "file": "s07-04.jpg"
+ },
+ "bloomberg-terminal": {
+  "w": 1600,
+  "h": 1066,
+  "source": "deck slide 7",
+  "file": "s07-05.jpg"
+ },
+ "ai-summit-demo": {
+  "w": 1600,
+  "h": 898,
+  "source": "deck slide 7",
+  "file": "s07-06.jpg"
+ },
+ "next-tech-stage": {
+  "w": 1600,
+  "h": 1066,
+  "source": "deck slide 8",
+  "file": "s08-01.png"
+ },
+ "hyrox-athletes": {
+  "w": 1600,
+  "h": 2000,
+  "source": "deck slide 8",
+  "file": "s08-02.jpg"
+ },
+ "hyrox-crowd": {
+  "w": 1363,
+  "h": 2048,
+  "source": "deck slide 8",
+  "file": "s08-03.jpg"
+ },
+ "hyrox-race": {
+  "w": 1600,
+  "h": 1066,
+  "source": "deck slide 8",
+  "file": "s08-04.jpg"
+ },
+ "hyrox-start": {
+  "w": 1290,
+  "h": 1360,
+  "source": "deck slide 8",
+  "file": "s08-05.jpg"
+ },
+ "yashobhoomi-outside": {
+  "w": 1500,
+  "h": 1000,
+  "source": "deck slide 14",
+  "file": "s13-01.png"
+ },
+ "yashobhoomi-inside": {
+  "w": 716,
+  "h": 500,
+  "source": "deck slide 14",
+  "file": "s13-02.png"
+ },
+ "fest-01": {
+  "w": 1600,
+  "h": 1066,
+  "source": "deck slide 15",
+  "file": "s15-01.jpg"
+ },
+ "fest-02": {
+  "w": 1600,
+  "h": 1066,
+  "source": "deck slide 15",
+  "file": "s15-02.jpg"
+ },
+ "fest-03": {
+  "w": 1600,
+  "h": 898,
+  "source": "deck slide 15",
+  "file": "s15-03.jpg"
+ },
+ "fest-04": {
+  "w": 1600,
+  "h": 1066,
+  "source": "deck slide 15",
+  "file": "s15-04.jpg"
+ },
+ "fest-05": {
+  "w": 1280,
+  "h": 960,
+  "source": "deck slide 16",
+  "file": "s15-05.jpg"
+ },
+ "fest-06": {
+  "w": 1600,
+  "h": 1066,
+  "source": "deck slide 16",
+  "file": "s15-06.jpg"
+ },
+ "fest-07": {
+  "w": 1600,
+  "h": 1066,
+  "source": "deck slide 16",
+  "file": "s15-07.jpg"
+ },
+ "feed-builders": {
+  "w": 782,
+  "h": 1600,
+  "source": "deck slide 21",
+  "file": "s17-02.jpg"
+ },
+ "feed-lifeatmu": {
+  "w": 788,
+  "h": 1600,
+  "source": "deck slide 21",
+  "file": "s17-03.jpg"
+ },
+ "feed-elevator-pitch": {
+  "w": 1148,
+  "h": 2048,
+  "source": "deck slide 20",
+  "file": "s17-04.jpg"
+ },
+ "u18": {
+  "w": 748,
+  "h": 1280,
+  "source": "deck slide 24",
+  "file": "s17-01.jpg"
+ },
+ "dropshipping": {
+  "w": 1600,
+  "h": 1067,
+  "source": "deck slide 22",
+  "file": "s19-01.jpg"
+ },
+ "launchpad-kitchen": {
+  "w": 1600,
+  "h": 1533,
+  "source": "deck slide 22",
+  "file": "s19-02.jpg"
+ },
+ "dalal-street": {
+  "w": 1600,
+  "h": 1066,
+  "source": "deck slide 23",
+  "file": "s19-03.jpg"
+ },
+ "logo-pwc": {
+  "w": 980,
+  "h": 478,
+  "source": "deck slide 25",
+  "file": "s25-01.png"
+ },
+ "logo-bloomberg": {
+  "w": 460,
+  "h": 92,
+  "source": "deck slide 25",
+  "file": "s25-02.png"
+ },
+ "logo-hyrox": {
+  "w": 565,
+  "h": 79,
+  "source": "deck slide 25",
+  "file": "s25-03.png"
+ },
+ "logo-superyou": {
+  "w": 472,
+  "h": 125,
+  "source": "deck slide 25",
+  "file": "s25-04.png"
+ },
+ "logo-redbull": {
+  "w": 676,
+  "h": 383,
+  "source": "deck slide 25",
+  "file": "s25-05.png"
+ },
+ "logo-pokerbaazi": {
+  "w": 367,
+  "h": 102,
+  "source": "deck slide 25",
+  "file": "s25-06.png"
+ },
+ "logo-snitch": {
+  "w": 514,
+  "h": 695,
+  "source": "deck slide 25",
+  "file": "s25-07.png"
+ },
+ "logo-peakst8": {
+  "w": 590,
+  "h": 254,
+  "source": "deck slide 25",
+  "file": "s25-08.png"
+ },
+ "logo-iit": {
+  "w": 190,
+  "h": 190,
+  "source": "deck slide 25",
+  "file": "s25-09.png"
+ },
+ "logo-sharktank": {
+  "w": 174,
+  "h": 229,
+  "source": "deck slide 25",
+  "file": "s25-10.png"
+ },
+ "logo-reebok": {
+  "w": 482,
+  "h": 225,
+  "source": "deck slide 25",
+  "file": "s25-11.png"
+ },
+ "logo-yourspace": {
+  "w": 1020,
+  "h": 344,
+  "source": "deck slide 25",
+  "file": "s25-12.png"
+ },
+ "logo-boat": {
+  "w": 540,
+  "h": 221,
+  "source": "deck slide 25",
+  "file": "s25-13.png"
+ },
+ "logo-nivia": {
+  "w": 2048,
+  "h": 1300,
+  "source": "deck slide 25",
+  "file": "s25-14.png"
+ },
+ "logo-meesho": {
+  "w": 1872,
+  "h": 432,
+  "source": "deck slide 25",
+  "file": "s25-15.png"
+ },
+ "logo-itc": {
+  "w": 403,
+  "h": 425,
+  "source": "deck slide 25",
+  "file": "s25-16.png"
+ },
+ "logo-philips": {
+  "w": 1956,
+  "h": 361,
+  "source": "deck slide 25",
+  "file": "s25-17.png"
+ },
+ "logo-hero": {
+  "w": 810,
+  "h": 911,
+  "source": "deck slide 25",
+  "file": "s25-18.png"
+ },
+ "logo-zerodha": {
+  "w": 288,
+  "h": 35,
+  "source": "deck slide 25",
+  "file": "s25-19.png"
+ },
+ "logo-agoda": {
+  "w": 226,
+  "h": 115,
+  "source": "deck slide 25",
+  "file": "s25-20.png"
+ },
+ "logo-ferrari": {
+  "w": 305,
+  "h": 415,
+  "source": "deck slide 25",
+  "file": "s25-21.png"
+ },
+ "logo-myntra": {
+  "w": 1935,
+  "h": 588,
+  "source": "deck slide 25",
+  "file": "s25-22.png"
+ },
+ "logo-upgrad": {
+  "w": 800,
+  "h": 205,
+  "source": "deck slide 25",
+  "file": "s25-23.jpg"
+ },
+ "logo-nvidia": {
+  "w": 1459,
+  "h": 278,
+  "source": "deck slide 25",
+  "file": "s25-24.png"
+ },
+ "logo-makemytrip": {
+  "w": 800,
+  "h": 800,
+  "source": "deck slide 25",
+  "file": "s25-25.png"
+ }
+}

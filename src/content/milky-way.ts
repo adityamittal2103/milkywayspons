@@ -35,6 +35,7 @@ export const origin = {
     'A curriculum shaped by the minds of finest educators from Harvard and Oxford.',
   ],
   kicker: 'A higher education experience built by builders, for builders.',
+  photo: { id: 'graduation', alt: "Masters' Union graduates in gowns throwing their caps into the air" }, // s4
   stats: [
     { value: '2,000+', label: 'current students' },
     { value: '500+', label: 'mentors' },
@@ -47,10 +48,16 @@ export const visitors = {
   // s5
   title: 'Soon, remarkable people started making their way to campus.',
   people: [
-    { name: 'Rohit Sharma', note: 'A conversation on leadership, pressure and performing at the highest level.' },
-    { name: 'Samay Raina', note: 'On comedy, creativity and the playbook behind building a following.' },
-    { name: 'Tanmay Bhat', note: 'A content masterclass on turning an audience into a community.' },
+    {
+      name: 'Rohit Sharma',
+      note: 'A conversation on leadership, pressure and performing at the highest level.',
+      photo: 'rohit-sharma',
+    },
+    { name: 'Samay Raina', note: 'On comedy, creativity and the playbook behind building a following.', photo: 'samay-raina' },
+    { name: 'Tanmay Bhat', note: 'A content masterclass on turning an audience into a community.', photo: 'tanmay-bhat' },
   ],
+  // s6: guest sessions on campus. The deck does not name these guests, so neither does the site.
+  sessions: Array.from({ length: 15 }, (_, i) => `guest-${String(i + 1).padStart(2, '0')}`),
 } as const;
 
 export const experiences = {
@@ -59,29 +66,48 @@ export const experiences = {
   items: [
     {
       name: 'The Next Gene',
+      photo: { id: 'next-gene', alt: 'A fireside chat on stage at The Next Gene summit' },
+      logo: null,
       figure: '1,200',
       text: 'biotech founders, investors and builders came together at The Next Gene, our landmark BioSciences summit.',
     },
     {
       name: 'Demo Day',
+      photo: { id: 'demo-day', alt: "A packed auditorium at Masters' Union Demo Day" },
+      logo: null,
       figure: '₹60.5 crore',
       text: 'Our students raised ₹60.5 crore in investment, in a single hour.',
     },
     {
       name: 'HYROX',
+      photo: { id: 'hyrox-delhi', alt: "HYROX Delhi signage with the Masters' Union mark" },
+      logo: 'hyrox',
       figure: '25K+',
       text: "HYROX came to Delhi and Mumbai, with Masters' Union as its Title Sponsor. 25K+ athletes showed up across both cities.",
     },
     {
       name: 'Next Tech AI Summit',
+      photo: { id: 'next-tech-stage', alt: 'Speakers in conversation on the Next Tech AI Summit stage' },
+      logo: null,
       figure: null,
       text: 'Nas Daily. NVIDIA. Google Cloud. IndiaAI Mission, all came together at the Next Tech AI Summit.',
     },
     {
       name: 'Bloomberg',
+      photo: { id: 'bloomberg-terminal', alt: 'Bloomberg Terminal screens on campus' },
+      logo: 'bloomberg',
       figure: null,
       text: "The Union becomes one of the few campuses in India with live Bloomberg Terminal access, putting Wall Street data on every student's desk.",
     },
+  ],
+  // s7–8: the collage of those experiences
+  gallery: [
+    { id: 'hyrox-athletes', alt: 'Two HYROX athletes with finisher medals' },
+    { id: 'hyrox-race', alt: 'Athletes racing past HYROX Delhi signage' },
+    { id: 'ai-summit-demo', alt: 'A robot demonstration at the Next Tech AI Summit' },
+    { id: 'hyrox-crowd', alt: 'A crowd cheering an athlete at HYROX' },
+    { id: 'hyrox-start', alt: 'Athletes at the HYROX start line with a chequered flag' },
+    { id: 'hyrox-runner', alt: 'A HYROX athlete mid-race' },
   ],
 } as const;
 
@@ -121,6 +147,11 @@ export const landing = {
   figure: '45,000+',
   figureLabel: 'footfall',
   figureNote: 'Across the 2 days, and at one of the biggest convention centers giving you the best reach possible',
+  // s14 labels these "Outside" and "Inside"
+  photos: [
+    { id: 'yashobhoomi-outside', caption: 'Outside', alt: 'The exterior of Yashobhoomi Convention Center' },
+    { id: 'yashobhoomi-inside', caption: 'Inside', alt: 'The foyer inside Yashobhoomi Convention Center' },
+  ],
   facts: [
     { value: '250+', label: 'partner colleges & institutions' },
     { value: '7+', label: 'cities reached across India' },
@@ -140,7 +171,17 @@ export const worlds = {
     { name: 'Gaming', art: 'badge-crystal' },
     { name: 'Sports', art: 'badge-skate' },
   ],
-  nights: { name: 'Pronites', count: '2', art: 'badge-keyboard' }, // s43 backup confirms "2 pronites (concerts)"; s10 live: "two pronites"
+  nights: { name: 'Pronites', count: '2', art: 'badge-keyboard' }, // s10: "two pronites"
+  // s15–16 photo collage
+  photos: [
+    { id: 'fest-01', alt: 'A performer on stage in coloured smoke' },
+    { id: 'fest-06', alt: 'A crowd under stage lights and green smoke at night' },
+    { id: 'fest-03', alt: 'A dance troupe performing on a lit stage' },
+    { id: 'fest-02', alt: 'Stalls and crowds on festival grounds at dusk' },
+    { id: 'fest-05', alt: 'A sports team celebrating together' },
+    { id: 'fest-07', alt: 'A large group in festive dress posing together' },
+    { id: 'fest-04', alt: 'Performers in costume on an outdoor lawn' },
+  ],
 } as const;
 
 export const reach = {
@@ -220,6 +261,23 @@ export const reach = {
       },
     ],
   },
+  // s20–21: the channels, as they appear on the feed
+  feed: [
+    { id: 'feed-builders', caption: 'Builders.MU', alt: 'The Builders.MU Instagram profile' },
+    { id: 'feed-lifeatmu', caption: 'Life @ MU', alt: "The Life at Masters' Union Instagram profile" },
+    {
+      id: 'feed-elevator-pitch',
+      caption: 'Elevator Pitch by MU',
+      alt: 'A reel from Elevator Pitch by MU: two founders at a table',
+    },
+  ],
+  // s22–24
+  launchpadPhotos: [
+    { id: 'dropshipping', caption: 'Dropshipping Mela', alt: 'Visitors at a student stall at the Dropshipping Mela' },
+    { id: 'dalal-street', caption: 'Dalal Street', alt: 'Students at the Dalal Street event' },
+    { id: 'u18', caption: 'U18', alt: 'A mentor working with school students in a U18 session' },
+    { id: 'launchpad-kitchen', caption: null, alt: 'A student team in a commercial kitchen' },
+  ],
   reels: [
     // s20; share-tracking parameters removed
     { label: 'Indē Wild', href: 'https://www.instagram.com/reel/DWg5_sFTrt2/' },
@@ -259,6 +317,35 @@ export const company = {
     'Myntra',
   ],
 } as const;
+
+// s25 logos, flattened to one ink by scripts/build-photos.mjs
+export const companyLogos: { name: string; id: string }[] = [
+  { name: 'PwC', id: 'pwc' },
+  { name: 'HYROX', id: 'hyrox' },
+  { name: 'Bloomberg', id: 'bloomberg' },
+  { name: 'PokerBaazi', id: 'pokerbaazi' },
+  { name: 'boAt', id: 'boat' },
+  { name: 'NIVIA', id: 'nivia' },
+  { name: 'Zerodha', id: 'zerodha' },
+  { name: 'SuperYou', id: 'superyou' },
+  { name: 'Red Bull', id: 'redbull' },
+  { name: 'Illinois Institute of Technology', id: 'iit' },
+  { name: 'Shark Tank India', id: 'sharktank' },
+  { name: 'ITC Limited', id: 'itc' },
+  { name: 'Philips', id: 'philips' },
+  { name: 'Ferrari', id: 'ferrari' },
+  { name: 'Snitch', id: 'snitch' },
+  { name: 'Peakst8', id: 'peakst8' },
+  { name: 'Reebok', id: 'reebok' },
+  { name: 'Your Space', id: 'yourspace' },
+  { name: 'Hero', id: 'hero' },
+  { name: 'Agoda', id: 'agoda' },
+  { name: 'MakeMyTrip', id: 'makemytrip' },
+  { name: 'Meesho', id: 'meesho' },
+  { name: 'NVIDIA', id: 'nvidia' },
+  { name: 'upGrad', id: 'upgrad' },
+  { name: 'Myntra', id: 'myntra' },
+];
 
 export type TierId = 'title' | 'powered' | 'associate' | 'cosponsor';
 
