@@ -8,3 +8,7 @@ next-env.d.ts
 .DS_Store
 # Source brand kit is large (Figma master is 247 MB); keep it out of version control.
 brand-kit/
+
+# Vercel
+.vercel
+.env*
