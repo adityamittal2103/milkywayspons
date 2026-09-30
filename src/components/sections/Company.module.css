@@ -9,6 +9,7 @@
 }
 
 .orbit {
+  --mark: 7.6cqi;
   position: relative;
   container-type: inline-size;
   width: min(100%, 1000px, 92svh);
@@ -51,39 +52,41 @@
   translate: -50% -50%;
 }
 
-.seal {
+/* Sized to sit clear of the inner ring's marks */
+.core {
   position: absolute;
   left: 50%;
   top: 50%;
-  width: 24%;
+  width: 17%;
   translate: -50% -50%;
 }
 
+/* The rings turn on every device; each mark counter-turns to stay upright */
 @media (prefers-reduced-motion: no-preference) {
   .ring[data-ring='0'] {
-    animation: spin 200s linear infinite;
+    animation: spin 120s linear infinite;
   }
   .ring[data-ring='1'] {
-    animation: spin 150s linear infinite reverse;
+    animation: spin 95s linear infinite reverse;
   }
   .ring[data-ring='2'] {
-    animation: spin 110s linear infinite;
+    animation: spin 75s linear infinite;
   }
   .ring[data-ring='0'] .upright {
-    animation: spin 200s linear infinite reverse;
+    animation: spin 120s linear infinite reverse;
   }
   .ring[data-ring='1'] .upright {
-    animation: spin 150s linear infinite;
+    animation: spin 95s linear infinite;
   }
   .ring[data-ring='2'] .upright {
-    animation: spin 110s linear infinite reverse;
+    animation: spin 75s linear infinite reverse;
   }
-  .seal {
-    animation: spin 90s linear infinite reverse;
-  }
+}
+
+/* Pause to read, but only where there is a real pointer: a tap must not freeze it */
+@media (prefers-reduced-motion: no-preference) and (hover: hover) and (pointer: fine) {
   .orbit:hover .ring,
-  .orbit:hover .upright,
-  .orbit:hover .seal {
+  .orbit:hover .upright {
     animation-play-state: paused;
   }
 }
@@ -94,7 +97,7 @@
   }
 }
 
-/* The wall: screen readers always get it; phones see it instead of the orbit. */
+/* The wall: the same company as a list, for screen readers. */
 .wall {
   position: absolute;
   width: 1px;
@@ -104,34 +107,11 @@
   white-space: nowrap;
 }
 
+/* Phones keep the turning orbit, full width, in the same proportions */
 @media (max-width: 767px) {
   .orbit {
-    display: none;
-  }
-  .wall {
-    position: static;
-    width: auto;
-    height: auto;
-    overflow: visible;
-    clip: auto;
-    white-space: normal;
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    border-top: var(--rule) solid var(--paper);
-    border-left: var(--rule) solid var(--paper);
-    margin-top: var(--s-7);
-  }
-  .wall li {
-    display: grid;
-    /* A fixed track, so a wide wordmark shrinks to the cell instead of stretching it */
-    grid-template-columns: minmax(0, 1fr);
-    place-items: center;
-    min-height: 6.5rem;
-    padding: var(--s-3);
-    border-right: var(--rule) solid var(--paper);
-    border-bottom: var(--rule) solid var(--paper);
-  }
-  .wall li > * {
-    max-width: 100%;
+    width: 100%;
+    margin-top: var(--s-9);
+    margin-bottom: var(--s-7);
   }
 }

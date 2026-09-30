@@ -1,5 +1,5 @@
 import type { CSSProperties } from 'react';
-import { company, companyLogos } from '@/content/milky-way';
+import { company, companyLogos, festival } from '@/content/milky-way';
 import { CutEdge } from '../CutEdge';
 import { DeckLogo } from '../DeckLogo';
 import { Logo } from '../Ink';
@@ -46,13 +46,14 @@ export function Company() {
                   style={{ '--a': `${(360 / ring.marks.length) * i + ri * 14}deg`, '--r': `${ring.r}cqi` } as CSSProperties}
                 >
                   <span className={styles.upright}>
-                    <DeckLogo id={m.id} name={m.name} color={ri === 1 ? 'yellow' : 'paper'} size="7.6cqi" decorative />
+                    <DeckLogo id={m.id} name={m.name} color={ri === 1 ? 'yellow' : 'paper'} size="var(--mark)" decorative />
                   </span>
                 </span>
               ))}
             </div>
           ))}
-          <Logo name="seal" label="Masters' Union University Cultural Fest 2027" color="yellow" className={styles.seal} />
+          {/* The university holds the centre, still, while the company turns around it */}
+          <Logo name="mu-logo" label={festival.presenter} color="paper" className={styles.core} />
         </div>
 
         {/* The same company as a list: read by screen readers, and the layout on phones. */}

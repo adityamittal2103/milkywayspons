@@ -2,25 +2,21 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { deliverables, tiers, tiersIntro, type Entitlement, type TierId } from '@/content/milky-way';
-import { festival } from '@/content/milky-way';
 import { prefersReducedMotion } from '@/lib/motion';
 import { CutEdge } from '../CutEdge';
 import { CutLink } from '../CutLink';
 import { Distort } from '../Distort';
-import { Glyph, Logo } from '../Ink';
+import { Glyph } from '../Ink';
 import { Waypoint } from '../Waypoint';
 import styles from './Tiers.module.css';
 
 // Title Partner sits closest to the core: nearest orbit, deepest integration.
-// Periods in seconds per lap; inner orbits run faster, as in a real system.
 const ORBITS = [
-  { rx: 118, period: 12 },
-  { rx: 176, period: 17 },
-  { rx: 232, period: 23 },
-  { rx: 286, period: 30 },
+  { rx: 118, period: 26 },
+  { rx: 176, period: 38 },
+  { rx: 232, period: 52 },
+  { rx: 286, period: 68 },
 ];
-// Where each body starts on its orbit (fraction of a lap), so they never bunch.
-const PHASE = [0.12, 0.58, 0.33, 0.81];
 const TILT = -16;
 const RY = 0.4;
 
@@ -53,45 +49,8 @@ export function Tiers() {
   const svgRef = useRef<SVGSVGElement>(null);
   const sentinel = useRef<HTMLDivElement>(null);
 
-  // The system turns on script frames rather than SMIL, so it runs the same in
-  // every browser: bodies ride their orbits and the dashed rings flow with them.
-  // It rests only while off screen, or when the reader has asked for less motion.
   useEffect(() => {
-    const svg = svgRef.current;
-    if (!svg) return;
-    const paths = Array.from(svg.querySelectorAll<SVGPathElement>('[data-orbit-path]'));
-    const bodies = Array.from(svg.querySelectorAll<SVGCircleElement>('[data-body]'));
-    const lengths = paths.map((p) => p.getTotalLength());
-    const place = (t: number) => {
-      bodies.forEach((b, i) => {
-        const lap = (PHASE[i] + t / ORBITS[i].period) % 1;
-        const pt = paths[i].getPointAtLength(lap * lengths[i]);
-        b.setAttribute('cx', pt.x.toFixed(2));
-        b.setAttribute('cy', pt.y.toFixed(2));
-        paths[i].style.strokeDashoffset = `${(-lap * lengths[i]).toFixed(1)}`;
-      });
-    };
-    place(0);
-    if (prefersReducedMotion()) return;
-    let raf = 0;
-    let visible = false;
-    const start = performance.now();
-    const tick = (now: number) => {
-      place((now - start) / 1000);
-      raf = visible ? requestAnimationFrame(tick) : 0;
-    };
-    const io = new IntersectionObserver(([e]) => {
-      visible = e.isIntersecting;
-      if (visible && !raf) raf = requestAnimationFrame(tick);
-    });
-    io.observe(svg);
-    return () => {
-      io.disconnect();
-      cancelAnimationFrame(raf);
-    };
-  }, []);
-
-  useEffect(() => {
+    if (prefersReducedMotion()) svgRef.current?.pauseAnimations();
     // When the table's top edge passes under the nav line, its header is stuck.
     const io = new IntersectionObserver(([e]) => setStuck(!e.isIntersecting && e.boundingClientRect.top < 0), {
       rootMargin: '-74px 0px 0px 0px',
@@ -135,21 +94,22 @@ export function Tiers() {
                       style={{ ['--tier' as string]: `var(--${t.ink})` }}
                       onClick={() => setActive(t.id)}
                     >
-                      <path id={`orbit-${i}`} d={d} className={styles.path} data-orbit-path />
+                      <path id={`orbit-${i}`} d={d} className={styles.path} />
                       <path d={d} className={styles.hit} />
                       <text className={styles.orbitLabel} dy={-8}>
                         <textPath href={`#orbit-${i}`} startOffset={`${[31, 21, 12, 4][i]}%`}>
                           {t.name}
                         </textPath>
                       </text>
-                      <circle r={on ? 15 : 10} className={styles.body} data-body />
+                      <circle r={on ? 15 : 10} className={styles.body}>
+                        <animateMotion dur={`${o.period}s`} repeatCount="indefinite" path={d} begin={`-${i * 7}s`} />
+                      </circle>
                     </g>
                   );
                 })}
               </g>
+              <image href="/brand/logo/app-icon.svg" x="-38" y="-38" width="76" height="76" />
             </svg>
-            {/* The university at the centre, held still while the system turns around it */}
-            <Logo name="mu-logo" label={festival.presenter} color="paper" className={styles.core} />
           </div>
 
           <fieldset className={styles.picker}>
