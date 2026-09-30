@@ -10,6 +10,11 @@ import { Waypoint } from '../Waypoint';
 import styles from './Origin.module.css';
 
 const dims = manifest as Record<string, { w: number; h: number }>;
+// Bloomberg's slim wordmark reads small at the shared optical size, so it gets a larger one.
+const LOGO_SIZE: Record<string, string> = {
+  default: 'clamp(2.6rem, 4vw, 4rem)',
+  bloomberg: 'clamp(3.3rem, 5vw, 5rem)',
+};
 const ar = (id: string) => (dims[id] ? `${dims[id].w} / ${dims[id].h}` : '4 / 5');
 
 export function Origin() {
@@ -82,7 +87,7 @@ export function Origin() {
             {experiences.items.map((x) => (
               <li key={x.name} className={styles.row}>
                 <h4 className={styles.rowName}>
-                  {x.logo ? <DeckLogo id={x.logo} name={x.name} color="paper" size="clamp(2.6rem, 4vw, 4rem)" /> : x.name}
+                  {x.logo ? <DeckLogo id={x.logo} name={x.name} color="paper" size={LOGO_SIZE[x.logo] ?? LOGO_SIZE.default} /> : x.name}
                 </h4>
                 {x.figure ? <p className={`numeral ${styles.rowFigure}`}>{x.figure}</p> : <span className={styles.rowFigure} />}
                 <p className={styles.rowText}>{x.text}</p>

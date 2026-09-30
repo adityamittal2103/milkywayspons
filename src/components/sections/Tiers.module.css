@@ -49,7 +49,18 @@
 }
 
 .diagram {
+  position: relative;
   grid-column: 1 / span 7;
+}
+
+/* Sized to sit inside the nearest orbit at any width */
+.core {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 21%;
+  translate: -50% -50%;
+  pointer-events: none;
 }
 
 .svg {

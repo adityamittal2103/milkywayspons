@@ -8,7 +8,9 @@
   gap: var(--s-8);
 }
 
+/* The closing lockup sits on the page's centre line */
 .lockup {
+  justify-self: center;
   width: min(100%, 1180px);
 }
 

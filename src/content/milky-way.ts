@@ -71,7 +71,7 @@ export const experiences = {
       photo: { id: 'next-gene', alt: 'A fireside chat on stage at The Next Gene summit' },
       logo: null,
       figure: '1,200',
-      text: 'biotech founders, investors and builders came together at The Next Gene, our landmark BioSciences summit.',
+      text: 'Biotech founders, investors and builders came together at The Next Gene, our landmark BioSciences summit.',
     },
     {
       name: 'Demo Day',
@@ -119,23 +119,23 @@ export const impact = {
   items: [
     {
       figure: '40+',
-      lead: 'startups built by students while studying',
-      detail: 'Hive, Zenmo, Eat Atlas, Lexi’s, Blue Brew',
-      note: 'Student ventures already operating as consumer brands and content engines',
+      lead: 'startups built by students while studying.',
+      detail: 'Hive, Zenmo, Eat Atlas, Lexi’s, Blue Brew.',
+      note: 'Student ventures already operating as consumer brands and content engines.',
       photo: { id: 'launchpad-kitchen', alt: 'A student venture team in a commercial kitchen' },
     },
     {
       figure: '₹1.2 Cr+',
-      lead: 'cumulative revenue from student ventures, drawn in by Dropshipping Melas',
+      lead: 'cumulative revenue from student ventures, drawn in by Dropshipping Melas.',
       detail: null,
-      note: 'Real transactions, real P&L, real learning',
+      note: 'Real transactions, real P&L, real learning.',
       photo: { id: 'dropshipping', alt: 'Visitors at a student stall at a Dropshipping Mela' },
     },
     {
       figure: '5 Cr',
-      lead: "a live fund managed by students through the Masters' Union Investment Funds",
+      lead: "a live fund managed by students through the Masters' Union Investment Funds.",
       detail: null,
-      note: 'The chance to work with top fund managers and industry veterans',
+      note: 'The chance to work with top fund managers and industry veterans.',
       photo: { id: 'investment-fund', alt: 'Students in conversation beneath a Nifty market ticker' },
     },
   ],
@@ -215,7 +215,7 @@ export const worlds = {
     { id: 'fest-02', alt: 'Stalls and crowds on festival grounds at dusk' },
     { id: 'fest-05', alt: 'A sports team celebrating together' },
     { id: 'fest-07', alt: 'A large group in festive dress posing together' },
-    { id: 'fest-04', alt: 'Performers in costume on an outdoor lawn' },
+    { id: 'hyrox-crowd', alt: "A Masters' Union fan club cheering with placards" },
   ],
 } as const;
 
@@ -226,7 +226,7 @@ export const reach = {
     { id: 'instagram', name: 'Instagram', value: '200M+', unit: 'views', label: "Masters' Union Instagram" },
     { id: 'youtube', name: 'YouTube', value: '112M', unit: 'lifetime views', label: 'on YouTube' },
     { id: 'linkedin', name: 'LinkedIn', value: '139K', unit: 'followers', label: 'on LinkedIn' },
-    { id: 'x', name: 'X', value: '2.2K', unit: 'followers', label: 'on X' },
+    { id: 'x', name: 'X', value: '2.4K', unit: 'followers', label: 'on X' },
   ],
   // s16
   studentTitle: 'Across student-run pages and initiatives',
@@ -236,14 +236,15 @@ export const reach = {
       value: '1M',
       unit: 'views & reach',
       note: 'Our student-life page',
-      photo: { id: 'feed-lifeatmu', alt: 'The life@mu Instagram profile' },
+      // Photo and figures per the Milky Way team's website edits doc
+      photo: { id: 'feed-lifeatmu', alt: "A life@mu reel from Masters' Union x HYROX Delhi" },
     },
     {
       name: 'builders.mu',
-      value: '53K',
-      unit: 'followers',
+      value: '120M',
+      unit: 'views & reach on combined platforms',
       note: 'Dedicated page for projects, prototypes and builds',
-      photo: { id: 'feed-builders', alt: 'The builders.mu Instagram profile' },
+      photo: { id: 'feed-builders', alt: 'A builders.mu reel' },
     },
     {
       name: 'Elevator Pitch',

@@ -1,5 +1,6 @@
 // Photos and logos from the sponsorship deck ("V1: Master Sponsorship deck").
-// Input: a folder of images exported from the deck, named s<slide>-<n>.<ext>,
+// Input: a folder of images exported from the deck, named s<slide>-<n>.<ext>
+// (plus any the team supplied separately, which carry their own `source`),
 // and scripts/photos.map.json, which names each one used on the site.
 //   node scripts/build-photos.mjs <folder>
 // Output: public/deck/<id>-{800,1600}.webp, public/deck/logo-<id>.png and
@@ -33,7 +34,7 @@ for (const [id, spec] of Object.entries(map.photos)) {
       .webp({ quality: 72 })
       .toFile(path.join(OUT, `${id}-${width}.webp`));
   }
-  manifest[id] = { w: Math.min(1600, w), h: Math.round((Math.min(1600, w) / w) * h), source: `deck slide ${spec.slide}`, file: spec.file };
+  manifest[id] = { w: Math.min(1600, w), h: Math.round((Math.min(1600, w) / w) * h), source: spec.source ?? `deck slide ${spec.slide}`, file: spec.file };
 }
 
 // Logos: flattened to a single ink so a mixed wall reads as one system.

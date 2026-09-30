@@ -114,6 +114,12 @@
   padding-top: var(--s-4);
 }
 
+/* The second contact closes the row on the right edge, over the postal address */
+.person:nth-child(2) {
+  justify-items: end;
+  text-align: right;
+}
+
 .name {
   font-size: var(--t-h1);
 }
@@ -142,6 +148,7 @@
 
 .postal {
   grid-column: 8 / -1;
+  text-align: right;
   margin-top: var(--s-7);
   font-style: normal;
   font-size: var(--t-lede);
@@ -155,6 +162,10 @@
   .person + .person {
     margin-top: var(--s-5);
   }
+  .person:nth-child(2) {
+    justify-items: start;
+    text-align: left;
+  }
   .name {
     font-size: clamp(2.6rem, 13vw, 3.6rem);
   }
@@ -164,5 +175,6 @@
   }
   .postal {
     margin-top: var(--s-4);
+    text-align: left;
   }
 }
