@@ -1,6 +1,6 @@
 import type { CSSProperties } from 'react';
 import manifest from '@/content/photos.json';
-import { experiences, origin, visitors } from '@/content/milky-way';
+import { experiences, impact, origin, visitors } from '@/content/milky-way';
 import { CutEdge } from '../CutEdge';
 import { DeckLogo } from '../DeckLogo';
 import { Drift } from '../Drift';
@@ -94,6 +94,21 @@ export function Origin() {
             {experiences.gallery.map((g, i) => (
               <li key={g.id} className={styles.tile} data-tile={i}>
                 <Photo id={g.id} alt={g.alt} sizes="(max-width: 767px) 50vw, 33vw" />
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div id="impact" className={styles.impact}>
+          <h3 className={`headline ${styles.subhead}`}>{impact.title}</h3>
+          <ul className={styles.impactList}>
+            {impact.items.map((it) => (
+              <li key={it.figure} className={styles.impactItem}>
+                <Photo id={it.photo.id} alt={it.photo.alt} className={styles.impactPhoto} sizes="(max-width: 767px) 100vw, 30vw" />
+                <p className={`numeral ${styles.impactFigure}`}>{it.figure}</p>
+                <p className={styles.impactLead}>{it.lead}</p>
+                {it.detail ? <p className={styles.impactDetail}>{it.detail}</p> : null}
+                <p className={styles.impactNote}>{it.note}</p>
               </li>
             ))}
           </ul>

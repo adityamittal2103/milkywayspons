@@ -16,6 +16,9 @@
   --yellow: #ffd000; /* optimism · youth · attention */
   --purple: #d845fc; /* imagination · creativity · experimentation */
   --lime: #ace635; /* playfulness · possibility · freshness */
+  /* Deep indigo: the kit's Indigo drawn 40% toward Phantom Black, for sections
+     that must stay inside the dark Deep Space world (Yashobhoomi) */
+  --indigo-deep: #25246f;
   /* Paper: the kit's off-white, used for type on dark fields */
   --paper: #f8f5ed;
 
@@ -184,6 +187,11 @@ ol {
   --field: var(--indigo);
   --ink: var(--paper);
   --accent: var(--yellow);
+}
+[data-field='deep'] {
+  --field: var(--indigo-deep);
+  --ink: var(--paper);
+  --accent: var(--cyan);
 }
 [data-field='plum'] {
   --field: var(--plum);

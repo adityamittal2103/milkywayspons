@@ -1,78 +1,356 @@
 {
-  "_note": "Deck images (V1: Master Sponsorship deck) -> site ids. 'slide' is the deck slide the image appears on. Files are named by export order, not slide.",
+  "_note": "Deck images (V1: Master Sponsorship deck) -> site ids. 'slide' is the slide in the current 22-slide deck (re-read 30 Sep 2026). Files are named by export order, not slide.",
   "photos": {
-    "graduation": { "file": "s04-01.jpg", "slide": 4 },
-    "rohit-sharma": { "file": "s05-02.jpg", "slide": 5 },
-    "samay-raina": { "file": "s05-03.png", "slide": 5 },
-    "tanmay-bhat": { "file": "s05-01.jpg", "slide": 5 },
-    "guest-01": { "file": "s06-01.jpg", "slide": 6 },
-    "guest-02": { "file": "s06-02.jpg", "slide": 6 },
-    "guest-03": { "file": "s06-03.jpg", "slide": 6 },
-    "guest-04": { "file": "s06-04.jpg", "slide": 6 },
-    "guest-05": { "file": "s06-05.jpg", "slide": 6 },
-    "guest-06": { "file": "s06-06.jpg", "slide": 6 },
-    "guest-07": { "file": "s06-07.jpg", "slide": 6 },
-    "guest-08": { "file": "s06-08.jpg", "slide": 6 },
-    "guest-09": { "file": "s06-09.jpg", "slide": 6 },
-    "guest-10": { "file": "s06-10.jpg", "slide": 6 },
-    "guest-11": { "file": "s06-11.jpg", "slide": 6 },
-    "guest-12": { "file": "s06-12.jpg", "slide": 6 },
-    "guest-13": { "file": "s06-13.jpg", "slide": 6 },
-    "guest-14": { "file": "s06-14.jpg", "slide": 6 },
-    "guest-15": { "file": "s06-15.jpg", "slide": 6 },
-    "next-gene": { "file": "s07-01.jpg", "slide": 7 },
-    "demo-day": { "file": "s07-02.jpg", "slide": 7 },
-    "hyrox-delhi": { "file": "s07-03.jpg", "slide": 7 },
-    "hyrox-runner": { "file": "s07-04.jpg", "slide": 7 },
-    "bloomberg-terminal": { "file": "s07-05.jpg", "slide": 7 },
-    "ai-summit-demo": { "file": "s07-06.jpg", "slide": 7 },
-    "next-tech-stage": { "file": "s08-01.png", "slide": 8 },
-    "hyrox-athletes": { "file": "s08-02.jpg", "slide": 8 },
-    "hyrox-crowd": { "file": "s08-03.jpg", "slide": 8 },
-    "hyrox-race": { "file": "s08-04.jpg", "slide": 8 },
-    "hyrox-start": { "file": "s08-05.jpg", "slide": 8 },
-    "yashobhoomi-outside": { "file": "s13-01.png", "slide": 14 },
-    "yashobhoomi-inside": { "file": "s13-02.png", "slide": 14 },
-    "fest-01": { "file": "s15-01.jpg", "slide": 15 },
-    "fest-02": { "file": "s15-02.jpg", "slide": 15 },
-    "fest-03": { "file": "s15-03.jpg", "slide": 15 },
-    "fest-04": { "file": "s15-04.jpg", "slide": 15 },
-    "fest-05": { "file": "s15-05.jpg", "slide": 16 },
-    "fest-06": { "file": "s15-06.jpg", "slide": 16 },
-    "fest-07": { "file": "s15-07.jpg", "slide": 16 },
-    "feed-builders": { "file": "s17-02.jpg", "slide": 21 },
-    "feed-lifeatmu": { "file": "s17-03.jpg", "slide": 21 },
-    "feed-elevator-pitch": { "file": "s17-04.jpg", "slide": 20 },
-    "u18": { "file": "s17-01.jpg", "slide": 24 },
-    "dropshipping": { "file": "s19-01.jpg", "slide": 22 },
-    "launchpad-kitchen": { "file": "s19-02.jpg", "slide": 22 },
-    "dalal-street": { "file": "s19-03.jpg", "slide": 23 }
+    "graduation": {
+      "file": "s04-01.jpg",
+      "slide": 4
+    },
+    "rohit-sharma": {
+      "file": "s05-02.jpg",
+      "slide": 5
+    },
+    "samay-raina": {
+      "file": "s05-03.png",
+      "slide": 5
+    },
+    "tanmay-bhat": {
+      "file": "s05-01.jpg",
+      "slide": 5
+    },
+    "guest-01": {
+      "file": "s06-01.jpg",
+      "slide": 6
+    },
+    "guest-02": {
+      "file": "s06-02.jpg",
+      "slide": 6
+    },
+    "guest-03": {
+      "file": "s06-03.jpg",
+      "slide": 6
+    },
+    "guest-04": {
+      "file": "s06-04.jpg",
+      "slide": 6
+    },
+    "guest-05": {
+      "file": "s06-05.jpg",
+      "slide": 6
+    },
+    "guest-06": {
+      "file": "s06-06.jpg",
+      "slide": 6
+    },
+    "guest-07": {
+      "file": "s06-07.jpg",
+      "slide": 6
+    },
+    "guest-08": {
+      "file": "s06-08.jpg",
+      "slide": 6
+    },
+    "guest-09": {
+      "file": "s06-09.jpg",
+      "slide": 6
+    },
+    "guest-10": {
+      "file": "s06-10.jpg",
+      "slide": 6
+    },
+    "guest-11": {
+      "file": "s06-11.jpg",
+      "slide": 6
+    },
+    "guest-12": {
+      "file": "s06-12.jpg",
+      "slide": 6
+    },
+    "guest-13": {
+      "file": "s06-13.jpg",
+      "slide": 6
+    },
+    "guest-14": {
+      "file": "s06-14.jpg",
+      "slide": 6
+    },
+    "guest-15": {
+      "file": "s06-15.jpg",
+      "slide": 6
+    },
+    "next-gene": {
+      "file": "s07-01.jpg",
+      "slide": 7
+    },
+    "demo-day": {
+      "file": "s07-02.jpg",
+      "slide": 7
+    },
+    "hyrox-delhi": {
+      "file": "s07-03.jpg",
+      "slide": 7
+    },
+    "hyrox-runner": {
+      "file": "s07-04.jpg",
+      "slide": 7
+    },
+    "bloomberg-terminal": {
+      "file": "s07-05.jpg",
+      "slide": 7
+    },
+    "ai-summit-demo": {
+      "file": "s07-06.jpg",
+      "slide": 7
+    },
+    "next-tech-stage": {
+      "file": "s08-01.png",
+      "slide": 8
+    },
+    "hyrox-athletes": {
+      "file": "s08-02.jpg",
+      "slide": 8
+    },
+    "hyrox-crowd": {
+      "file": "s08-03.jpg",
+      "slide": 8
+    },
+    "hyrox-race": {
+      "file": "s08-04.jpg",
+      "slide": 8
+    },
+    "hyrox-start": {
+      "file": "s08-05.jpg",
+      "slide": 8
+    },
+    "yashobhoomi-outside": {
+      "file": "s13-01.png",
+      "slide": 13
+    },
+    "yashobhoomi-inside": {
+      "file": "s13-02.png",
+      "slide": 13
+    },
+    "fest-01": {
+      "file": "s15-01.jpg",
+      "slide": 14
+    },
+    "fest-02": {
+      "file": "s15-02.jpg",
+      "slide": 14
+    },
+    "fest-03": {
+      "file": "s15-03.jpg",
+      "slide": 14
+    },
+    "fest-04": {
+      "file": "s15-04.jpg",
+      "slide": 14
+    },
+    "fest-05": {
+      "file": "s15-05.jpg",
+      "slide": 14
+    },
+    "fest-06": {
+      "file": "s15-06.jpg",
+      "slide": 14
+    },
+    "fest-07": {
+      "file": "s15-07.jpg",
+      "slide": 14
+    },
+    "feed-builders": {
+      "file": "s17-02.jpg",
+      "slide": 16
+    },
+    "feed-lifeatmu": {
+      "file": "s17-03.jpg",
+      "slide": 16
+    },
+    "feed-elevator-pitch": {
+      "file": "s17-04.jpg",
+      "slide": 16
+    },
+    "u18": {
+      "file": "s17-01.jpg",
+      "slide": 16
+    },
+    "dropshipping": {
+      "file": "s19-01.jpg",
+      "slide": 9
+    },
+    "launchpad-kitchen": {
+      "file": "s19-02.jpg",
+      "slide": 9
+    },
+    "investment-fund": {
+      "file": "s19-03.jpg",
+      "slide": 9
+    }
   },
   "logos": {
-    "pwc": { "file": "s25-01.png", "slide": 25, "name": "PwC" },
-    "bloomberg": { "file": "s25-02.png", "slide": 25, "name": "Bloomberg" },
-    "hyrox": { "file": "s25-03.png", "slide": 25, "name": "HYROX" },
-    "superyou": { "file": "s25-04.png", "slide": 25, "name": "SuperYou" },
-    "redbull": { "file": "s25-05.png", "slide": 25, "name": "Red Bull" },
-    "pokerbaazi": { "file": "s25-06.png", "slide": 25, "name": "PokerBaazi" },
-    "snitch": { "file": "s25-07.png", "slide": 25, "name": "Snitch" },
-    "peakst8": { "file": "s25-08.png", "slide": 25, "name": "Peakst8" },
-    "iit": { "file": "s25-09.png", "slide": 25, "name": "Illinois Institute of Technology" },
-    "sharktank": { "file": "s25-10.png", "slide": 25, "name": "Shark Tank India" },
-    "reebok": { "file": "s25-11.png", "slide": 25, "name": "Reebok" },
-    "yourspace": { "file": "s25-12.png", "slide": 25, "name": "Your Space" },
-    "boat": { "file": "s25-13.png", "slide": 25, "name": "boAt" },
-    "nivia": { "file": "s25-14.png", "slide": 25, "name": "NIVIA" },
-    "meesho": { "file": "s25-15.png", "slide": 25, "name": "Meesho" },
-    "itc": { "file": "s25-16.png", "slide": 25, "name": "ITC Limited", "threshold": 0.32 },
-    "philips": { "file": "s25-17.png", "slide": 25, "name": "Philips" },
-    "hero": { "file": "s25-18.png", "slide": 25, "name": "Hero" },
-    "zerodha": { "file": "s25-19.png", "slide": 25, "name": "Zerodha" },
-    "agoda": { "file": "s25-20.png", "slide": 25, "name": "Agoda" },
-    "ferrari": { "file": "s25-21.png", "slide": 25, "name": "Ferrari", "mode": "dark", "threshold": 0.45 },
-    "myntra": { "file": "s25-22.png", "slide": 25, "name": "Myntra" },
-    "upgrad": { "file": "s25-23.jpg", "slide": 25, "name": "upGrad" },
-    "nvidia": { "file": "s25-24.png", "slide": 25, "name": "NVIDIA" },
-    "makemytrip": { "file": "s25-25.png", "slide": 25, "name": "MakeMyTrip" }
+    "pwc": {
+      "file": "s25-01.png",
+      "slide": 18,
+      "name": "PwC"
+    },
+    "bloomberg": {
+      "file": "s25-02.png",
+      "slide": 18,
+      "name": "Bloomberg"
+    },
+    "hyrox": {
+      "file": "s25-03.png",
+      "slide": 18,
+      "name": "HYROX"
+    },
+    "superyou": {
+      "file": "s25-04.png",
+      "slide": 18,
+      "name": "SuperYou"
+    },
+    "redbull": {
+      "file": "s25-05.png",
+      "slide": 18,
+      "name": "Red Bull"
+    },
+    "pokerbaazi": {
+      "file": "s25-06.png",
+      "slide": 18,
+      "name": "PokerBaazi"
+    },
+    "snitch": {
+      "file": "s25-07.png",
+      "slide": 18,
+      "name": "Snitch"
+    },
+    "peakst8": {
+      "file": "s25-08.png",
+      "slide": 18,
+      "name": "Peakst8"
+    },
+    "iit": {
+      "file": "s25-09.png",
+      "slide": 18,
+      "name": "Illinois Institute of Technology"
+    },
+    "sharktank": {
+      "file": "s25-10.png",
+      "slide": 18,
+      "name": "Shark Tank India"
+    },
+    "reebok": {
+      "file": "s25-11.png",
+      "slide": 18,
+      "name": "Reebok"
+    },
+    "yourspace": {
+      "file": "s25-12.png",
+      "slide": 18,
+      "name": "Your Space"
+    },
+    "boat": {
+      "file": "s25-13.png",
+      "slide": 18,
+      "name": "boAt"
+    },
+    "nivia": {
+      "file": "s25-14.png",
+      "slide": 18,
+      "name": "NIVIA"
+    },
+    "meesho": {
+      "file": "s25-15.png",
+      "slide": 18,
+      "name": "Meesho"
+    },
+    "itc": {
+      "file": "s25-16.png",
+      "slide": 18,
+      "name": "ITC Limited",
+      "threshold": 0.32
+    },
+    "philips": {
+      "file": "s25-17.png",
+      "slide": 18,
+      "name": "Philips"
+    },
+    "hero": {
+      "file": "s25-18.png",
+      "slide": 18,
+      "name": "Hero"
+    },
+    "zerodha": {
+      "file": "s25-19.png",
+      "slide": 18,
+      "name": "Zerodha"
+    },
+    "agoda": {
+      "file": "s25-20.png",
+      "slide": 18,
+      "name": "Agoda"
+    },
+    "ferrari": {
+      "file": "s25-21.png",
+      "slide": 18,
+      "name": "Ferrari",
+      "mode": "dark",
+      "threshold": 0.45
+    },
+    "myntra": {
+      "file": "s25-22.png",
+      "slide": 18,
+      "name": "Myntra"
+    },
+    "upgrad": {
+      "file": "s25-23.jpg",
+      "slide": 18,
+      "name": "upGrad"
+    },
+    "nvidia": {
+      "file": "s25-24.png",
+      "slide": 18,
+      "name": "NVIDIA"
+    },
+    "makemytrip": {
+      "file": "s25-25.png",
+      "slide": 18,
+      "name": "MakeMyTrip"
+    },
+    "instagram": {
+      "file": "v2-s15-04.jpg",
+      "slide": 15,
+      "name": "Instagram",
+      "upscale": 4,
+      "threshold": 0.08,
+      "gain": 0.18
+    },
+    "youtube": {
+      "file": "v2-s15-01.png",
+      "slide": 15,
+      "name": "YouTube",
+      "threshold": 0.2,
+      "crop": [
+        570,
+        820,
+        910,
+        400
+      ],
+      "bg": [
+        255,
+        255,
+        255
+      ]
+    },
+    "linkedin": {
+      "file": "v2-s15-02.png",
+      "slide": 15,
+      "name": "LinkedIn",
+      "threshold": 0.12
+    },
+    "x": {
+      "file": "v2-s15-03.png",
+      "slide": 15,
+      "name": "X",
+      "threshold": 0.03
+    }
   }
 }

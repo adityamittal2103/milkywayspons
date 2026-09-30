@@ -44,7 +44,8 @@ for (const [id, spec] of Object.entries(map.logos || {})) {
     console.warn('missing logo', spec.file);
     continue;
   }
-  const img = sharp(file).rotate().ensureAlpha();
+  // Optional crop [left, top, width, height] isolates a mark from a 3D app tile.
+  const img = (spec.crop ? sharp(file).rotate().extract({ left: spec.crop[0], top: spec.crop[1], width: spec.crop[2], height: spec.crop[3] }) : sharp(file).rotate()).ensureAlpha();
   const { data, info } = await img.raw().toBuffer({ resolveWithObject: true });
   // The logo's own ground: an opaque corner pixel (a black HYROX plate, a red
   // SuperYou plate), or white when the corners are transparent.
@@ -63,7 +64,8 @@ for (const [id, spec] of Object.entries(map.logos || {})) {
       spec.mode === 'dark'
         ? 1 - (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255
         : Math.max(Math.abs(r - bg[0]), Math.abs(g - bg[1]), Math.abs(b - bg[2])) / 255;
-    const ink = Math.min(1, Math.max(0, (d - t) / 0.5)) * a;
+    // gain: how quickly a coloured pixel reaches full ink (lower = harder edge)
+    const ink = Math.min(1, Math.max(0, (d - t) / (spec.gain ?? 0.5))) * a;
     out[i * 4] = 255;
     out[i * 4 + 1] = 255;
     out[i * 4 + 2] = 255;
@@ -73,8 +75,24 @@ for (const [id, spec] of Object.entries(map.logos || {})) {
     .trim({ threshold: 1 })
     .png()
     .toBuffer({ resolveWithObject: true });
-  await sharp(trimmed.data)
-    .resize({ height: Math.min(240, trimmed.info.height), withoutEnlargement: true })
+  let mark = trimmed.data;
+  if (spec.upscale) {
+    // Small source (Instagram's icon is 148px): enlarge the mask smoothly, then
+    // tighten its edge so the mark stays crisp at display size.
+    const k = spec.upscale;
+    const alpha = await sharp(mark)
+      .extractChannel(3)
+      .resize(trimmed.info.width * k, trimmed.info.height * k, { kernel: 'lanczos3' })
+      .linear(3.2, -0.34 * 255 * 3.2)
+      .png()
+      .toBuffer();
+    mark = await sharp({ create: { width: trimmed.info.width * k, height: trimmed.info.height * k, channels: 3, background: '#ffffff' } })
+      .joinChannel(alpha)
+      .png()
+      .toBuffer();
+  }
+  await sharp(mark)
+    .resize({ height: 240, withoutEnlargement: true })
     .png({ compressionLevel: 9 })
     .toFile(path.join(OUT, `logo-${id}.png`));
   manifest[`logo-${id}`] = { w: trimmed.info.width, h: trimmed.info.height, source: `deck slide ${spec.slide}`, file: spec.file };

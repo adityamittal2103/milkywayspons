@@ -5,14 +5,16 @@ import { prefersReducedMotion, registerGsap, ScrollTrigger } from '@/lib/motion'
 import { Ink } from './Ink';
 import styles from './Trajectory.module.css';
 
-type Anchor = { el: HTMLElement; x: number; y: number; len: number };
+type Anchor = { el: HTMLElement; x: number; y: number; len: number; brk: boolean };
 
 /**
  * The flight path. One route threads every [data-anchor] on the page in
- * document order: from Masters' Union's coordinates, through the seven Road to
- * Milky Way stops, to the Yashobhoomi landing and on to the sponsor's signal.
- * The planned route is dashed; scrolling flies it, and a comet from the brand
- * kit rides the head. Anchors behind the head are marked data-passed.
+ * document order: from Masters' Union's coordinates to the Road to Milky Way,
+ * where the India constellation takes over the journey, then from the
+ * Yashobhoomi landing on to the sponsor's signal. An anchor marked
+ * data-anchor-break starts a new leg rather than joining the last one. The
+ * planned route is dashed; scrolling flies it, and a comet from the brand kit
+ * rides the head. Anchors behind the head are marked data-passed.
  */
 export function Trajectory() {
   const svgRef = useRef<SVGSVGElement>(null);
@@ -47,7 +49,13 @@ export function Trajectory() {
       anchors = els
         .map((el) => {
           const r = el.getBoundingClientRect();
-          return { el, x: r.left - hostRect.left + r.width / 2, y: r.top - hostRect.top + r.height / 2, len: 0 };
+          return {
+            el,
+            x: r.left - hostRect.left + r.width / 2,
+            y: r.top - hostRect.top + r.height / 2,
+            len: 0,
+            brk: el.hasAttribute('data-anchor-break'),
+          };
         })
         .sort((a, b) => a.y - b.y);
       if (anchors.length < 2) return;
@@ -60,6 +68,12 @@ export function Trajectory() {
       for (let i = 1; i < anchors.length; i++) {
         const a = anchors[i - 1];
         const b = anchors[i];
+        if (b.brk) {
+          // A handover: the pen lifts and the route resumes here.
+          b.len = total;
+          d += ` M${b.x.toFixed(1)} ${b.y.toFixed(1)}`;
+          continue;
+        }
         const k = (b.y - a.y) * 0.5;
         const seg = `C${a.x.toFixed(1)} ${(a.y + k).toFixed(1)} ${b.x.toFixed(1)} ${(b.y - k).toFixed(1)} ${b.x.toFixed(1)} ${b.y.toFixed(1)}`;
         probe.setAttribute('d', `M${a.x} ${a.y} ${seg}`);
@@ -77,6 +91,7 @@ export function Trajectory() {
       raf = 0;
       if (anchors.length < 2) return;
       let len = total;
+      let lifted = false;
       if (!reduce) {
         const hostTop = host.getBoundingClientRect().top + window.scrollY;
         const target = window.scrollY + window.innerHeight * 0.58 - hostTop;
@@ -89,6 +104,7 @@ export function Trajectory() {
             if (target < b.y) {
               const t = Math.max(0, (target - a.y) / (b.y - a.y));
               len = target < anchors[0].y ? 0 : a.len + t * (b.len - a.len);
+              lifted = b.brk && target > a.y;
               break;
             }
           }
@@ -97,7 +113,7 @@ export function Trajectory() {
       flown.style.strokeDashoffset = `${total - len}`;
       for (const a of anchors) a.el.toggleAttribute('data-passed', len >= a.len - 1);
 
-      const visible = len > 0 && len < total;
+      const visible = len > 0 && len < total && !lifted;
       head.style.opacity = visible ? '1' : '0';
       if (visible) {
         const p = flown.getPointAtLength(len);

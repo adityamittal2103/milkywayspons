@@ -68,8 +68,9 @@ export function Tiers() {
         <Waypoint />
 
         <header className={styles.head}>
-          <h2 id="tiers-title" className={`display ${styles.title}`}>
-            <Distort text={tiersIntro.title} seed={31} amount={3.5} />
+          <h2 id="tiers-title" className={styles.title}>
+            <span className={`headline ${styles.titleLead}`}>{tiersIntro.lead}</span>{' '}
+            <Distort text={tiersIntro.title} seed={31} amount={3.5} className="display" />
           </h2>
           <p className={`lede ${styles.lede}`}>
             Four orbits around one festival. Pick one to see what it carries, then compare all four in the table below. Every line
@@ -191,7 +192,10 @@ export function Tiers() {
           </div>
 
           <div className={styles.plateFoot}>
-            <p>The deck lists deliverables, not prices. Investment details come from the sponsorship team.</p>
+            <div className={styles.footnotes}>
+              <p>*{tiersIntro.footnote}</p>
+              <p>The deck lists deliverables, not prices. Investment details come from the sponsorship team.</p>
+            </div>
             <CutLink href="#signal" tone="ink">
               Ask about {tiers[activeIndex].name}
             </CutLink>

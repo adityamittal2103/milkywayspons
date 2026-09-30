@@ -29,14 +29,17 @@ export function Worlds() {
         <Waypoint />
 
         <div className={styles.head}>
+          {/* The deck's heading, whole: "The Main Days: A constellation of …" */}
           <h2 id="worlds-title" className={`display ${styles.title}`}>
-            {worlds.title}
+            <span className={styles.titleLead}>{worlds.lead}:</span> {worlds.title}
           </h2>
           <div className={styles.intro}>
-            <p className={`numeral ${styles.figure}`} aria-hidden="true">
-              {worlds.figure}
+            <p className={styles.figureLine}>
+              <span className={`numeral ${styles.figure}`}>{worlds.figure}</span>{' '}
+              <span className={styles.figureTail}>{worlds.figureTail}</span>
             </p>
-            <p className={styles.text}>{worlds.text}</p>
+            <p className={styles.text}>{worlds.line}</p>
+            <p className={styles.text}>{worlds.nightsLine}</p>
           </div>
         </div>
 

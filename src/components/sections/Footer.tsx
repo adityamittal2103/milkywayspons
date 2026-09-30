@@ -21,7 +21,6 @@ export function Footer() {
             <br />
             {festival.venue}, {festival.city}
           </p>
-          <p className={styles.small}>Wordmark, glyphs and illustrations from the Milky Way brand kit.</p>
         </div>
       </div>
     </footer>

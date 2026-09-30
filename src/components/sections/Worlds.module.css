@@ -12,8 +12,23 @@
 
 .title {
   grid-column: 1 / span 7;
-  font-size: var(--t-display);
-  max-width: 10ch;
+  font-size: clamp(2.8rem, 6vw, 6.4rem);
+  max-width: 13ch;
+}
+
+.titleLead {
+  display: block;
+}
+
+.figureLine {
+  display: grid;
+  gap: var(--s-2);
+}
+
+.figureTail {
+  font-weight: 750;
+  font-size: var(--t-lede);
+  line-height: 1.15;
 }
 
 .intro {

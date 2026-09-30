@@ -5,21 +5,26 @@ import { Photo } from '../Photo';
 import { Waypoint } from '../Waypoint';
 import styles from './Landing.module.css';
 
-/** The deck's "wow" slide: the route touches down and the number takes the page. */
+/**
+ * The deck's "wow" slide: the route touches down and the number takes the
+ * page. Set in deep indigo (the kit's Indigo drawn toward Phantom Black) so
+ * the venue stays inside the Deep Space world.
+ */
 export function Landing() {
   return (
-    <section id="landing" className={`section ${styles.landing}`} data-field="yellow" aria-labelledby="landing-title">
+    <section id="landing" className={`section ${styles.landing}`} data-field="deep" aria-labelledby="landing-title">
       <CutEdge seed={5} />
       <div className={styles.flag} aria-hidden="true">
-        <Ink name="badge-flag" color="black" />
+        <Ink name="badge-flag" color="indigo" />
       </div>
 
       <div className="wrap content">
-        <Waypoint glyph="location" />
+        <Waypoint glyph="location" breakBefore />
 
         <h2 id="landing-title" className={`headline ${styles.title}`}>
           {landing.title}
         </h2>
+        <p className={`lede ${styles.subtitle}`}>{landing.subtitle}</p>
 
         <div className={styles.figureBlock}>
           <p className={styles.figure}>
@@ -35,7 +40,6 @@ export function Landing() {
               key={p.id}
               id={p.id}
               alt={p.alt}
-              caption={p.caption}
               className={styles.venuePhoto}
               style={{ gridColumn: n === 0 ? '1 / 8' : '8 / 13' }}
               sizes="(max-width: 767px) 100vw, 55vw"
@@ -54,9 +58,9 @@ export function Landing() {
 
         <p className={styles.dateline}>
           <time dateTime="2027-02-20">{festival.dates}</time>
-          <span aria-hidden="true"> ✱ </span>
+          <span aria-hidden="true" className={styles.sep}> ✱ </span>
           {festival.venue}
-          <span aria-hidden="true"> ✱ </span>
+          <span aria-hidden="true" className={styles.sep}> ✱ </span>
           {festival.city}
         </p>
       </div>

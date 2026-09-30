@@ -14,14 +14,15 @@ type Props = {
 /**
  * "Humanistic distortion" (the kit's name for the wordmark style) applied to
  * display type: each letter is set slightly off-axis and off-baseline, with a
- * seeded offset so every render cuts the same way. The accessible name is the
- * plain string; the letters are presentation only.
+ * seeded offset so every render cuts the same way. Screen readers get the
+ * plain string from a visually hidden copy; the letters are presentation only.
  */
 export function Distort({ text, as: Tag = 'span', className, amount = 4, seed = 7 }: Props) {
   const rand = seeded(seed);
   const words = text.split(' ');
   return (
-    <Tag className={`${styles.distort}${className ? ` ${className}` : ''}`} aria-label={text}>
+    <Tag className={`${styles.distort}${className ? ` ${className}` : ''}`}>
+      <span className="sr-only">{text}</span>
       {words.map((word, wi) => (
         <Fragment key={wi}>
           <span className={styles.word} aria-hidden="true">

@@ -2,11 +2,13 @@ import type { CSSProperties } from 'react';
 import { reach } from '@/content/milky-way';
 import { CutEdge } from '../CutEdge';
 import { CutLink } from '../CutLink';
+import { DeckLogo } from '../DeckLogo';
 import { Photo } from '../Photo';
 import { Waypoint } from '../Waypoint';
 import styles from './Reach.module.css';
 
-const largest = Math.max(...reach.channels.map((c) => c.count));
+// The deck sets the four platforms in descending scale, Instagram first (s15).
+const MARK = ['clamp(5rem, 9vw, 8.5rem)', 'clamp(4.2rem, 7vw, 6.8rem)', 'clamp(3.6rem, 5.8vw, 5.6rem)', 'clamp(3rem, 4.6vw, 4.5rem)'];
 
 export function Reach() {
   return (
@@ -15,85 +17,35 @@ export function Reach() {
       <div className="wrap content">
         <Waypoint />
 
-        <div className={styles.top}>
-          <h2 id="reach-title" className={styles.title}>
-            <span className={`numeral ${styles.titleValue}`}>{reach.title}</span>
-            <span className={`display ${styles.titleLabel}`}>{reach.titleLabel}</span>
-          </h2>
-          <p className={styles.headline}>
-            <span className={`numeral ${styles.headlineValue}`}>{reach.headline.value}</span>
-            <span className={styles.headlineLabel}>
-              {reach.headline.label}
-              <span className={styles.qualifier}>{reach.headline.qualifier}</span>
-            </span>
-          </p>
-        </div>
+        <h2 id="reach-title" className={`display ${styles.title}`}>
+          {reach.title}
+        </h2>
 
-        <ul className={styles.views}>
-          {reach.views.map((v) => (
-            <li key={v.channel} className={styles.view}>
-              <span className={`numeral ${styles.viewValue}`}>{v.value}</span>
-              <span className={styles.viewLabel}>
-                {v.label}
-                <span className={styles.viewChannel}>{v.channel}</span>
+        <ul className={styles.platforms}>
+          {reach.platforms.map((p, i) => (
+            <li key={p.id} className={styles.platform} style={{ '--mark': MARK[i] } as CSSProperties}>
+              <span className={styles.markBox}>
+                <DeckLogo id={p.id} name={p.name} color="black" size="var(--mark)" className={styles.mark} />
+              </span>
+              <span className={`numeral ${styles.value}`}>{p.value}</span>
+              <span className={styles.label}>
+                <span className={styles.unit}>{p.unit}</span> {p.label}
               </span>
             </li>
           ))}
         </ul>
 
-        <figure className={styles.scale}>
-          <figcaption className={styles.scaleHead}>
-            <span className={`headline ${styles.scaleTitle}`}>The owned universe, to scale</span>
-            <span className={styles.scaleNote}>
-              Each disc&rsquo;s area is its audience: subscribers, follows or followers, as stated per channel.
-            </span>
-          </figcaption>
-          <ol className={styles.bodies}>
-            {reach.channels.map((c) => (
-              <li
-                key={c.name}
-                className={styles.body}
-                style={{ '--k': Math.sqrt(c.count / largest).toFixed(4) } as CSSProperties}
-              >
-                <span className={styles.disc} aria-hidden="true" />
-                <span className={`numeral ${styles.bodyValue}`}>{c.value}</span>
-                <span className={styles.bodyUnit}>{c.unit}</span>
-                <span className={styles.bodyName}>{c.name}</span>
-              </li>
-            ))}
-          </ol>
-          <dl className={styles.notes}>
-            {reach.channels.map((c) => (
-              <div key={c.name} className={styles.noteRow}>
-                <dt>{c.name}</dt>
-                <dd>{c.note}</dd>
-              </div>
-            ))}
-          </dl>
-          <ul className={styles.feed} aria-label="The channels on the feed">
-            {reach.feed.map((f) => (
-              <li key={f.id}>
-                <Photo id={f.id} alt={f.alt} caption={f.caption} treatment="color" className={styles.phone} sizes="16rem" />
-              </li>
-            ))}
-          </ul>
-        </figure>
-
-        <div className={styles.launchpad}>
-          <h3 className={`headline ${styles.launchTitle}`}>{reach.launchpad.title}</h3>
-          <ul className={styles.launchList}>
-            {reach.launchpad.items.map((l) => (
-              <li key={l.label} className={styles.launchItem}>
-                <span className={`numeral ${styles.launchValue}`}>{l.value}</span>
-                <span className={styles.launchLabel}>{l.label}</span>
-                <span className={styles.launchNote}>{l.note}</span>
-              </li>
-            ))}
-          </ul>
-          <ul className={styles.launchPhotos}>
-            {reach.launchpadPhotos.map((l) => (
-              <li key={l.id}>
-                <Photo id={l.id} alt={l.alt} caption={l.caption ?? undefined} sizes="(max-width: 767px) 50vw, 25vw" />
+        <div className={styles.student}>
+          <h3 className={`headline ${styles.studentTitle}`}>{reach.studentTitle}</h3>
+          <ul className={styles.pages}>
+            {reach.studentPages.map((s) => (
+              <li key={s.name} className={styles.page}>
+                <Photo id={s.photo.id} alt={s.photo.alt} className={styles.frame} sizes="(max-width: 767px) 50vw, 22vw" />
+                <p className={styles.pageName}>{s.name}</p>
+                <p className={styles.pageMetric}>
+                  <span className="numeral">{s.value}</span> {s.unit}
+                </p>
+                <p className={styles.pageNote}>{s.note}</p>
               </li>
             ))}
           </ul>

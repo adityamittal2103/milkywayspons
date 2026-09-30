@@ -1,7 +1,9 @@
 /**
- * Every fact on the site lives here, taken from "V1: Master Sponsorship deck"
- * (Google Slides), live slides 1–29. Slides 30–43 are marked "Backup slides
- * below. Pls ignore." and are not used. `s` = source slide number.
+ * Every fact on the site lives here, taken from the live Google Slides deck
+ * "V1: Master Sponsorship deck" (22 slides, re-read 30 Sep 2026). `s` = the
+ * deck slide each fact comes from. The Road to Milky Way city names were
+ * supplied by the Milky Way team; the deck's own map slide (s12) leaves them
+ * unnamed.
  *
  * Editing rule: wording may be shortened for layout, never strengthened.
  * Numbers, units, qualifiers and names stay exactly as the deck states them.
@@ -46,7 +48,7 @@ export const origin = {
 
 export const visitors = {
   // s5
-  title: 'Soon, remarkable people started making their way to campus.',
+  title: 'Soon, the best minds started making their way to campus.',
   people: [
     {
       name: 'Rohit Sharma',
@@ -62,7 +64,7 @@ export const visitors = {
 
 export const experiences = {
   // s7
-  title: 'From AI summits to HYROX India, we know how to build big experiences.',
+  title: 'From AI summits to HYROX India, we know how to build big experiences',
   items: [
     {
       name: 'The Next Gene',
@@ -111,9 +113,37 @@ export const experiences = {
   ],
 } as const;
 
+export const impact = {
+  // s9
+  title: 'And also create impact from the ground up',
+  items: [
+    {
+      figure: '40+',
+      lead: 'startups built by students while studying',
+      detail: 'Hive, Zenmo, Eat Atlas, Lexi’s, Blue Brew',
+      note: 'Student ventures already operating as consumer brands and content engines',
+      photo: { id: 'launchpad-kitchen', alt: 'A student venture team in a commercial kitchen' },
+    },
+    {
+      figure: '₹1.2 Cr+',
+      lead: 'cumulative revenue from student ventures, drawn in by Dropshipping Melas',
+      detail: null,
+      note: 'Real transactions, real P&L, real learning',
+      photo: { id: 'dropshipping', alt: 'Visitors at a student stall at a Dropshipping Mela' },
+    },
+    {
+      figure: '5 Cr',
+      lead: "a live fund managed by students through the Masters' Union Investment Funds",
+      detail: null,
+      note: 'The chance to work with top fund managers and industry veterans',
+      photo: { id: 'investment-fund', alt: 'Students in conversation beneath a Nifty market ticker' },
+    },
+  ],
+} as const;
+
 export const milkyWay = {
   // s10
-  title: "And now, we're taking it to another universe.",
+  title: "Now, we're taking it to another universe.",
   titleName: 'Milky Way.',
   paragraphs: [
     "Born from a fire to build Asia's largest college festival, Milky Way was never going to start small. It is built by students who want to create something that has not been built before. Something ambitious, unpredictable and entirely their own.",
@@ -128,29 +158,33 @@ export const milkyWay = {
 } as const;
 
 export const road = {
-  // s11–12. The deck names seven RTM cities but does not list them; nodes stay numbered.
-  title: 'A Universe of Experiences, Across India',
+  // The journey's own name (the deck's "RTMs", s10 and the tier table), set as the heading
+  name: 'Road to Milky Way',
+  // s11–12
+  title: 'A universe of experiences, across India',
   strapline:
     'Seven cities. Thousands of young minds. Weeks of engagement before the festival reaches Delhi. Your brand is part of the journey from the very beginning.',
+  // "Micro copies to surround the map + constellation" (s11)
   micro: [
     "Get in front of some of the country's brightest young talent, across leading colleges.",
     'Where talent comes together to connect, compete and earn its place on the big stage.',
     'No two cities bring the same energy. From dance and music to theatre and sport, every stop opens up a new world of talent.',
   ],
-  cities: 7,
-  finale: { city: 'Delhi', venue: 'Yashobhoomi' },
+  // Names from the Milky Way team. The order is the chart's (the team asked for
+  // the clearest figure): a zigzag across the country ending in Delhi.
+  stops: ['Mumbai', 'Pune', 'Bangalore', 'Kolkata', 'Ahmedabad', 'Jaipur', 'Delhi'],
 } as const;
 
 export const landing = {
   // s13
-  title: 'Where it all comes together, at Yashobhoomi',
+  title: 'It all comes together at Yashobhoomi',
+  subtitle: 'India’s largest convention and exhibition centre.',
   figure: '45,000+',
   figureLabel: 'footfall',
   figureNote: 'Across the 2 days, and at one of the biggest convention centers giving you the best reach possible',
-  // s14 labels these "Outside" and "Inside"
   photos: [
-    { id: 'yashobhoomi-outside', caption: 'Outside', alt: 'The exterior of Yashobhoomi Convention Center' },
-    { id: 'yashobhoomi-inside', caption: 'Inside', alt: 'The foyer inside Yashobhoomi Convention Center' },
+    { id: 'yashobhoomi-outside', alt: 'The exterior of Yashobhoomi Convention Center' },
+    { id: 'yashobhoomi-inside', alt: 'The foyer inside Yashobhoomi Convention Center' },
   ],
   facts: [
     { value: '250+', label: 'partner colleges & institutions' },
@@ -160,19 +194,20 @@ export const landing = {
 } as const;
 
 export const worlds = {
-  // s15. Categories are the ones the deck names; "etc." means the list is not exhaustive.
-  title: 'A constellation of competitions',
-  kicker: 'Event days',
+  // s14
+  lead: 'The Main Days',
+  title: 'A constellation of competitions, community and culture',
   figure: '50+',
-  text: '50+ events across categories including battle of bands, informals, gaming and sports, etc. The nights eclipse with a unique twist of pronight.',
+  figureTail: 'events. One universe of experiences.',
+  line: 'Battle of the Bands. Gaming. Sports. Informals. And everything in between.',
+  nightsLine: 'Then come pronites, that take evening to a whole new level.',
   categories: [
-    { name: 'Battle of Bands', art: 'badge-guitar' },
-    { name: 'Informals', art: 'badge-rollercoaster' },
+    { name: 'Battle of the Bands', art: 'badge-guitar' },
     { name: 'Gaming', art: 'badge-crystal' },
     { name: 'Sports', art: 'badge-skate' },
+    { name: 'Informals', art: 'badge-rollercoaster' },
   ],
   nights: { name: 'Pronites', count: '2', art: 'badge-keyboard' }, // s10: "two pronites"
-  // s15–16 photo collage
   photos: [
     { id: 'fest-01', alt: 'A performer on stage in coloured smoke' },
     { id: 'fest-06', alt: 'A crowd under stage lights and green smoke at night' },
@@ -185,101 +220,48 @@ export const worlds = {
 } as const;
 
 export const reach = {
-  // s17–19
-  title: '1.34M',
-  titleLabel: 'Impressions attracted by our stars',
-  headline: { value: '200M+', label: "views, Masters' Union Instagram", qualifier: 'Last 6 months' }, // s18
-  views: [
-    { value: '112M', label: 'lifetime views', channel: "Masters' Union YouTube" },
-    { value: '6M', label: 'average views & reach', channel: 'main MU Instagram' },
-    { value: '1M', label: 'views and reach, on average', channel: 'Life @ MU' },
+  // s15
+  title: 'We’ll take this energy to our digital multiverse',
+  platforms: [
+    { id: 'instagram', name: 'Instagram', value: '200M+', unit: 'views', label: "Masters' Union Instagram" },
+    { id: 'youtube', name: 'YouTube', value: '112M', unit: 'lifetime views', label: 'on YouTube' },
+    { id: 'linkedin', name: 'LinkedIn', value: '139K', unit: 'followers', label: 'on LinkedIn' },
+    { id: 'x', name: 'X', value: '2.2K', unit: 'followers', label: 'on X' },
   ],
-  // Audience sizes, drawn to scale (area ∝ count).
-  channels: [
+  // s16
+  studentTitle: 'Across student-run pages and initiatives',
+  studentPages: [
     {
-      name: "Masters' Union YouTube",
-      count: 630_000,
-      value: '630K',
-      unit: 'subscribers',
-      note: 'Long-form stories of builders, founders and campus moments with national distribution.',
+      name: 'life@mu',
+      value: '1M',
+      unit: 'views & reach',
+      note: 'Our student-life page',
+      photo: { id: 'feed-lifeatmu', alt: 'The life@mu Instagram profile' },
     },
     {
-      name: 'MU Instagram network',
-      count: 568_000,
-      value: '568K',
-      unit: 'follows',
-      note: 'A multi-account ecosystem where ventures, clubs and initiatives each have their own footprint.',
-    },
-    {
-      name: "Masters' Union Instagram",
-      count: 375_000,
-      value: '375K',
-      unit: 'followers',
-      note: 'The primary social home for our events, campus life and student stories.',
-    },
-    {
-      name: "Masters' Union LinkedIn",
-      count: 139_000,
-      value: '139K',
-      unit: 'followers',
-      note: 'A professional audience of employers, investors and industry leaders tracking what we build.',
-    },
-    {
-      name: 'Elevator Pitch by MU',
-      count: 106_000,
-      value: '106K',
-      unit: 'followers',
-      note: 'Student founders pitching live to investors and peers; a high-visibility platform for early-stage ventures.',
-    },
-    {
-      name: 'Builders.MU',
-      count: 53_000,
+      name: 'builders.mu',
       value: '53K',
       unit: 'followers',
-      note: 'A dedicated student community for making, prototyping and shipping projects, with a large, active following.',
+      note: 'Dedicated page for projects, prototypes and builds',
+      photo: { id: 'feed-builders', alt: 'The builders.mu Instagram profile' },
+    },
+    {
+      name: 'Elevator Pitch',
+      value: '106K',
+      unit: 'followers',
+      note: 'Student founders pitching live to investors and peers',
+      photo: { id: 'feed-elevator-pitch', alt: 'Two founders at a table on the Elevator Pitch set' },
     },
     {
       name: 'U18 Club',
-      count: 11_600,
       value: '11.6K',
       unit: 'followers',
-      note: 'A student-led journey for school-age builders and founders, extending reach into the next cohort.',
+      note: 'Our pipeline for the next generation of young builders',
+      photo: { id: 'u18', alt: 'A mentor working with school students in a U18 Club session' },
     },
-  ],
-  launchpad: {
-    title: 'Also on our launchpad',
-    items: [
-      {
-        value: '40+',
-        label: 'startups built by students while studying',
-        note: 'Hive, Zenmo, Eat Atlas, Lexi’s, Blue Brew. Student ventures that already operate as consumer brands and content engines.',
-      },
-      {
-        value: '₹1.2 Cr+',
-        label: 'cumulative revenue, Dropshipping Mela',
-        note: 'From student dropshipping ventures: real transactions, real P&L, real learning.',
-      },
-    ],
-  },
-  // s20–21: the channels, as they appear on the feed
-  feed: [
-    { id: 'feed-builders', caption: 'Builders.MU', alt: 'The Builders.MU Instagram profile' },
-    { id: 'feed-lifeatmu', caption: 'Life @ MU', alt: "The Life at Masters' Union Instagram profile" },
-    {
-      id: 'feed-elevator-pitch',
-      caption: 'Elevator Pitch by MU',
-      alt: 'A reel from Elevator Pitch by MU: two founders at a table',
-    },
-  ],
-  // s22–24
-  launchpadPhotos: [
-    { id: 'dropshipping', caption: 'Dropshipping Mela', alt: 'Visitors at a student stall at the Dropshipping Mela' },
-    { id: 'dalal-street', caption: 'Dalal Street', alt: 'Students at the Dalal Street event' },
-    { id: 'u18', caption: 'U18', alt: 'A mentor working with school students in a U18 session' },
-    { id: 'launchpad-kitchen', caption: null, alt: 'A student team in a commercial kitchen' },
   ],
   reels: [
-    // s20; share-tracking parameters removed
+    // s17; share-tracking parameters removed
     { label: 'Indē Wild', href: 'https://www.instagram.com/reel/DWg5_sFTrt2/' },
     { label: 'POV: First day of my College', href: 'https://www.instagram.com/reel/DcSd8ExpJ2G/' },
     { label: 'Blinkit almost ruined our day', href: 'https://www.instagram.com/reel/Dblj2sUJD_D/' },
@@ -287,7 +269,7 @@ export const reach = {
 } as const;
 
 export const company = {
-  // s25. Shown as names; no logo files were supplied.
+  // s18; the same company as logos in companyLogos
   title: 'Our orbit has had some remarkable company.',
   names: [
     'PwC',
@@ -318,7 +300,7 @@ export const company = {
   ],
 } as const;
 
-// s25 logos, flattened to one ink by scripts/build-photos.mjs
+// s18 logos, flattened to one ink by scripts/build-photos.mjs
 export const companyLogos: { name: string; id: string }[] = [
   { name: 'PwC', id: 'pwc' },
   { name: 'HYROX', id: 'hyrox' },
@@ -350,7 +332,7 @@ export const companyLogos: { name: string; id: string }[] = [
 export type TierId = 'title' | 'powered' | 'associate' | 'cosponsor';
 
 export const tiers: { id: TierId; name: string; ink: string }[] = [
-  // s26–27, order as in the deck
+  // s19–20, order as in the deck
   { id: 'title', name: 'Title Partner', ink: 'yellow' },
   { id: 'powered', name: 'Powered By', ink: 'purple' },
   { id: 'associate', name: 'Associate', ink: 'cyan' },
@@ -482,11 +464,14 @@ export const deliverables: { name: string; values: Record<TierId, Entitlement> }
 ];
 
 export const tiersIntro = {
-  title: 'Your place in the Milky Way', // s26
+  // s19–20
+  lead: 'We now invite you to',
+  title: 'mark your place in the Milky Way',
+  footnote: 'The deliverables can be further curated specific to the company.',
 } as const;
 
 export const signal = {
-  // s29
+  // s22
   title: "Let's put your brand on our map.",
   line: 'Every great presence starts with a signal.',
   lineTail: 'Send yours our way.',
@@ -507,8 +492,8 @@ export const waypoints = [
   { id: 'milky-way', label: 'Milky Way' },
   { id: 'road', label: 'Road to Milky Way' },
   { id: 'landing', label: 'Yashobhoomi' },
-  { id: 'worlds', label: 'Event days' },
-  { id: 'reach', label: 'Reach' },
+  { id: 'worlds', label: 'The Main Days' },
+  { id: 'reach', label: 'Digital multiverse' },
   { id: 'company', label: 'Company' },
   { id: 'tiers', label: 'Your place' },
   { id: 'signal', label: 'Signal' },

@@ -27,11 +27,6 @@
   width: 180px;
 }
 
-.small {
-  opacity: 0.75;
-  max-width: 34ch;
-}
-
 @media (max-width: 767px) {
   .meta {
     flex-direction: column;

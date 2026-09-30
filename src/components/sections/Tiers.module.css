@@ -14,7 +14,24 @@
 .title {
   grid-column: 1 / span 8;
   font-size: var(--t-display);
+  line-height: 0.86;
   max-width: 10ch;
+}
+
+.titleLead {
+  display: block;
+  font-size: 0.34em;
+  margin-bottom: 0.25em;
+}
+
+.footnotes {
+  display: grid;
+  gap: var(--s-2);
+  max-width: 52ch;
+}
+
+.footnotes p:first-child {
+  font-weight: 700;
 }
 
 .lede {

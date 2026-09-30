@@ -2,6 +2,7 @@
   overflow: clip;
 }
 
+/* The flag planet, tone on tone: the kit's Indigo on deep indigo */
 .flag {
   position: absolute;
   z-index: var(--z-art);
@@ -15,6 +16,15 @@
   margin-top: var(--s-7);
   font-size: var(--t-h2);
   max-width: 17ch;
+}
+
+.subtitle {
+  margin-top: var(--s-4);
+  color: var(--cyan);
+}
+
+.sep {
+  color: var(--cyan);
 }
 
 .figureBlock {
@@ -65,7 +75,7 @@
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   margin-top: var(--s-9);
-  border-top: var(--rule-heavy) solid var(--black);
+  border-top: var(--rule-heavy) solid var(--ink);
 }
 
 .fact {
@@ -76,7 +86,7 @@
 
 .fact + .fact {
   padding-left: var(--s-5);
-  border-left: var(--rule) solid var(--black);
+  border-left: var(--rule) solid var(--ink);
 }
 
 .factValue {
@@ -134,6 +144,6 @@
   .fact + .fact {
     padding: var(--s-4) 0;
     border-left: 0;
-    border-bottom: var(--rule) solid var(--black);
+    border-bottom: var(--rule) solid var(--ink);
   }
 }

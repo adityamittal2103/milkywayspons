@@ -1,16 +1,14 @@
+/* Road to Milky Way: one chart of India in deep space. The kit's comet flies
+   the course as the reader scrolls; seven cities wake, and the course becomes
+   the constellation. Red belongs to the kit's location pin alone. */
 .road {
-  overflow: clip;
+  position: relative;
+  padding-bottom: 0;
 }
 
-.sky {
-  position: absolute;
-  inset: 0;
-  z-index: var(--z-art);
-}
-
-.canvas {
-  width: 100%;
-  height: 100%;
+/* ---------- the introduction: a name, a line, then the chart takes over ---------- */
+.intro {
+  padding-bottom: var(--s-8);
 }
 
 .head {
@@ -18,162 +16,453 @@
   grid-template-columns: repeat(12, minmax(0, 1fr));
   column-gap: var(--s-5);
   row-gap: var(--s-5);
+  align-items: end;
   margin-top: var(--s-7);
 }
 
 .title {
-  grid-column: 1 / span 8;
+  grid-column: 1 / span 7;
   font-size: var(--t-h1);
-  max-width: 14ch;
+  max-width: 9ch;
+}
+
+.lead {
+  grid-column: 8 / -1;
+  display: grid;
+  gap: var(--s-3);
+  max-width: 34rem;
+}
+
+.deckTitle {
+  font-weight: 650;
 }
 
 .strap {
-  grid-column: 8 / -1;
-  align-self: end;
-  color: var(--paper);
+  max-width: 44ch;
+  opacity: 0.78;
+  line-height: 1.45;
+  text-wrap: pretty;
 }
 
-/* ---------- the stops ---------- */
-.stops {
+/* ---------- the pinned stage ---------- */
+.stage {
   position: relative;
-  margin-top: var(--s-9);
+  height: 100svh;
+  min-height: 600px;
+  overflow: hidden;
+  background: var(--black);
 }
 
-.stop {
+.deep {
+  position: absolute;
+  inset: 0;
+}
+
+.canvas {
+  width: 100%;
+  height: 100%;
+}
+
+.frame {
   position: relative;
-  height: clamp(190px, 27vh, 280px);
+  z-index: var(--z-content);
+  height: 100%;
+  display: grid;
+  place-items: center;
+  padding: 4.75rem var(--gutter) 3.25rem;
+}
+
+/* The chart leaves the sky room to breathe on every side */
+.camera {
+  position: relative;
+  width: min(100%, calc((100svh - 8rem) * 0.898), 58rem);
+  transform-origin: 50% 46%;
+}
+
+.map {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+/* ---------- chart furniture ---------- */
+.grid line {
+  stroke: var(--paper);
+  stroke-width: 1;
+  stroke-dasharray: 1 8;
+  vector-effect: non-scaling-stroke;
+  opacity: 0.2;
+}
+
+.grid text {
+  fill: var(--paper);
+  opacity: 0.34;
+  font-family: var(--font-mono);
+  font-size: 13px;
+}
+
+.fieldStar {
+  fill: var(--paper);
+  opacity: 0.45;
+}
+
+.fieldStar:nth-child(5n + 2) {
+  animation: twinkle 5.5s var(--d, 0s) ease-in-out infinite alternate;
+}
+
+@keyframes twinkle {
+  to {
+    opacity: 0.12;
+  }
+}
+
+.outline,
+.islands {
+  fill: none;
+  stroke: var(--paper);
+  stroke-linejoin: round;
+}
+
+/* Line widths in map units, held to screen pixels by --u (units per px) */
+.outline {
+  stroke-width: calc(var(--u, 1.4) * 1.1px);
+  opacity: 0.78;
+}
+
+.islands {
+  stroke-width: 0.9;
+  vector-effect: non-scaling-stroke;
+  opacity: 0.55;
+}
+
+.cluster circle {
+  fill: var(--paper);
+  opacity: 0.6;
+}
+
+/* ---------- the course ---------- */
+/* The whole plotted course, barely there until it is flown */
+.ghost {
+  fill: none;
+  stroke: var(--paper);
+  stroke-width: 1;
+  stroke-dasharray: 1 7;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+  opacity: 0.16;
+}
+
+.leg {
+  fill: none;
+  stroke: var(--paper);
+  stroke-width: calc(var(--u, 1.4) * 1.15px);
+  stroke-linecap: butt;
+  opacity: var(--o, 0.6);
+}
+
+/* At rest the flown course sits back behind the figure it drew */
+.course {
+  opacity: 0.42;
+}
+
+/* The constellation: straight star-to-star lines, stopping short of each star */
+.figure {
+  stroke: var(--paper);
+  stroke-width: calc(var(--u, 1.4) * 1.5px);
+  stroke-linecap: butt;
+  opacity: var(--o, 0.85);
+}
+
+.star {
+  fill: var(--paper);
+}
+
+/* The comet's light along the course just behind it: brightest nearest */
+.tailFar,
+.tailNear,
+.spark {
+  fill: none;
+  stroke-linecap: butt;
+  visibility: hidden;
+}
+
+.tailFar {
+  stroke: var(--paper);
+  stroke-width: calc(var(--u, 1.4) * 1.8px);
+  stroke-opacity: 0.35;
+}
+
+.tailNear {
+  stroke: var(--yellow);
+  stroke-width: calc(var(--u, 1.4) * 2.4px);
+  stroke-opacity: 0.85;
+}
+
+.spark {
+  stroke: var(--paper);
+  stroke-width: calc(var(--u, 1.4) * 2.4px);
+  opacity: 0;
 }
 
 .node {
+  fill: var(--paper);
+  opacity: 0.7;
+}
+
+.leader {
+  stroke: var(--paper);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+  opacity: 0.55;
+  transition: opacity 0.5s var(--ease-out);
+}
+
+.leader[data-state='dormant'] {
+  opacity: 0.2;
+}
+
+.grain {
+  fill: var(--paper);
+}
+
+/* ---------- cities (HTML over the chart, so type and pins stay crisp) ---------- */
+.pins {
   position: absolute;
-  left: var(--x);
-  top: 0;
-  display: grid;
-  place-items: center;
-  width: 3.25rem;
-  height: 3.25rem;
-  translate: -50% 0;
-  border: var(--rule) solid var(--paper);
+  inset: 0;
+}
+
+.site {
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+
+/* Placed with offsets, not translate: GSAP owns these elements' transforms */
+.pin {
+  --pin-w: clamp(0.8rem, 1.05vw, 1.05rem);
+  position: absolute;
+  bottom: 1px;
+  left: calc(var(--pin-w) / -2);
+  display: block;
+  width: var(--pin-w);
+}
+
+.pinGlyph {
+  width: 100%;
+  --ink-color: var(--vermilion);
+}
+
+.ring {
+  --ring: 2.6rem;
+  position: absolute;
+  left: calc(var(--ring) / -2);
+  top: calc(var(--ring) / -2);
+  width: var(--ring);
+  height: var(--ring);
+  border: 1.5px solid var(--vermilion);
   border-radius: 50%;
-  background: var(--black);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.label {
+  position: absolute;
+  display: flex;
+  align-items: baseline;
+  gap: 0.4em;
+  white-space: nowrap;
+  line-height: 1;
+  /* A cartographer's knock-out, so a name stays readable over a line */
+  text-shadow:
+    0 0 3px var(--black),
+    0 0 8px var(--black);
   transition:
-    background var(--dur-ui) var(--ease-out),
-    scale var(--dur-section) var(--ease-out);
+    opacity 0.6s var(--ease-out),
+    filter 0.6s var(--ease-out);
 }
 
-.glyph {
-  width: 1.4rem;
-  --ink-color: var(--paper);
-  transition: transform var(--dur-section) var(--ease-out);
+.stage:not([data-placed]) .label {
+  visibility: hidden;
 }
 
-.node[data-passed] {
-  background: var(--yellow);
-  border-color: var(--yellow);
-  scale: 1.15;
+.labelN {
+  font-size: 0.66rem;
+  opacity: 0.6;
 }
 
-.node[data-passed] .glyph {
-  --ink-color: var(--black);
-  transform: rotate(90deg);
-}
-
-.stopLabel {
-  position: absolute;
-  top: 0.85rem;
-  left: calc(var(--x) + 2.4rem);
-  color: var(--yellow);
-}
-
-.stop[data-side='left'] .stopLabel {
-  left: auto;
-  right: calc(100% - var(--x) + 2.4rem);
-}
-
-/* Map-label halo: the field colour behind the words cuts the route line */
-.micro {
-  position: absolute;
-  top: 2.6rem;
-  left: calc(var(--x) + 2.4rem);
-  width: min(34ch, 40%);
-  padding: var(--s-2) var(--s-3);
-  background: var(--black);
-  font-size: var(--t-lede);
-  font-weight: 500;
-  line-height: 1.3;
+.labelName {
+  font-weight: 800;
   font-variation-settings:
-    'opsz' 28,
-    'wdth' 92;
+    'opsz' 72,
+    'wdth' 78;
+  font-size: clamp(0.98rem, 1.15vw, 1.2rem);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 
-.stop[data-side='left'] .micro {
-  left: auto;
-  right: calc(100% - var(--x) + 2.4rem);
-  text-align: right;
+/* Dormant names are present but out of focus; arrival brings them sharp */
+.label[data-state='dormant'] {
+  opacity: 0.34;
+  filter: blur(1.1px);
 }
 
-.next {
-  position: relative;
-  margin-top: var(--s-5);
-  text-align: right;
+.label[data-state='resolved'] {
+  opacity: 0.88;
 }
 
-.nextLine {
-  display: inline-block;
-  padding: var(--s-2) var(--s-3);
-  background: var(--black);
+.label[data-state='active'] {
+  opacity: 1;
+}
+
+/* ---------- the asteroid: the kit's comet, as ridden on the page's flight path ---------- */
+.asteroid {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0;
+  height: 0;
+  opacity: 0;
+  will-change: transform;
+  pointer-events: none;
+}
+
+/* Offset so the comet's head, not its box, sits on the course */
+.comet {
+  position: absolute;
+  width: 50px;
+  left: -12px;
+  top: -38px;
+}
+
+/* ---------- the instrument: count and the asteroid's own coordinates ---------- */
+.readout {
+  position: absolute;
+  right: var(--gutter);
+  bottom: 2.25rem;
+  display: grid;
+  gap: 0.35rem;
+  justify-items: end;
+  font-size: 0.8rem;
+}
+
+.readName {
+  margin-left: 0.8em;
+  font-family: var(--font-body);
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  font-size: var(--t-small);
-  color: var(--yellow);
+}
+
+.readCoord {
+  min-width: 17ch;
+  text-align: right;
+  opacity: 0.6;
+  white-space: pre;
+}
+
+/* ---------- coda: the deck's three lines around the map, after the stillness ---------- */
+.coda {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  column-gap: var(--s-6);
+  padding-top: var(--s-8);
+  padding-bottom: var(--s-9);
+}
+
+.micro {
+  display: grid;
+  grid-template-columns: 0.9rem minmax(0, 1fr);
+  column-gap: var(--s-3);
+  align-items: start;
+  max-width: 30ch;
+  padding-top: var(--s-3);
+  border-top: var(--rule) solid color-mix(in srgb, var(--paper) 40%, transparent);
+  font-size: 1.02rem;
+  line-height: 1.4;
+  text-wrap: pretty;
+}
+
+.microStar {
+  width: 0.8rem;
+  margin-top: 0.3em;
 }
 
 @media (max-width: 1023px) {
   .title,
-  .strap {
+  .lead {
     grid-column: 1 / -1;
   }
 }
 
+/* Phones: the whole country, edge to edge; the instrument sits beneath it */
 @media (max-width: 767px) {
-  .stop {
-    height: 210px;
+  .frame {
+    padding: 4.25rem var(--gutter) 6.5rem;
   }
-  .node {
-    left: var(--xm);
-    width: 2.75rem;
-    height: 2.75rem;
+  .camera {
+    width: min(100%, calc((100svh - 13rem) * 0.898));
   }
-  .stopLabel,
-  .stop[data-side='left'] .stopLabel {
-    left: calc(var(--xm) + 2rem);
-    right: auto;
+  .grid text {
+    font-size: 24px;
   }
-  .stop:nth-child(4) .stopLabel,
-  .stop:nth-child(6) .stopLabel,
-  .stop:nth-child(7) .stopLabel {
-    left: auto;
-    right: calc(100% - var(--xm) + 2rem);
+  .fieldStar:nth-child(2n) {
+    display: none;
   }
-  .micro,
-  .stop[data-side='left'] .micro {
-    left: 0;
-    right: 0;
-    top: 4rem;
-    width: auto;
+  .pin {
+    --pin-w: 0.78rem;
+  }
+  .ring {
+    --ring: 2rem;
+  }
+  .labelN {
+    font-size: 0.56rem;
+  }
+  .labelName {
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+  }
+  .comet {
+    width: 34px;
+    left: -8px;
+    top: -26px;
+  }
+  .readout {
+    left: calc(var(--gutter) + var(--rail));
+    right: var(--gutter);
+    bottom: 4.6rem;
+    justify-items: start;
+  }
+  .readCoord {
     text-align: left;
-    font-size: var(--t-body);
   }
-  .stop:nth-child(4) .micro {
-    left: 0;
-    right: 26%;
+  .coda {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: var(--s-5);
+    padding-top: var(--s-7);
   }
 }
 
+/* Reduced motion: no pin; the finished constellation at rest */
 @media (prefers-reduced-motion: reduce) {
-  .node,
-  .glyph {
+  .stage {
+    height: auto;
+    min-height: 0;
+  }
+  .frame {
+    height: auto;
+    padding-top: var(--s-7);
+    padding-bottom: var(--s-8);
+  }
+  .readout {
+    display: none;
+  }
+  .label,
+  .leader {
     transition: none;
+  }
+  .fieldStar {
+    animation: none;
   }
 }

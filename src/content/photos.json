@@ -182,247 +182,271 @@
  "yashobhoomi-outside": {
   "w": 1500,
   "h": 1000,
-  "source": "deck slide 14",
+  "source": "deck slide 13",
   "file": "s13-01.png"
  },
  "yashobhoomi-inside": {
   "w": 716,
   "h": 500,
-  "source": "deck slide 14",
+  "source": "deck slide 13",
   "file": "s13-02.png"
  },
  "fest-01": {
   "w": 1600,
   "h": 1066,
-  "source": "deck slide 15",
+  "source": "deck slide 14",
   "file": "s15-01.jpg"
  },
  "fest-02": {
   "w": 1600,
   "h": 1066,
-  "source": "deck slide 15",
+  "source": "deck slide 14",
   "file": "s15-02.jpg"
  },
  "fest-03": {
   "w": 1600,
   "h": 898,
-  "source": "deck slide 15",
+  "source": "deck slide 14",
   "file": "s15-03.jpg"
  },
  "fest-04": {
   "w": 1600,
   "h": 1066,
-  "source": "deck slide 15",
+  "source": "deck slide 14",
   "file": "s15-04.jpg"
  },
  "fest-05": {
   "w": 1280,
   "h": 960,
-  "source": "deck slide 16",
+  "source": "deck slide 14",
   "file": "s15-05.jpg"
  },
  "fest-06": {
   "w": 1600,
   "h": 1066,
-  "source": "deck slide 16",
+  "source": "deck slide 14",
   "file": "s15-06.jpg"
  },
  "fest-07": {
   "w": 1600,
   "h": 1066,
-  "source": "deck slide 16",
+  "source": "deck slide 14",
   "file": "s15-07.jpg"
  },
  "feed-builders": {
   "w": 782,
   "h": 1600,
-  "source": "deck slide 21",
+  "source": "deck slide 16",
   "file": "s17-02.jpg"
  },
  "feed-lifeatmu": {
   "w": 788,
   "h": 1600,
-  "source": "deck slide 21",
+  "source": "deck slide 16",
   "file": "s17-03.jpg"
  },
  "feed-elevator-pitch": {
   "w": 1148,
   "h": 2048,
-  "source": "deck slide 20",
+  "source": "deck slide 16",
   "file": "s17-04.jpg"
  },
  "u18": {
   "w": 748,
   "h": 1280,
-  "source": "deck slide 24",
+  "source": "deck slide 16",
   "file": "s17-01.jpg"
  },
  "dropshipping": {
   "w": 1600,
   "h": 1067,
-  "source": "deck slide 22",
+  "source": "deck slide 9",
   "file": "s19-01.jpg"
  },
  "launchpad-kitchen": {
   "w": 1600,
   "h": 1533,
-  "source": "deck slide 22",
+  "source": "deck slide 9",
   "file": "s19-02.jpg"
  },
- "dalal-street": {
+ "investment-fund": {
   "w": 1600,
   "h": 1066,
-  "source": "deck slide 23",
+  "source": "deck slide 9",
   "file": "s19-03.jpg"
  },
  "logo-pwc": {
   "w": 980,
   "h": 478,
-  "source": "deck slide 25",
+  "source": "deck slide 18",
   "file": "s25-01.png"
  },
  "logo-bloomberg": {
   "w": 460,
   "h": 92,
-  "source": "deck slide 25",
+  "source": "deck slide 18",
   "file": "s25-02.png"
  },
  "logo-hyrox": {
   "w": 565,
   "h": 79,
-  "source": "deck slide 25",
+  "source": "deck slide 18",
   "file": "s25-03.png"
  },
  "logo-superyou": {
   "w": 472,
   "h": 125,
-  "source": "deck slide 25",
+  "source": "deck slide 18",
   "file": "s25-04.png"
  },
  "logo-redbull": {
   "w": 676,
   "h": 383,
-  "source": "deck slide 25",
+  "source": "deck slide 18",
   "file": "s25-05.png"
  },
  "logo-pokerbaazi": {
   "w": 367,
   "h": 102,
-  "source": "deck slide 25",
+  "source": "deck slide 18",
   "file": "s25-06.png"
  },
  "logo-snitch": {
   "w": 514,
   "h": 695,
-  "source": "deck slide 25",
+  "source": "deck slide 18",
   "file": "s25-07.png"
  },
  "logo-peakst8": {
   "w": 590,
   "h": 254,
-  "source": "deck slide 25",
+  "source": "deck slide 18",
   "file": "s25-08.png"
  },
  "logo-iit": {
   "w": 190,
   "h": 190,
-  "source": "deck slide 25",
+  "source": "deck slide 18",
   "file": "s25-09.png"
  },
  "logo-sharktank": {
   "w": 174,
   "h": 229,
-  "source": "deck slide 25",
+  "source": "deck slide 18",
   "file": "s25-10.png"
  },
  "logo-reebok": {
   "w": 482,
   "h": 225,
-  "source": "deck slide 25",
+  "source": "deck slide 18",
   "file": "s25-11.png"
  },
  "logo-yourspace": {
   "w": 1020,
   "h": 344,
-  "source": "deck slide 25",
+  "source": "deck slide 18",
   "file": "s25-12.png"
  },
  "logo-boat": {
   "w": 540,
   "h": 221,
-  "source": "deck slide 25",
+  "source": "deck slide 18",
   "file": "s25-13.png"
  },
  "logo-nivia": {
   "w": 2048,
   "h": 1300,
-  "source": "deck slide 25",
+  "source": "deck slide 18",
   "file": "s25-14.png"
  },
  "logo-meesho": {
   "w": 1872,
   "h": 432,
-  "source": "deck slide 25",
+  "source": "deck slide 18",
   "file": "s25-15.png"
  },
  "logo-itc": {
   "w": 403,
   "h": 425,
-  "source": "deck slide 25",
+  "source": "deck slide 18",
   "file": "s25-16.png"
  },
  "logo-philips": {
   "w": 1956,
   "h": 361,
-  "source": "deck slide 25",
+  "source": "deck slide 18",
   "file": "s25-17.png"
  },
  "logo-hero": {
   "w": 810,
   "h": 911,
-  "source": "deck slide 25",
+  "source": "deck slide 18",
   "file": "s25-18.png"
  },
  "logo-zerodha": {
   "w": 288,
   "h": 35,
-  "source": "deck slide 25",
+  "source": "deck slide 18",
   "file": "s25-19.png"
  },
  "logo-agoda": {
   "w": 226,
   "h": 115,
-  "source": "deck slide 25",
+  "source": "deck slide 18",
   "file": "s25-20.png"
  },
  "logo-ferrari": {
   "w": 305,
   "h": 415,
-  "source": "deck slide 25",
+  "source": "deck slide 18",
   "file": "s25-21.png"
  },
  "logo-myntra": {
   "w": 1935,
   "h": 588,
-  "source": "deck slide 25",
+  "source": "deck slide 18",
   "file": "s25-22.png"
  },
  "logo-upgrad": {
   "w": 800,
   "h": 205,
-  "source": "deck slide 25",
+  "source": "deck slide 18",
   "file": "s25-23.jpg"
  },
  "logo-nvidia": {
   "w": 1459,
   "h": 278,
-  "source": "deck slide 25",
+  "source": "deck slide 18",
   "file": "s25-24.png"
  },
  "logo-makemytrip": {
   "w": 800,
   "h": 800,
-  "source": "deck slide 25",
+  "source": "deck slide 18",
   "file": "s25-25.png"
+ },
+ "logo-instagram": {
+  "w": 148,
+  "h": 148,
+  "source": "deck slide 15",
+  "file": "v2-s15-04.jpg"
+ },
+ "logo-youtube": {
+  "w": 871,
+  "h": 366,
+  "source": "deck slide 15",
+  "file": "v2-s15-01.png"
+ },
+ "logo-linkedin": {
+  "w": 1246,
+  "h": 1242,
+  "source": "deck slide 15",
+  "file": "v2-s15-02.png"
+ },
+ "logo-x": {
+  "w": 2048,
+  "h": 2048,
+  "source": "deck slide 15",
+  "file": "v2-s15-03.png"
  }
 }
