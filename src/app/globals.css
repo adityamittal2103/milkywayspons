@@ -78,6 +78,8 @@
   --z-art: 1;
   --z-trajectory: 5;
   --z-content: 10;
+  /* The flight path's comet: the page's one foreground object, above content, below the nav */
+  --z-meteor: 20;
   --z-nav: 50;
   --z-index: 80;
   --z-grain: 90;
@@ -321,6 +323,34 @@ ol {
 .content {
   position: relative;
   z-index: var(--z-content);
+}
+
+/* The sky never quite stops: every star field drifts, very slowly, on its own.
+   A composited transform only; slightly enlarged so the edges never show. */
+@media (prefers-reduced-motion: no-preference) {
+  .starfield {
+    animation: star-drift 90s ease-in-out infinite alternate;
+  }
+}
+
+@keyframes star-drift {
+  from {
+    translate: 0 0;
+    scale: 1.04;
+  }
+  to {
+    translate: -1.6% 1.2%;
+    scale: 1.07;
+  }
+}
+
+/* The gate: a band that runs edge to edge (photo strips, the reels) fades out
+   before it reaches the margin rail, where the flight path's comet flies.
+   Moving photographs end at the gate; they never pass under or over the comet. */
+.gate {
+  --gate: calc(var(--gutter) + var(--rail) * 0.94);
+  -webkit-mask-image: linear-gradient(to right, transparent var(--gate), #000 calc(var(--gate) + 2.75rem));
+  mask-image: linear-gradient(to right, transparent var(--gate), #000 calc(var(--gate) + 2.75rem));
 }
 
 .sr-only {

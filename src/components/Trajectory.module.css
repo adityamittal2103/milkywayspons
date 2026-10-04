@@ -40,6 +40,15 @@
   stroke-width: 3.5;
 }
 
+/* The comet's own layer, above the page's content (see Trajectory.tsx) */
+.sky {
+  position: absolute;
+  inset: 0;
+  z-index: var(--z-meteor);
+  overflow: hidden;
+  pointer-events: none;
+}
+
 .head {
   position: absolute;
   top: 0;
@@ -49,6 +58,62 @@
   opacity: 0;
   transition: opacity 0.3s linear;
   will-change: transform;
+}
+
+/* A point at the comet's head: everything below turns and drifts around it */
+.drift {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0;
+  height: 0;
+}
+
+/* Alive while the page is still: a small orbit, a slow tumble, a faint swell.
+   Three loops of different lengths, so the motion never visibly repeats. */
+@media (prefers-reduced-motion: no-preference) {
+  .drift {
+    animation:
+      comet-orbit 9s ease-in-out infinite,
+      comet-tumble 13s ease-in-out infinite,
+      comet-swell 7s ease-in-out infinite;
+  }
+}
+
+@keyframes comet-orbit {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  25% {
+    translate: 2.5px -2px;
+  }
+  50% {
+    translate: 0 -4px;
+  }
+  75% {
+    translate: -2.5px -1.5px;
+  }
+}
+
+@keyframes comet-tumble {
+  0%,
+  100% {
+    rotate: -4deg;
+  }
+  50% {
+    rotate: 5deg;
+  }
+}
+
+@keyframes comet-swell {
+  0%,
+  100% {
+    scale: 1;
+  }
+  50% {
+    scale: 1.05;
+  }
 }
 
 /* Offset so the comet's head, not its box, sits on the line */

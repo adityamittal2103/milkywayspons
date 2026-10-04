@@ -58,41 +58,72 @@
   font-size: 0.8em;
 }
 
-/* ---------- the reels: a carousel that brings one forward ---------- */
+/* ---------- the reels: a revolving three-card system ---------- */
+/* Full-bleed band, centred on the content column, gated before the margin rail */
 .reels {
+  --card: clamp(13rem, 18.5vw, 18.5rem);
   margin-top: var(--s-8);
+  padding-left: calc(var(--gutter) + var(--rail));
+  padding-right: var(--gutter);
+  overflow: hidden;
 }
 
-.track {
-  --card: clamp(12.5rem, 19vw, 17rem);
-  display: flex;
-  align-items: center;
-  gap: var(--s-3);
-  /* Room at both ends so the first and last reels can come to the centre */
-  padding-inline: calc(50% - var(--card) / 2);
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  scrollbar-width: none;
-  overscroll-behavior-x: contain;
+.system {
+  position: relative;
+  height: calc(var(--card) * 16 / 9);
+  perspective: 1600px;
 }
 
-.track::-webkit-scrollbar {
-  display: none;
-}
-
+/* Every reel sits at the centre and is carried to its slot by a transform alone */
 .reel {
-  flex: none;
+  position: absolute;
+  left: 50%;
+  top: 0;
   width: var(--card);
-  scroll-snap-align: center;
-  transform: scale(0.8);
-  opacity: 0.55;
+  margin-left: calc(var(--card) / -2);
+  transform-origin: 50% 60%;
   transition:
-    transform var(--dur-section) var(--ease-out),
-    opacity var(--dur-section) var(--ease-out);
+    transform 0.95s cubic-bezier(0.7, 0, 0.2, 1),
+    opacity 0.7s cubic-bezier(0.7, 0, 0.2, 1);
+  will-change: transform;
 }
 
-.reel[data-active] {
-  transform: scale(1);
+/* In front */
+.reel[data-slot='0'] {
+  z-index: 3;
+  transform: none;
+  opacity: 1;
+}
+
+/* Beside it, turned slightly toward the centre */
+.reel[data-slot='1'],
+.reel[data-slot='-1'] {
+  z-index: 2;
+  opacity: 0.82;
+  transform: translateX(calc(var(--d) * var(--card) * 0.8)) scale(0.86) rotateY(calc(var(--d) * -14deg));
+}
+
+/* Waiting at the edges, out of sight: the next to arrive, the last to leave */
+.reel[data-slot='2'],
+.reel[data-slot='-2'] {
+  z-index: 1;
+  opacity: 0;
+  transform: translateX(calc(var(--d) * var(--card) * 0.66)) scale(0.68) rotateY(calc(var(--d) * -12deg));
+}
+
+/* Behind the reel in front, crossing over unseen */
+.reel[data-slot='3'] {
+  z-index: 0;
+  opacity: 0;
+  transform: scale(0.6);
+}
+
+.reel:not([data-slot='0']) .reelLink {
+  cursor: pointer;
+}
+
+.reel[data-slot='1']:hover,
+.reel[data-slot='-1']:hover {
   opacity: 1;
 }
 
@@ -121,13 +152,18 @@
   transition: opacity var(--dur-ui) var(--ease-out);
 }
 
-.reel[data-active] .play {
+.reel[data-slot='0'] .play {
   opacity: 1;
 }
 
 .playGlyph {
   width: 1rem;
   --ink-color: var(--cyan);
+}
+
+/* Reduced motion: the same three-card composition, still; arrows move it */
+.reels[data-still] .reel {
+  transition: none;
 }
 
 .controls {
@@ -202,8 +238,8 @@
   .unit {
     font-size: 1rem;
   }
-  .track {
-    --card: 58vw;
+  .reels {
+    --card: 44vw;
   }
 }
 

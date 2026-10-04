@@ -142,5 +142,5 @@ export function Starfield({ className, density = 7, seed = 11 }: Props) {
     };
   }, [density, seed]);
 
-  return <canvas ref={ref} className={className} aria-hidden="true" />;
+  return <canvas ref={ref} className={`starfield${className ? ` ${className}` : ''}`} aria-hidden="true" />;
 }

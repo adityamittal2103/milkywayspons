@@ -18,43 +18,76 @@ export function Audience() {
   const [slide, setSlide] = useState(0);
   const holdUntil = useRef(0);
 
-  // Phones (mobile sheet): the collage becomes a slider that advances on its
-  // own, pauses when touched, and shows where it is.
+  // Phones (mobile sheet): the collage becomes a slider that starts moving as
+  // soon as it is on screen, loops without a visible rewind (copies of the first
+  // photographs follow the last and are swapped back unseen), pauses when touched,
+  // and shows where it is.
   useEffect(() => {
     const el = album.current;
     if (!el) return;
+    const n = audience.photos.length;
     const phone = window.matchMedia('(max-width: 767px)');
     const frames = () => Array.from(el.children) as HTMLElement[];
-    const onScroll = () => {
-      if (!phone.matches) return;
+    const left = (f: HTMLElement) => f.offsetLeft - (el.clientWidth - f.offsetWidth) / 2;
+    const nearest = () => {
       const mid = el.scrollLeft + el.clientWidth / 2;
       let best = 0;
+      let dist = Infinity;
       frames().forEach((f, i) => {
-        if (Math.abs(f.offsetLeft + f.offsetWidth / 2 - mid) < Math.abs(frames()[best].offsetLeft + frames()[best].offsetWidth / 2 - mid)) best = i;
+        const d = Math.abs(f.offsetLeft + f.offsetWidth / 2 - mid);
+        if (d < dist) {
+          dist = d;
+          best = i;
+        }
       });
-      setSlide(best);
+      return best;
+    };
+    let settle = 0;
+    const onScroll = () => {
+      if (!phone.matches) return;
+      setSlide(nearest() % n);
+      // Resting on a copy: jump to the original it copies, which looks identical.
+      window.clearTimeout(settle);
+      settle = window.setTimeout(() => {
+        const i = nearest();
+        if (i >= n) el.scrollTo({ left: left(frames()[i - n]), behavior: 'instant' });
+      }, 140);
+    };
+    let timer = 0;
+    let visible = false;
+    const step = () => {
+      window.clearTimeout(timer);
+      if (!phone.matches || !visible || prefersReducedMotion()) return;
+      const wait = holdUntil.current - performance.now();
+      if (wait > 0) {
+        timer = window.setTimeout(step, wait);
+        return;
+      }
+      const next = frames()[nearest() + 1];
+      if (next) el.scrollTo({ left: left(next), behavior: 'smooth' });
+      timer = window.setTimeout(step, 3200);
     };
     const hold = () => (holdUntil.current = performance.now() + 5000);
     el.addEventListener('scroll', onScroll, { passive: true });
     el.addEventListener('touchstart', hold, { passive: true });
     el.addEventListener('pointerdown', hold);
-    let visible = false;
-    const io = new IntersectionObserver(([e]) => (visible = e.isIntersecting), { threshold: 0.5 });
+    const io = new IntersectionObserver(
+      ([e]) => {
+        visible = e.isIntersecting;
+        window.clearTimeout(timer);
+        // Moving within a moment of arriving, not after a dead pause.
+        if (visible) timer = window.setTimeout(step, 1100);
+      },
+      { threshold: 0.5 },
+    );
     io.observe(el);
-    const timer = window.setInterval(() => {
-      if (!phone.matches || !visible || prefersReducedMotion() || performance.now() < holdUntil.current) return;
-      const list = frames();
-      const mid = el.scrollLeft + el.clientWidth / 2;
-      const now = list.findIndex((f) => f.offsetLeft + f.offsetWidth > mid);
-      const next = list[(now + 1) % list.length];
-      el.scrollTo({ left: next.offsetLeft - (el.clientWidth - next.offsetWidth) / 2, behavior: 'smooth' });
-    }, 3200);
     return () => {
       el.removeEventListener('scroll', onScroll);
       el.removeEventListener('touchstart', hold);
       el.removeEventListener('pointerdown', hold);
       io.disconnect();
-      window.clearInterval(timer);
+      window.clearTimeout(timer);
+      window.clearTimeout(settle);
     };
   }, []);
 
@@ -85,11 +118,17 @@ export function Audience() {
             <p className={`lede ${styles.who}`}>{audience.who}</p>
           </div>
 
-          <div className={styles.albumWrap}>
+          <div className={`${styles.albumWrap} ${styles.gated}`}>
             <ul ref={album} className={styles.album} aria-label="Festival photographs">
               {audience.photos.map((p, n) => (
                 <li key={p.id} className={styles.frame} data-frame={n}>
                   <Photo id={p.id} alt={p.alt} sizes="(max-width: 767px) 80vw, 26vw" />
+                </li>
+              ))}
+              {/* Copies of the first two, for the slider's seamless loop on phones */}
+              {audience.photos.slice(0, 2).map((p) => (
+                <li key={`${p.id}-loop`} className={`${styles.frame} ${styles.loop}`} aria-hidden="true">
+                  <Photo id={p.id} alt="" sizes="80vw" />
                 </li>
               ))}
             </ul>

@@ -36,7 +36,8 @@
   grid-column: 6 / -1;
 }
 
-.dots {
+.dots,
+.loop {
   display: none;
 }
 
@@ -136,6 +137,12 @@
   .albumWrap {
     margin-inline: calc((var(--gutter) + var(--rail)) * -1) calc(var(--gutter) * -1);
   }
+  /* Full-bleed on phones, so the slider ends at the gate before the rail */
+  .gated .album {
+    --gate: calc(var(--gutter) + var(--rail) * 0.94);
+    -webkit-mask-image: linear-gradient(to right, transparent var(--gate), #000 calc(var(--gate) + 2.75rem));
+    mask-image: linear-gradient(to right, transparent var(--gate), #000 calc(var(--gate) + 2.75rem));
+  }
   .album {
     position: relative;
     display: flex;
@@ -149,7 +156,9 @@
   .album::-webkit-scrollbar {
     display: none;
   }
-  .frame[data-frame] {
+  .frame[data-frame],
+  .loop {
+    display: block;
     flex: none;
     width: 78vw;
     aspect-ratio: 4 / 5;

@@ -113,7 +113,8 @@ export function Trajectory() {
       flown.style.strokeDashoffset = `${total - len}`;
       for (const a of anchors) a.el.toggleAttribute('data-passed', len >= a.len - 1);
 
-      const visible = len > 0 && len < total && !lifted;
+      // The comet emerges from the landing pin rather than sitting on its words.
+      const visible = len > 56 && len < total && !lifted;
       head.style.opacity = visible ? '1' : '0';
       if (visible) {
         const p = flown.getPointAtLength(len);
@@ -143,16 +144,25 @@ export function Trajectory() {
     };
   }, []);
 
+  // Two layers: the route runs beneath the page's content, in the margin rail;
+  // the comet flies above it as the page's one foreground object. Moving photo
+  // bands fade out before they reach the rail (the gate), so nothing crosses it.
   return (
-    <div className={styles.layer} aria-hidden="true">
-      <svg ref={svgRef} className={styles.svg} preserveAspectRatio="none">
-        <path ref={casingRef} className={styles.casing} />
-        <path ref={plannedRef} className={styles.planned} />
-        <path ref={flownRef} className={styles.flown} />
-      </svg>
-      <div ref={headRef} className={styles.head}>
-        <Ink name="comet-1" color="yellow" className={styles.comet} />
+    <>
+      <div className={styles.layer} aria-hidden="true">
+        <svg ref={svgRef} className={styles.svg} preserveAspectRatio="none">
+          <path ref={casingRef} className={styles.casing} />
+          <path ref={plannedRef} className={styles.planned} />
+          <path ref={flownRef} className={styles.flown} />
+        </svg>
       </div>
-    </div>
+      <div className={styles.sky} aria-hidden="true">
+        <div ref={headRef} className={styles.head}>
+          <span className={styles.drift}>
+            <Ink name="comet-1" color="yellow" className={styles.comet} />
+          </span>
+        </div>
+      </div>
+    </>
   );
 }

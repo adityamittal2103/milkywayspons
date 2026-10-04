@@ -393,9 +393,12 @@
   .optionName {
     font-size: 1.45rem;
   }
+  /* The paper runs edge to edge; its contents start after the margin rail, so
+     the flight path's comet passes over paper, never over the table's words. */
   .plate {
     margin-left: calc((var(--gutter) + var(--rail)) * -1);
     margin-right: calc(var(--gutter) * -1);
+    padding-left: calc(var(--gutter) + var(--rail));
     scroll-margin-top: 4.5rem;
   }
   .compare {

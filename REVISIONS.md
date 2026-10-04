@@ -68,3 +68,16 @@ the mobile revision sheet (Google Sheets), and the Milky Way brand kit.
 - Content: `src/content/milky-way.ts` (every section's copy), `scripts/photos.map.json` (13 new deck photographs), `src/content/photos.json`, `public/deck/*`
 - Mobile sheet: `src/components/FocusLight.tsx` (new), `Photo`, `Waypoint`, `Signal`, `Origin`, `Audience`, `Tiers`, `Landing`, `Sky`, `Road.module.css`, `src/app/globals.css`, `public/brand/glyph/*.svg`, `scripts/build-assets.mjs`
 - Sections: `Hero`, `Sky` (was `Prologue`), `MilkyWay` (fest intro + event symbols), `Audience` (new; replaces `Worlds`), `Landing` (venue), `Road` (intro and close), `Origin` (learned / firsts / moments), `Reach` (metrics + reel carousel), `Company`, `Tiers`, `Signal`, `Nav`, `src/app/page.tsx` (deck order)
+
+## Motion QA pass, 4 Oct 2026
+
+| Area | Found | Fixed |
+| --- | --- | --- |
+| Comet (flight path) | Lived in a layer under the page's content: moving photo bands ran under it, and on phones it vanished behind the tiers table. Static between scrolls. | Its own foreground layer (`--z-meteor`, above content, below the nav). A slow ambient orbit, tumble and swell (9 s / 13 s / 7 s loops) while the page is still. Emerges from the landing pin instead of sitting on its words. |
+| Gate | The guests strip, the reels and the phone photo slider crossed the margin rail. | A shared `.gate` mask: every edge-to-edge band fades out before the rail, so photos end before the comet. The phone tiers table keeps its edge-to-edge paper but starts its words after the rail. |
+| Reels | A scroll carousel that waited for the reader. | A revolving three-card system: one in front, one either side turned toward it, the rest waiting unseen; turns every 2.8 s from the moment it is in view, loops forever without a reset, never pauses on hover. Transforms and opacity only; every cover loaded up front. |
+| Guests strip | Stopped on hover. | Only slows on hover; arrows and swipes hold it briefly. |
+| Phone photo slider | Rewound to the start at the end; waited 3 s before moving. | Seamless loop (copies swapped back unseen); first move about 1 s after it appears. |
+| Star fields | Moved only with the pointer or scroll. | A 90 s ambient drift, composited. |
+
+Checked: a scripted scroll through the whole page at 1440, 1280, 1024, 430, 390 and 375 px tested the comet's outline against every visible word, photo and control. No text, table or control collisions remain; the only overlaps are photographs inside a gate, which are faded out at the comet's position. Reduced motion: reels keep their three-card composition, still; the guests strip and the comet's drift stop. No horizontal overflow, no console errors.

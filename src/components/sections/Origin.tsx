@@ -20,8 +20,8 @@ export function Origin() {
   const strip = useRef<HTMLDivElement>(null);
   const holdUntil = useRef(0);
 
-  // The guests drift on their own, slowly (mobile sheet: it was too fast), and
-  // stop for a few seconds whenever the reader swipes, scrolls, hovers or uses the arrows.
+  // The guests drift on their own, slowly (mobile sheet: it was too fast). Hover
+  // only slows them; a swipe, a scroll or the arrows hold them for a few seconds.
   useEffect(() => {
     const el = strip.current;
     if (!el || prefersReducedMotion()) return;
@@ -34,9 +34,9 @@ export function Origin() {
     const tick = (now: number) => {
       const dt = last ? Math.min(64, now - last) : 16;
       last = now;
-      if (hover || now < holdUntil.current) pos = el.scrollLeft;
+      if (now < holdUntil.current) pos = el.scrollLeft;
       else {
-        pos += ((window.innerWidth < 768 ? 20 : 26) * dt) / 1000;
+        pos += ((window.innerWidth < 768 ? 20 : 26) * (hover ? 0.4 : 1) * dt) / 1000;
         if (pos >= half()) pos -= half();
         el.scrollLeft = pos;
       }
@@ -44,10 +44,7 @@ export function Origin() {
     };
     const hold = () => (holdUntil.current = performance.now() + 3500);
     const enter = () => (hover = true);
-    const leave = () => {
-      hover = false;
-      hold();
-    };
+    const leave = () => (hover = false);
     const io = new IntersectionObserver(([e]) => {
       visible = e.isIntersecting;
       if (visible && !raf) {
@@ -103,7 +100,7 @@ export function Origin() {
       </div>
 
       {/* The guests, running past. The second copy closes the loop for sighted readers only. */}
-      <div ref={strip} className={styles.marquee} role="region" aria-label="Guests who have spoken at Masters' Union" tabIndex={0}>
+      <div ref={strip} className={`gate ${styles.marquee}`} role="region" aria-label="Guests who have spoken at Masters' Union" tabIndex={0}>
         <div className={styles.run}>
           {[0, 1].map((copy) => (
             <ul key={copy} className={styles.people} aria-hidden={copy === 1 || undefined}>

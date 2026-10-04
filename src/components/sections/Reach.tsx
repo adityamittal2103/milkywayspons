@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState, type MouseEvent } from 'react';
+import { useCallback, useEffect, useRef, useState, type CSSProperties, type MouseEvent } from 'react';
 import { reach } from '@/content/milky-way';
 import { prefersReducedMotion } from '@/lib/motion';
 import { CutEdge } from '../CutEdge';
@@ -10,64 +10,68 @@ import { Photo } from '../Photo';
 import { Waypoint } from '../Waypoint';
 import styles from './Reach.module.css';
 
+const STEP_MS = 2800;
+
 /**
- * s12–14: the platforms in one row, icons all one size, then six reels on a
- * carousel (comments on s12–13): the best three first, the reel in front
- * larger while its neighbours recede, arrows or a swipe for the rest. A tap on
- * a reel at the side brings it forward; a tap on the reel in front opens it.
+ * s12–14: the platforms in one row, icons all one size, then the six reels as
+ * a revolving three-card system: one reel in front, one either side, the rest
+ * waiting behind. It turns on its own from the moment it is in view, forever;
+ * a tap on a side reel brings it forward, a tap on the reel in front opens it.
  */
 export function Reach() {
-  const track = useRef<HTMLUListElement>(null);
-  const [active, setActive] = useState(1);
+  const stage = useRef<HTMLDivElement>(null);
   const total = reach.reels.length;
+  // The best three open the sequence: reel 2 in front, 1 and 3 beside it.
+  const [active, setActive] = useState(1);
+  const [still, setStill] = useState(false);
+  const timer = useRef(0);
+  const visible = useRef(false);
 
-  const cards = () => Array.from(track.current?.querySelectorAll<HTMLElement>('[data-reel]') ?? []);
-  const centre = (i: number, smooth = true) => {
-    const el = track.current;
-    const card = cards()[i];
-    if (!el || !card) return;
-    el.scrollTo({
-      left: card.offsetLeft - (el.clientWidth - card.offsetWidth) / 2,
-      behavior: smooth && !prefersReducedMotion() ? 'smooth' : 'auto',
-    });
-  };
+  const schedule = useCallback(() => {
+    window.clearTimeout(timer.current);
+    if (!visible.current || prefersReducedMotion()) return;
+    timer.current = window.setTimeout(() => {
+      setActive((a) => (a + 1) % total);
+      schedule();
+    }, STEP_MS);
+  }, [total]);
 
   useEffect(() => {
-    const el = track.current;
+    setStill(prefersReducedMotion());
+    const el = stage.current;
     if (!el) return;
-    // Open on the best three: the second of them in front, the first and third beside it.
-    centre(1, false);
-    let raf = 0;
-    const onScroll = () => {
-      cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(() => {
-        const mid = el.scrollLeft + el.clientWidth / 2;
-        let best = 0;
-        let dist = Infinity;
-        cards().forEach((c, i) => {
-          const d = Math.abs(c.offsetLeft + c.offsetWidth / 2 - mid);
-          if (d < dist) {
-            dist = d;
-            best = i;
-          }
-        });
-        setActive(best);
-      });
-    };
-    el.addEventListener('scroll', onScroll, { passive: true });
-    const ro = new ResizeObserver(() => onScroll());
-    ro.observe(el);
+    // Starts the moment the reels are on screen; rests while they are not.
+    const io = new IntersectionObserver(
+      ([e]) => {
+        visible.current = e.isIntersecting;
+        if (visible.current) schedule();
+        else window.clearTimeout(timer.current);
+      },
+      { threshold: 0.25 },
+    );
+    io.observe(el);
     return () => {
-      el.removeEventListener('scroll', onScroll);
-      ro.disconnect();
-      cancelAnimationFrame(raf);
+      io.disconnect();
+      window.clearTimeout(timer.current);
     };
-  }, []);
+  }, [schedule]);
+
+  const go = (i: number) => {
+    setActive(((i % total) + total) % total);
+    schedule();
+  };
+
+  // Where each reel sits relative to the one in front: 0 front, ±1 beside, ±2 waiting, 3 behind.
+  const offset = (i: number) => {
+    let d = (i - active + total) % total;
+    if (d > total / 2) d -= total;
+    return d;
+  };
 
   const onCard = (i: number) => (e: MouseEvent) => {
-    if (i !== active) {
+    if (offset(i) !== 0) {
       e.preventDefault();
-      centre(i);
+      go(i);
     }
   };
 
@@ -97,52 +101,52 @@ export function Reach() {
         </ul>
       </div>
 
-      <div className={styles.reels} role="region" aria-roledescription="carousel" aria-label="Selected reels">
-        <ul ref={track} className={styles.track}>
-          {reach.reels.map((r, i) => (
-            <li key={r.href} className={styles.reel} data-reel data-active={i === active || undefined}>
-              <a
-                href={r.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={styles.reelLink}
-                onClick={onCard(i)}
-                onFocus={() => centre(i)}
-              >
-                <Photo id={r.cover} alt="" treatment="color" className={styles.cover} sizes="(max-width: 767px) 62vw, 20rem" />
-                <span className={styles.play} aria-hidden="true">
-                  <Glyph name="forward" className={styles.playGlyph} />
-                </span>
-                <span className="sr-only">
-                  Reel {i + 1} of {total}: {r.alt} (opens Instagram in a new tab)
-                </span>
-              </a>
-            </li>
-          ))}
+      <div
+        ref={stage}
+        className={`gate ${styles.reels}`}
+        role="region"
+        aria-roledescription="carousel"
+        aria-label="Selected reels"
+        data-still={still || undefined}
+      >
+        <ul className={styles.system}>
+          {reach.reels.map((r, i) => {
+            const d = offset(i);
+            const shown = Math.abs(d) <= 1;
+            return (
+              <li key={r.href} className={styles.reel} data-slot={d} style={{ '--d': d } as CSSProperties}>
+                <a
+                  href={r.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.reelLink}
+                  onClick={onCard(i)}
+                  tabIndex={shown ? 0 : -1}
+                  aria-hidden={!shown || undefined}
+                >
+                  <Photo id={r.cover} alt="" treatment="color" priority className={styles.cover} sizes="(max-width: 767px) 50vw, 18rem" />
+                  <span className={styles.play} aria-hidden="true">
+                    <Glyph name="forward" className={styles.playGlyph} />
+                  </span>
+                  <span className="sr-only">
+                    {d === 0 ? `Reel ${i + 1} of ${total}, in front: ${r.alt} (opens Instagram in a new tab)` : `Bring reel ${i + 1} forward: ${r.alt}`}
+                  </span>
+                </a>
+              </li>
+            );
+          })}
         </ul>
       </div>
 
       <div className="wrap content">
         <div className={styles.controls}>
-          <button
-            type="button"
-            className={styles.arrow}
-            onClick={() => centre(Math.max(0, active - 1))}
-            disabled={active === 0}
-            aria-label="Previous reel"
-          >
+          <button type="button" className={styles.arrow} onClick={() => go(active - 1)} aria-label="Previous reel">
             <Glyph name="forward" className={`${styles.arrowGlyph} ${styles.back}`} />
           </button>
           <p className={`coord ${styles.count}`} aria-live="polite">
             {String(active + 1).padStart(2, '0')} / {String(total).padStart(2, '0')}
           </p>
-          <button
-            type="button"
-            className={styles.arrow}
-            onClick={() => centre(Math.min(total - 1, active + 1))}
-            disabled={active === total - 1}
-            aria-label="Next reel"
-          >
+          <button type="button" className={styles.arrow} onClick={() => go(active + 1)} aria-label="Next reel">
             <Glyph name="forward" className={styles.arrowGlyph} />
           </button>
         </div>
