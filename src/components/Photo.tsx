@@ -49,13 +49,14 @@ export function Photo({
     />
   );
   const cls = `${styles.photo} ${treatment === 'print' ? styles.print : ''}${className ? ` ${className}` : ''}`;
+  const print = treatment === 'print' || undefined;
   return caption ? (
-    <figure className={cls} style={style}>
+    <figure className={cls} style={style} data-print={print}>
       {img}
       <figcaption className={styles.caption}>{caption}</figcaption>
     </figure>
   ) : (
-    <div className={cls} style={style}>
+    <div className={cls} style={style} data-print={print}>
       {img}
     </div>
   );

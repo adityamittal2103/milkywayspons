@@ -85,22 +85,24 @@
   height: auto;
 }
 
+/* Clear of the nav's readout, which stays on screen from the first frame */
 .meta {
   position: absolute;
   left: var(--gutter);
-  bottom: var(--s-6);
+  bottom: calc(var(--s-6) + 4.5rem);
   width: min(34vw, 32rem);
   display: grid;
   gap: var(--s-3);
   justify-items: start;
 }
 
+/* s1: "A fest where the universe comes alive" */
 .tagline {
-  font-size: min(4.6vw, 7.4svh);
-  max-width: 9ch;
+  font-size: min(3.7vw, 6.2svh);
+  max-width: 12ch;
 }
 
-.yours {
+.bar {
   color: var(--yellow);
 }
 
@@ -206,7 +208,7 @@
     width: 88vw;
   }
   .tagline {
-    font-size: clamp(2.5rem, 12.5vw, 3.6rem);
+    font-size: clamp(2.1rem, 10vw, 3rem);
   }
   .when {
     font-size: var(--t-lede);

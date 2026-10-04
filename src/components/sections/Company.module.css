@@ -2,10 +2,25 @@
   overflow: clip;
 }
 
-.title {
+.head {
+  display: grid;
+  gap: var(--s-4);
   margin-top: var(--s-7);
+}
+
+.title {
   font-size: var(--t-h1);
   max-width: 16ch;
+}
+
+.lines {
+  display: grid;
+  max-width: 34ch;
+}
+
+.across {
+  max-width: 44ch;
+  opacity: 0.8;
 }
 
 .orbit {

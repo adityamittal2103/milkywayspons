@@ -275,6 +275,84 @@
   "source": "deck slide 9",
   "file": "s19-03.jpg"
  },
+ "venue-stage": {
+  "w": 1289,
+  "h": 1497,
+  "source": "Main deck w changes, slide 7",
+  "file": "v3-s07-01.png"
+ },
+ "venue-hall": {
+  "w": 1289,
+  "h": 859,
+  "source": "Main deck w changes, slide 7",
+  "file": "v3-s07-03.png"
+ },
+ "guest-fireside": {
+  "w": 1365,
+  "h": 2048,
+  "source": "Main deck w changes, slide 9",
+  "file": "v3-s09-04.jpg"
+ },
+ "guest-saree": {
+  "w": 1365,
+  "h": 2048,
+  "source": "Main deck w changes, slide 9",
+  "file": "v3-s09-07.jpg"
+ },
+ "lexis-kitchen": {
+  "w": 1600,
+  "h": 1533,
+  "source": "Main deck w changes, slide 10",
+  "file": "v3-s10-01.jpg"
+ },
+ "hyrox-delhi-sign": {
+  "w": 1365,
+  "h": 2048,
+  "source": "Main deck w changes, slide 11",
+  "file": "v3-s11-01.jpg"
+ },
+ "demo-day-hall": {
+  "w": 1600,
+  "h": 1066,
+  "source": "Main deck w changes, slide 11",
+  "file": "v3-s11-02.jpg"
+ },
+ "reel-01": {
+  "w": 425,
+  "h": 764,
+  "source": "Main deck w changes, slide 13",
+  "file": "v3-s13-01.png"
+ },
+ "reel-02": {
+  "w": 428,
+  "h": 753,
+  "source": "Main deck w changes, slide 13",
+  "file": "v3-s13-02.jpg"
+ },
+ "reel-03": {
+  "w": 429,
+  "h": 777,
+  "source": "Main deck w changes, slide 13",
+  "file": "v3-s13-03.jpg"
+ },
+ "reel-04": {
+  "w": 366,
+  "h": 526,
+  "source": "Main deck w changes, slide 14",
+  "file": "v3-s14-01.png"
+ },
+ "reel-05": {
+  "w": 444,
+  "h": 814,
+  "source": "Main deck w changes, slide 14",
+  "file": "v3-s14-02.png"
+ },
+ "reel-06": {
+  "w": 912,
+  "h": 1600,
+  "source": "Main deck w changes, slide 14",
+  "file": "v3-s14-03.png"
+ },
  "logo-pwc": {
   "w": 980,
   "h": 478,

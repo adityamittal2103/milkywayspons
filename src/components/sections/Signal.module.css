@@ -3,18 +3,14 @@
   padding-bottom: calc(var(--section-pad) * 0.8);
 }
 
-/* The beacon: rings broadcast from the last node on the route */
-.beacon {
-  position: relative;
-  display: inline-block;
-}
-
+/* The beacon: rings broadcast from the last node on the route, centred on it */
 .rings {
   position: absolute;
-  left: 1.375rem;
+  left: 50%;
   top: 50%;
   width: 0;
   height: 0;
+  z-index: -1;
   pointer-events: none;
 }
 

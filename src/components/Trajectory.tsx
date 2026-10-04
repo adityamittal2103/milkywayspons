@@ -9,9 +9,9 @@ type Anchor = { el: HTMLElement; x: number; y: number; len: number; brk: boolean
 
 /**
  * The flight path. One route threads every [data-anchor] on the page in
- * document order: from Masters' Union's coordinates to the Road to Milky Way,
- * where the India constellation takes over the journey, then from the
- * Yashobhoomi landing on to the sponsor's signal. An anchor marked
+ * document order: from the landing pin through the fest and the venue to the
+ * Road to Milky Way, where the India constellation takes over the journey,
+ * then from Masters' Union's story on to the sponsor's signal. An anchor marked
  * data-anchor-break starts a new leg rather than joining the last one. The
  * planned route is dashed; scrolling flies it, and a comet from the brand kit
  * rides the head. Anchors behind the head are marked data-passed.

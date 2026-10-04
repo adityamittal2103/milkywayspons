@@ -26,7 +26,7 @@ A student-built festival from India's first practitioner-led university, landing
 
 ## Operating Context
 
-- Source of truth for every fact: "V1: Master Sponsorship deck" (Google Slides), live slides 1–29. Slides 30–43 are marked "Backup slides below. Pls ignore." and are not used for claims.
+- Source of truth for every fact: "MAIN DECK W CHANGES" (Google Slides, 18 slides) and the comments on it, which supersede the earlier "V1: Master Sponsorship deck". The page follows the deck's slide order; REVISIONS.md maps every slide and comment to the build. Mobile-specific changes come from a separate revision sheet.
 - Source of truth for visuals: the Milky Way 2027 brand kit (Google Drive), mirrored locally in `brand-kit/`.
 - Conversion happens by email; the deck names the contacts.
 

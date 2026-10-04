@@ -187,16 +187,21 @@ const GLYPHS = {
     const bx1 = Math.max(...mine.map((p) => p.box[2]));
     const by1 = Math.max(...mine.map((p) => p.box[3]));
     // Light (#ffffff) paths are ink; dark paths drawn over them are cut-outs (the eye's pupil).
-    // A mask keeps those cut-outs as real holes whatever colour the glyph is painted.
+    // Only a glyph with cut-outs needs a mask to keep them as real holes. Every other glyph is
+    // written as plain paths: the site paints glyphs through a CSS mask, and WebKit sometimes
+    // drops a mask nested inside a mask image, which showed the glyph as a solid square.
+    const cutouts = mine.some((p) => !/^#f/i.test(p.fill));
     const paths = mine
       .map((p) => {
-        const ink = /^#f/i.test(p.fill) ? '#fff' : '#000';
+        const ink = cutouts ? (/^#f/i.test(p.fill) ? '#fff' : '#000') : 'currentColor';
         return `<path transform="matrix(${p.t.join(',')})" d="${p.d}"${p.rule ? ` fill-rule="${p.rule}"` : ''} fill="${ink}"/>`;
       })
       .join('');
     const pad = 1;
     const [vx, vy, vw, vh] = [bx0 - pad, by0 - pad, bx1 - bx0 + pad * 2, by1 - by0 + pad * 2].map((v) => +v.toFixed(1));
-    let svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${vx} ${vy} ${vw} ${vh}"><mask id="g" maskUnits="userSpaceOnUse" x="${vx}" y="${vy}" width="${vw}" height="${vh}">${paths}</mask><rect x="${vx}" y="${vy}" width="${vw}" height="${vh}" fill="currentColor" mask="url(#g)"/></svg>`;
+    let svg = cutouts
+      ? `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${vx} ${vy} ${vw} ${vh}"><mask id="g" maskUnits="userSpaceOnUse" x="${vx}" y="${vy}" width="${vw}" height="${vh}">${paths}</mask><rect x="${vx}" y="${vy}" width="${vw}" height="${vh}" fill="currentColor" mask="url(#g)"/></svg>`
+      : `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${vx} ${vy} ${vw} ${vh}">${paths}</svg>`;
     svg = optimize(svg, svgoConfig).data;
     fs.writeFileSync(path.join(OUT, 'glyph', `${name}.svg`), svg);
     glyphManifest[name] = +(vw / vh).toFixed(4);

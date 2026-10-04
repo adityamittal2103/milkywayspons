@@ -1,9 +1,8 @@
 'use client';
 
 import { useRef } from 'react';
-import { festival, milkyWay, prologue } from '@/content/milky-way';
+import { festival } from '@/content/milky-way';
 import { finePointer, gsap, prefersReducedMotion, registerGsap, seeded, useGSAP } from '@/lib/motion';
-import { CutLink } from '../CutLink';
 import { Ink, Logo } from '../Ink';
 import { Starfield } from '../Starfield';
 import { Wordmark } from '../Wordmark';
@@ -166,34 +165,15 @@ export function Hero() {
         </h1>
 
         <div className={styles.bottom} data-fly="down">
+          {/* s1: the line, then when and where. The tiers and contact actions live in the nav, on every screen. */}
           <div className={styles.meta} data-intro="fade" data-reveal>
-            <p className={`display ${styles.tagline}`}>
-              The universe is <span className={styles.yours}>yours</span>
-            </p>
+            <p className={`display ${styles.tagline}`}>{festival.line}</p>
             <p className={styles.when}>
               <time dateTime="2027-02-20">{festival.dates}</time>
               <br />
-              {festival.venue}, {festival.city}
+              {festival.venue} <span className={styles.bar}>|</span> {festival.city}
             </p>
-            <div className={styles.actions}>
-              <CutLink href="#tiers" size="lg">
-                See the sponsorship tiers
-              </CutLink>
-            </div>
           </div>
-
-          <dl className={styles.readout} data-intro="fade" data-reveal>
-            {milkyWay.stats.map((s) => (
-              <div key={s.label} className={styles.stat}>
-                <dt className={styles.statLabel}>{s.label}</dt>
-                <dd className={`numeral ${styles.statValue}`}>{s.value}</dd>
-              </div>
-            ))}
-          </dl>
-
-          <p className={`coord ${styles.coord}`} data-intro="fade" data-reveal>
-            {prologue.launch} {prologue.coordinates}
-          </p>
         </div>
       </div>
     </section>

@@ -12,30 +12,56 @@
   rotate: 8deg;
 }
 
-.title {
+.head {
+  display: grid;
+  gap: var(--s-3);
   margin-top: var(--s-7);
-  font-size: var(--t-h2);
-  max-width: 17ch;
+  max-width: 44rem;
 }
 
-.subtitle {
-  margin-top: var(--s-4);
+.title {
+  font-size: clamp(3rem, 7vw, 7.4rem);
+}
+
+.lead {
+  margin-top: var(--s-3);
   color: var(--cyan);
+}
+
+.place {
+  font-size: var(--t-h2);
+}
+
+.booked {
+  font-weight: 700;
+  font-size: var(--t-lede);
 }
 
 .sep {
   color: var(--cyan);
 }
 
+/* The capacity takes the page */
 .figureBlock {
-  margin-top: var(--s-7);
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--s-5);
+  align-items: end;
+  margin-top: var(--s-8);
 }
 
 .figure {
+  grid-column: 1 / span 8;
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
   column-gap: var(--s-4);
+}
+
+.figureLead {
+  flex-basis: 100%;
+  font-weight: 650;
+  font-size: var(--t-lede);
 }
 
 .figureValue {
@@ -47,60 +73,35 @@
   font-size: var(--t-h1);
 }
 
-.note {
-  max-width: 34ch;
-  margin-top: var(--s-5);
-  margin-left: auto;
-  margin-right: 8%;
+.promise {
+  grid-column: 9 / -1;
+  display: grid;
+  gap: var(--s-3);
+  padding-bottom: var(--s-5);
 }
 
+.memorable {
+  font-weight: 650;
+}
+
+.draw {
+  max-width: 32ch;
+  line-height: 1.45;
+}
+
+/* Three photographs: the stage tall, the building and the hall beside it */
 .venue {
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
+  grid-template-areas:
+    'p0 p0 p0 p0 p0 p1 p1 p1 p1 p1 p1 p1'
+    'p0 p0 p0 p0 p0 p2 p2 p2 p2 p2 p2 p2';
   gap: var(--s-4);
-  align-items: start;
   margin-top: var(--s-9);
 }
 
 .venuePhoto {
-  aspect-ratio: 3 / 2;
-}
-
-.venuePhoto + .venuePhoto {
-  margin-top: var(--s-10);
-  aspect-ratio: 4 / 3;
-}
-
-.facts {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  margin-top: var(--s-9);
-  border-top: var(--rule-heavy) solid var(--ink);
-}
-
-.fact {
-  display: grid;
-  gap: var(--s-2);
-  padding: var(--s-5) var(--s-4) 0 0;
-}
-
-.fact + .fact {
-  padding-left: var(--s-5);
-  border-left: var(--rule) solid var(--ink);
-}
-
-.factValue {
-  font-size: clamp(2.8rem, 6.4vw, 6.6rem);
-}
-
-.factLabel {
-  font-weight: 600;
-  font-size: var(--t-lede);
-  line-height: 1.2;
-  font-variation-settings:
-    'opsz' 28,
-    'wdth' 90;
-  max-width: 16ch;
+  min-height: 100%;
 }
 
 .dateline {
@@ -114,36 +115,47 @@
   line-height: 1.1;
 }
 
+@media (max-width: 1023px) {
+  .figure,
+  .promise {
+    grid-column: 1 / -1;
+  }
+  .promise {
+    margin-top: var(--s-5);
+  }
+}
+
 @media (max-width: 767px) {
   .flag {
     width: 40vw;
     right: -10vw;
     top: 1.5rem;
   }
+  .title {
+    font-size: clamp(2.8rem, 14vw, 4rem);
+  }
+  /* Mobile sheet: room between the headline and its strapline */
+  .lead {
+    margin-top: var(--s-5);
+  }
+  .figure {
+    row-gap: var(--s-2);
+  }
   .figureValue {
     font-size: clamp(4.5rem, 26vw, 7rem);
-  }
-  .note {
-    margin-left: 0;
-  }
-  .facts {
-    grid-template-columns: minmax(0, 1fr);
+    line-height: 0.9;
   }
   .venue {
-    grid-template-columns: minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-areas:
+      'p1 p1'
+      'p0 p2';
+    gap: var(--s-3);
   }
-  .venue > * {
-    grid-column: 1 !important;
+  .venuePhoto {
+    aspect-ratio: 4 / 5;
   }
-  .venuePhoto + .venuePhoto {
-    margin-top: 0;
-    width: 78%;
-    justify-self: end;
-  }
-  .fact,
-  .fact + .fact {
-    padding: var(--s-4) 0;
-    border-left: 0;
-    border-bottom: var(--rule) solid var(--ink);
+  .venuePhoto:nth-child(2) {
+    aspect-ratio: 3 / 2;
   }
 }

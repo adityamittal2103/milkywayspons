@@ -44,10 +44,26 @@ function Cell({ value }: { value: Entitlement }) {
 
 export function Tiers() {
   const [active, setActive] = useState<TierId>('title');
-  const [compareAll, setCompareAll] = useState(false);
+  // Mobile sheet: compare all four by default
+  const [compareAll, setCompareAll] = useState(true);
   const [stuck, setStuck] = useState(false);
   const svgRef = useRef<SVGSVGElement>(null);
   const sentinel = useRef<HTMLDivElement>(null);
+  const plate = useRef<HTMLDivElement>(null);
+  const scroller = useRef<HTMLDivElement>(null);
+
+  // Mobile sheet: choosing a tier above takes the reader to that tier in the table.
+  const choose = (id: TierId) => {
+    setActive(id);
+    if (!window.matchMedia('(max-width: 767px)').matches) return;
+    // Line the table up on that tier first (it is still off screen), then bring the
+    // table into view: two smooth scrolls at once would cancel each other.
+    const box = scroller.current;
+    const col = box?.querySelector<HTMLElement>(`thead [data-tier='${id}']`);
+    const corner = box?.querySelector<HTMLElement>('thead th');
+    if (box && col) box.scrollTo({ left: col.offsetLeft - (corner?.offsetWidth ?? 0), behavior: 'instant' });
+    plate.current?.scrollIntoView({ behavior: prefersReducedMotion() ? 'auto' : 'smooth', block: 'start' });
+  };
 
   useEffect(() => {
     if (prefersReducedMotion()) svgRef.current?.pauseAnimations();
@@ -69,7 +85,6 @@ export function Tiers() {
 
         <header className={styles.head}>
           <h2 id="tiers-title" className={styles.title}>
-            <span className={`headline ${styles.titleLead}`}>{tiersIntro.lead}</span>{' '}
             <Distort text={tiersIntro.title} seed={31} amount={3.5} className="display" />
           </h2>
           <p className={`lede ${styles.lede}`}>
@@ -92,7 +107,7 @@ export function Tiers() {
                       className={styles.orbit}
                       data-on={on || undefined}
                       style={{ ['--tier' as string]: `var(--${t.ink})` }}
-                      onClick={() => setActive(t.id)}
+                      onClick={() => choose(t.id)}
                     >
                       <path id={`orbit-${i}`} d={d} className={styles.path} />
                       <path d={d} className={styles.hit} />
@@ -126,7 +141,7 @@ export function Tiers() {
                   name="tier"
                   value={t.id}
                   checked={t.id === active}
-                  onChange={() => setActive(t.id)}
+                  onChange={() => choose(t.id)}
                   className={styles.radio}
                 />
                 <span className={`coord ${styles.optionN}`}>{String(i + 1).padStart(2, '0')}</span>
@@ -139,7 +154,7 @@ export function Tiers() {
           </fieldset>
         </div>
 
-        <div className={styles.plate} data-field="paper">
+        <div ref={plate} className={styles.plate} data-field="paper">
           <div className={styles.plateHead}>
             <h3 className={`headline ${styles.plateTitle}`}>What each orbit carries</h3>
             <label className={styles.compare}>
@@ -149,7 +164,7 @@ export function Tiers() {
           </div>
 
           <div ref={sentinel} aria-hidden="true" />
-          <div className={styles.scroller} role="region" aria-label="Sponsorship deliverables by tier" tabIndex={0}>
+          <div ref={scroller} className={styles.scroller} role="region" aria-label="Sponsorship deliverables by tier" tabIndex={0}>
             <table
               className={styles.table}
               data-active={active}

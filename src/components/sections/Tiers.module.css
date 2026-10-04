@@ -207,10 +207,38 @@
   cursor: pointer;
 }
 
+/* The brand's own box: black ink, a yellow tick when on (not the browser's grey) */
 .compare input {
-  width: 1.25rem;
-  height: 1.25rem;
-  accent-color: var(--black);
+  appearance: none;
+  position: relative;
+  flex: none;
+  width: 1.4rem;
+  height: 1.4rem;
+  margin: 0;
+  border: 2px solid var(--black);
+  background: var(--paper);
+  cursor: pointer;
+}
+
+.compare input:checked {
+  background: var(--black);
+}
+
+.compare input:checked::after {
+  content: '';
+  position: absolute;
+  left: 0.36rem;
+  top: 0.12rem;
+  width: 0.38rem;
+  height: 0.72rem;
+  border: solid var(--yellow);
+  border-width: 0 3px 3px 0;
+  rotate: 42deg;
+}
+
+.compare input:focus-visible {
+  outline: 2px solid var(--black);
+  outline-offset: 3px;
 }
 
 .scroller {
@@ -368,6 +396,7 @@
   .plate {
     margin-left: calc((var(--gutter) + var(--rail)) * -1);
     margin-right: calc(var(--gutter) * -1);
+    scroll-margin-top: 4.5rem;
   }
   .compare {
     display: inline-flex;

@@ -26,6 +26,9 @@
 .action {
   top: var(--s-4);
   right: var(--gutter);
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
 }
 
 /* The readout: where you are on the flight plan */
@@ -49,14 +52,8 @@
 
 .readout {
   transition:
-    translate var(--dur-ui) var(--ease-out),
     background var(--dur-micro) linear,
     color var(--dur-micro) linear;
-}
-
-/* Focus always brings it back */
-.readout[data-tucked]:not(:focus-visible) {
-  translate: 0 calc(100% + 2rem);
 }
 
 .readout:hover {
@@ -213,6 +210,14 @@
   .readout {
     right: var(--gutter);
     bottom: max(var(--s-3), env(safe-area-inset-bottom));
+  }
+  /* Both actions stay; they tighten to fit beside the mark */
+  .action {
+    gap: 6px;
+  }
+  .action :global(a) {
+    padding-inline: 10px;
+    font-size: 0.82rem;
   }
   .tick {
     flex: 1;

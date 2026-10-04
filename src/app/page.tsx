@@ -1,18 +1,20 @@
+import { FocusLight } from '@/components/FocusLight';
 import { Nav } from '@/components/Nav';
 import { Trajectory } from '@/components/Trajectory';
+import { Audience } from '@/components/sections/Audience';
 import { Company } from '@/components/sections/Company';
 import { Footer } from '@/components/sections/Footer';
 import { Hero } from '@/components/sections/Hero';
 import { Landing } from '@/components/sections/Landing';
 import { MilkyWay } from '@/components/sections/MilkyWay';
 import { Origin } from '@/components/sections/Origin';
-import { Prologue } from '@/components/sections/Prologue';
 import { Reach } from '@/components/sections/Reach';
 import { Road } from '@/components/sections/Road';
 import { Signal } from '@/components/sections/Signal';
+import { Sky } from '@/components/sections/Sky';
 import { Tiers } from '@/components/sections/Tiers';
-import { Worlds } from '@/components/sections/Worlds';
 
+// In the order of the deck's slides (MAIN DECK W CHANGES, s1–s18).
 export default function Page() {
   return (
     <>
@@ -20,18 +22,19 @@ export default function Page() {
       <main id="main" style={{ position: 'relative' }}>
         <Trajectory />
         <Hero />
-        <Prologue />
-        <Origin />
+        <Sky />
         <MilkyWay />
-        <Road />
+        <Audience />
         <Landing />
-        <Worlds />
+        <Road />
+        <Origin />
         <Reach />
         <Company />
         <Tiers />
         <Signal />
       </main>
       <Footer />
+      <FocusLight />
     </>
   );
 }

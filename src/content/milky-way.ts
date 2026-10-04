@@ -1,9 +1,9 @@
 /**
  * Every fact on the site lives here, taken from the live Google Slides deck
- * "V1: Master Sponsorship deck" (22 slides, re-read 30 Sep 2026). `s` = the
- * deck slide each fact comes from. The Road to Milky Way city names were
- * supplied by the Milky Way team; the deck's own map slide (s12) leaves them
- * unnamed.
+ * "MAIN DECK W CHANGES" (18 slides, read 4 Oct 2026) and the comments on it.
+ * `s` = the deck slide each fact comes from; `c` = a change asked for in a
+ * comment on that slide. The Road to Milky Way city names, and the order the
+ * chart visits them in, were supplied by the Milky Way team.
  *
  * Editing rule: wording may be shortened for layout, never strengthened.
  * Numbers, units, qualifiers and names stay exactly as the deck states them.
@@ -12,266 +12,194 @@
 export const festival = {
   name: 'Milky Way',
   presenter: "Masters' Union University",
-  tagline: 'The universe is yours', // s1
+  line: 'A fest where the universe comes alive', // s1
+  tagline: 'The universe is yours', // brand kit lockup (footer)
   dates: '20th–21st February 2027', // s1
   venue: 'Yashobhoomi Convention Center', // s1
   city: 'Delhi, India', // s1
   lockupLine: 'MU Fest 2027', // brand kit lockup
 } as const;
 
-export const prologue = {
+export const sky = {
   // s2
-  opening: 'A few months ago, in a campus not so far away…',
-  line: 'A group of students huddled to create a festival so epic, it almost seemed insane.',
-  launch: 'Launching from',
+  title: ['45k+ GenZs,', 'Under One Sky,', 'And You Light it Up.'],
+  landing: 'Landing at',
+  // As the deck gives it. Note: this point is in Gurugram (the earlier deck's
+  // "Launching from"); Yashobhoomi itself is at 28.5549° N, 77.0446° E.
   coordinates: '28.5049° N, 77.0892° E',
+  place: 'Yashobhoomi, Delhi',
+  // s2: "add location pin here, hyperlink g maps address"
+  mapHref: 'https://www.google.com/maps/search/?api=1&query=Yashobhoomi+Convention+Centre+Dwarka+New+Delhi',
 } as const;
 
-export const origin = {
+export const fest = {
   // s3
-  title: 'Every great story has an origin.',
-  titleTail: "Ours began at Masters' Union University.",
-  body: [
-    "India's first practitioner-led institution where students Learn by Doing,",
-    'Taught by CXOs and CMOs from top brands like Boat, Mama Earth, Swiggy and more.',
-    'A curriculum shaped by the minds of finest educators from Harvard and Oxford.',
-  ],
-  kicker: 'A higher education experience built by builders, for builders.',
-  photo: { id: 'graduation', alt: "Masters' Union graduates in gowns throwing their caps into the air" }, // s4
+  label: "Masters' Union University's Cultural Fest",
+  title: "We are building Asia's largest college festival, and we want you to build it with us.",
+  subhead: 'From our classrooms to a cultural experience like never before',
+  // s3: "4 callouts side by side, largest to smallest"
   stats: [
-    { value: '2,000+', label: 'current students' },
-    { value: '500+', label: 'mentors' },
-    { value: '700+', label: 'alumni' },
-    { value: '250+', label: 'CXOs on campus' },
+    { value: '1L+', label: 'student registrations' },
+    { value: '250+', label: 'target colleges' },
+    { value: '50+', label: 'events' },
+    { value: '7', label: 'cities' },
   ],
-} as const;
-
-export const visitors = {
-  // s5
-  title: 'Soon, the best minds started making their way to campus.',
-  people: [
-    {
-      name: 'Rohit Sharma',
-      note: 'A conversation on leadership, pressure and performing at the highest level.',
-      photo: 'rohit-sharma',
-    },
-    { name: 'Samay Raina', note: 'On comedy, creativity and the playbook behind building a following.', photo: 'samay-raina' },
-    { name: 'Tanmay Bhat', note: 'A content masterclass on turning an audience into a community.', photo: 'tanmay-bhat' },
-  ],
-  // s6: guest sessions on campus. The deck does not name these guests, so neither does the site.
-  sessions: Array.from({ length: 15 }, (_, i) => `guest-${String(i + 1).padStart(2, '0')}`),
-} as const;
-
-export const experiences = {
-  // s7
-  title: 'From AI summits to HYROX India, we know how to build big experiences',
-  items: [
-    {
-      name: 'The Next Gene',
-      photo: { id: 'next-gene', alt: 'A fireside chat on stage at The Next Gene summit' },
-      logo: null,
-      figure: '1,200',
-      text: 'Biotech founders, investors and builders came together at The Next Gene, our landmark BioSciences summit.',
-    },
-    {
-      name: 'Demo Day',
-      photo: { id: 'demo-day', alt: "A packed auditorium at Masters' Union Demo Day" },
-      logo: null,
-      figure: '₹60.5 crore',
-      text: 'Our students raised ₹60.5 crore in investment, in a single hour.',
-    },
-    {
-      name: 'HYROX',
-      photo: { id: 'hyrox-delhi', alt: "HYROX Delhi signage with the Masters' Union mark" },
-      logo: 'hyrox',
-      figure: '25K+',
-      text: "HYROX came to Delhi and Mumbai, with Masters' Union as its Title Sponsor. 25K+ athletes showed up across both cities.",
-    },
-    {
-      name: 'Next Tech AI Summit',
-      photo: { id: 'next-tech-stage', alt: 'Speakers in conversation on the Next Tech AI Summit stage' },
-      logo: null,
-      figure: null,
-      text: 'Nas Daily. NVIDIA. Google Cloud. IndiaAI Mission, all came together at the Next Tech AI Summit.',
-    },
-    {
-      name: 'Bloomberg',
-      photo: { id: 'bloomberg-terminal', alt: 'Bloomberg Terminal screens on campus' },
-      logo: 'bloomberg',
-      figure: null,
-      text: "The Union becomes one of the few campuses in India with live Bloomberg Terminal access, putting Wall Street data on every student's desk.",
-    },
-  ],
-  // s7–8: the collage of those experiences
-  gallery: [
-    { id: 'hyrox-athletes', alt: 'Two HYROX athletes with finisher medals' },
-    { id: 'hyrox-race', alt: 'Athletes racing past HYROX Delhi signage' },
-    { id: 'ai-summit-demo', alt: 'A robot demonstration at the Next Tech AI Summit' },
-    { id: 'hyrox-crowd', alt: 'A crowd cheering an athlete at HYROX' },
-    { id: 'hyrox-start', alt: 'Athletes at the HYROX start line with a chequered flag' },
-    { id: 'hyrox-runner', alt: 'A HYROX athlete mid-race' },
-  ],
-} as const;
-
-export const impact = {
-  // s9
-  title: 'And also create impact from the ground up',
-  items: [
-    {
-      figure: '40+',
-      lead: 'startups built by students while studying.',
-      detail: 'Hive, Zenmo, Eat Atlas, Lexi’s, Blue Brew.',
-      note: 'Student ventures already operating as consumer brands and content engines.',
-      photo: { id: 'launchpad-kitchen', alt: 'A student venture team in a commercial kitchen' },
-    },
-    {
-      figure: '₹1.2 Cr+',
-      lead: 'cumulative revenue from student ventures, drawn in by Dropshipping Melas.',
-      detail: null,
-      note: 'Real transactions, real P&L, real learning.',
-      photo: { id: 'dropshipping', alt: 'Visitors at a student stall at a Dropshipping Mela' },
-    },
-    {
-      figure: '5 Cr',
-      lead: "a live fund managed by students through the Masters' Union Investment Funds.",
-      detail: null,
-      note: 'The chance to work with top fund managers and industry veterans.',
-      photo: { id: 'investment-fund', alt: 'Students in conversation beneath a Nifty market ticker' },
-    },
-  ],
-} as const;
-
-export const milkyWay = {
-  // s10
-  title: "Now, we're taking it to another universe.",
-  titleName: 'Milky Way.',
-  paragraphs: [
-    "Born from a fire to build Asia's largest college festival, Milky Way was never going to start small. It is built by students who want to create something that has not been built before. Something ambitious, unpredictable and entirely their own.",
-    'Over two days, Milky Way brings together students, creators, founders, performers, athletes and future professionals under one roof. A place to discover brands, products, ideas and careers. To experience them first-hand. To meet people who are building what comes next, and to leave with something you did not expect to find.',
-  ],
-  ask: 'We want you at the heart of it.',
-  stats: [
-    { value: '1L+', label: 'Student registrations' },
-    { value: '45K+', label: 'Footfall across RTMs and main days' },
-    { value: '50+', label: 'Multi-format events' },
-  ],
-} as const;
-
-export const road = {
-  // The journey's own name (the deck's "RTMs", s10 and the tier table), set as the heading
-  name: 'Road to Milky Way',
-  // s11–12
-  title: 'A universe of experiences, across India',
-  strapline:
-    'Seven cities. Thousands of young minds. Weeks of engagement before the festival reaches Delhi. Your brand is part of the journey from the very beginning.',
-  // "Micro copies to surround the map + constellation" (s11)
-  micro: [
-    "Get in front of some of the country's brightest young talent, across leading colleges.",
-    'Where talent comes together to connect, compete and earn its place on the big stage.',
-    'No two cities bring the same energy. From dance and music to theatre and sport, every stop opens up a new world of talent.',
-  ],
-  // Names from the Milky Way team. The order is the chart's (the team asked for
-  // the clearest figure): a zigzag across the country ending in Delhi.
-  stops: ['Mumbai', 'Pune', 'Bangalore', 'Kolkata', 'Ahmedabad', 'Jaipur', 'Delhi'],
-} as const;
-
-export const landing = {
-  // s13
-  title: 'It all comes together at Yashobhoomi',
-  subtitle: 'India’s largest convention and exhibition centre.',
-  figure: '45,000+',
-  figureLabel: 'footfall',
-  figureNote: 'Across the 2 days, and at one of the biggest convention centers giving you the best reach possible',
-  photos: [
-    { id: 'yashobhoomi-outside', alt: 'The exterior of Yashobhoomi Convention Center' },
-    { id: 'yashobhoomi-inside', alt: 'The foyer inside Yashobhoomi Convention Center' },
-  ],
-  facts: [
-    { value: '250+', label: 'partner colleges & institutions' },
-    { value: '7+', label: 'cities reached across India' },
-    { value: 'Multiple', label: 'live stages & zones' },
-  ],
-} as const;
-
-export const worlds = {
-  // s14
-  lead: 'The Main Days',
-  title: 'A constellation of competitions, community and culture',
-  figure: '50+',
-  figureTail: 'events. One universe of experiences.',
-  line: 'Battle of the Bands. Gaming. Sports. Informals. And everything in between.',
-  nightsLine: 'Then come pronites, that take evening to a whole new level.',
-  categories: [
-    { name: 'Battle of the Bands', art: 'badge-guitar' },
+  events: "It's bands, gaming, sports and informals all day long. And when the sun goes down, the pronites begin.",
+  body: 'We are bringing the brightest stars from across India into one arena of music, competition and culture.',
+  // s4 c: "use the visual symbols on this page for the previous slide where we introduce MW, and write about events"
+  symbols: [
+    { name: 'Bands', art: 'badge-guitar' },
     { name: 'Gaming', art: 'badge-crystal' },
     { name: 'Sports', art: 'badge-skate' },
     { name: 'Informals', art: 'badge-rollercoaster' },
+    { name: 'Pronites', art: 'badge-keyboard' },
   ],
-  nights: { name: 'Pronites', count: '2', art: 'badge-keyboard' }, // s10: "two pronites"
+} as const;
+
+export const audience = {
+  // s5 (c: "needs to be highlighted with the help of design")
+  title: 'The audience',
+  finding: ['They’re finding themselves.', 'Their tastes.', 'Their next favourite brands.'],
+  who: 'College students between 18 to 22 are coming together around what they love.',
+  brand: 'Your brand can be part of their experience,',
+  ways: [
+    { lead: 'through a', word: 'product', tail: 'they try,' },
+    { lead: 'an', word: 'experience', tail: 'they join' },
+    { lead: 'or a', word: 'competition', tail: 'you help bring to life.' },
+  ],
+  // s6 c: smaller pictures, added to this slide; the marked photo (festival
+  // grounds at dusk) removed, with a backup picture in its place.
   photos: [
     { id: 'fest-01', alt: 'A performer on stage in coloured smoke' },
     { id: 'fest-06', alt: 'A crowd under stage lights and green smoke at night' },
     { id: 'fest-03', alt: 'A dance troupe performing on a lit stage' },
-    { id: 'fest-02', alt: 'Stalls and crowds on festival grounds at dusk' },
+    { id: 'hyrox-athletes', alt: 'Two athletes with finisher medals at HYROX' },
     { id: 'fest-05', alt: 'A sports team celebrating together' },
     { id: 'fest-07', alt: 'A large group in festive dress posing together' },
     { id: 'hyrox-crowd', alt: "A Masters' Union fan club cheering with placards" },
   ],
 } as const;
 
+export const venue = {
+  // s7
+  title: 'The Venue',
+  lead: "One of India's Most Sought After Spaces,",
+  place: 'Yashobhoomi, Delhi',
+  booked: 'Booked for 20th–21st February 2027',
+  capacity: { value: '20K+', lead: 'With a capacity of', label: 'people' },
+  memorable: 'We are making room for something memorable',
+  draw: 'With competitions, performances, branded experiences that draw students in.',
+  photos: [
+    { id: 'venue-stage', alt: 'Two performers on a lit stage before a dark arena' },
+    { id: 'yashobhoomi-outside', alt: 'The exterior of Yashobhoomi Convention Center' },
+    { id: 'venue-hall', alt: 'A packed hall facing a lit stage' },
+  ],
+} as const;
+
+export const road = {
+  // s8
+  name: 'Road to Milky Way',
+  title: 'The Journey',
+  strapline: "Before Delhi, there's a whole universe to cover",
+  what: 'takes competitions to campuses across India, selecting teams for the finale in Delhi.',
+  subhead: 'Seven cities. Thousands of young minds. Weeks of momentum, before the festival even lands.',
+  body: 'Ride the full journey with us, from the first city to the final night in Delhi.',
+  // Names from the Milky Way team. The order is the chart's (the team asked for
+  // the clearest figure): a zigzag across the country ending in Delhi.
+  stops: ['Mumbai', 'Pune', 'Bangalore', 'Kolkata', 'Ahmedabad', 'Jaipur', 'Delhi'],
+} as const;
+
+export const learned = {
+  // s9 (c: "a horizontal auto scroll of these people with their name underneath").
+  // The deck names three of the eight; the rest stay unnamed until the team supplies names.
+  title: 'We’ve learned from the best,',
+  people: [
+    { photo: 'rohit-sharma', name: 'Rohit Sharma' },
+    { photo: 'samay-raina', name: 'Samay Raina' },
+    { photo: 'tanmay-bhat', name: 'Tanmay Bhat' },
+    { photo: 'guest-fireside', name: null },
+    { photo: 'guest-01', name: null },
+    { photo: 'guest-08', name: null },
+    { photo: 'guest-saree', name: null },
+    { photo: 'guest-07', name: null },
+  ],
+} as const;
+
+export const firsts = {
+  // s10 (c: each photograph labelled)
+  title: 'Pulled off our firsts',
+  items: [
+    {
+      figure: '40+',
+      label: 'Student-built startups',
+      photo: { id: 'lexis-kitchen', caption: "Lexi's Gourmet Sandwiches", alt: "The Lexi's Gourmet Sandwiches team in their kitchen" },
+    },
+    {
+      figure: '₹1.2 crore+',
+      label: 'Cumulative revenue through Dropshipping Melas',
+      photo: { id: 'dropshipping', caption: 'The Dropshipping Mela', alt: 'Visitors at a student stall at the Dropshipping Mela' },
+    },
+    {
+      figure: '₹5 crore',
+      label: 'Live student-managed investment fund',
+      photo: { id: 'investment-fund', caption: "Masters' Union Investment Fund", alt: 'Students in conversation beneath a Nifty market ticker' },
+    },
+  ],
+  lead: 'We learn by doing.',
+  line: 'This time, we’re building a festival from scratch.',
+  team: { lead: 'With a team of', value: '100+', label: 'students' },
+  support: "Supported by Masters' Union University",
+} as const;
+
+export const moments = {
+  // s11 (c: "only show text when they hover on the picture, horizontal scroll with arrows")
+  title: 'And crafted the biggest moments',
+  signature: "Masters' Union University",
+  items: [
+    {
+      name: 'HYROX Delhi & Mumbai',
+      text: "Masters' Union University as Title Sponsor. 25K+ athletes across both cities.",
+      photo: { id: 'hyrox-delhi-sign', alt: "HYROX Delhi signage with the Masters' Union mark" },
+    },
+    {
+      name: 'Demo Day',
+      text: '₹60.5 crore in investment committed to student ventures in a single hour.',
+      photo: { id: 'demo-day-hall', alt: 'Founders pitching to a full auditorium at Demo Day' },
+    },
+    {
+      name: 'AI Summit',
+      text: 'Bringing together Nas Daily, NVIDIA, Google Cloud and IndiaAI Mission.',
+      photo: { id: 'ai-summit-demo', alt: 'A robot demonstration at the AI Summit' },
+    },
+  ],
+} as const;
+
 export const reach = {
-  // s15
-  title: 'We’ll take this energy to our digital multiverse',
+  // s12 (c: metrics above or below the reels; the icons all the same size)
+  title: 'Enter our digital multiverse',
   platforms: [
-    { id: 'instagram', name: 'Instagram', value: '200M+', unit: 'views', label: "Masters' Union Instagram" },
-    { id: 'youtube', name: 'YouTube', value: '112M', unit: 'lifetime views', label: 'on YouTube' },
-    { id: 'linkedin', name: 'LinkedIn', value: '139K', unit: 'followers', label: 'on LinkedIn' },
-    { id: 'x', name: 'X', value: '2.4K', unit: 'followers', label: 'on X' },
+    { id: 'instagram', name: 'Instagram', value: '200M+', unit: 'views', label: '@masters.union' },
+    { id: 'youtube', name: 'YouTube', value: '112M', unit: 'lifetime views', label: null },
+    { id: 'linkedin', name: 'LinkedIn', value: '139K', unit: 'followers', label: null },
   ],
-  // s16
-  studentTitle: 'Across student-run pages and initiatives',
-  studentPages: [
-    {
-      name: 'life@mu',
-      value: '1M',
-      unit: 'views & reach',
-      note: 'Our student-life page',
-      // Photo and figures per the Milky Way team's website edits doc
-      photo: { id: 'feed-lifeatmu', alt: "A life@mu reel from Masters' Union x HYROX Delhi" },
-    },
-    {
-      name: 'builders.mu',
-      value: '120M',
-      unit: 'views & reach on combined platforms',
-      note: 'Dedicated page for projects, prototypes and builds',
-      photo: { id: 'feed-builders', alt: 'A builders.mu reel' },
-    },
-    {
-      name: 'Elevator Pitch',
-      value: '106K',
-      unit: 'followers',
-      note: 'Student founders pitching live to investors and peers',
-      photo: { id: 'feed-elevator-pitch', alt: 'Two founders at a table on the Elevator Pitch set' },
-    },
-    {
-      name: 'U18 Club',
-      value: '11.6K',
-      unit: 'followers',
-      note: 'Our pipeline for the next generation of young builders',
-      photo: { id: 'u18', alt: 'A mentor working with school students in a U18 Club session' },
-    },
-  ],
+  // s13–14 (c: six reels, the best three first; arrows or swipe for the rest;
+  // a tapped reel grows while its neighbours recede; every reel opens).
+  // Share-tracking parameters removed from the links.
   reels: [
-    // s17; share-tracking parameters removed
-    { label: 'Indē Wild', href: 'https://www.instagram.com/reel/DWg5_sFTrt2/' },
-    { label: 'POV: First day of my College', href: 'https://www.instagram.com/reel/DcSd8ExpJ2G/' },
-    { label: 'Blinkit almost ruined our day', href: 'https://www.instagram.com/reel/Dblj2sUJD_D/' },
+    { href: 'https://www.instagram.com/reel/Dcqmuh3BWI2/', cover: 'reel-01', alt: 'Dr Niranjan Hiranandani on building a business through data centres' },
+    { href: 'https://www.instagram.com/reel/Db5s0U4POgP/', cover: 'reel-02', alt: 'Choose right people over right skills' },
+    { href: 'https://www.instagram.com/reel/Db3JNfgqaF2/', cover: 'reel-03', alt: 'Palm payment in India' },
+    { href: 'https://www.instagram.com/reel/DWg5_sFTrt2/', cover: 'reel-04', alt: 'Indē Wild' },
+    { href: 'https://www.instagram.com/reel/DcSd8ExpJ2G/', cover: 'reel-05', alt: 'Punjabi HYROX aagye oye' },
+    { href: 'https://www.instagram.com/reel/Dblj2sUJD_D/', cover: 'reel-06', alt: 'builders.mu with a Shinchan toy' },
   ],
 } as const;
 
 export const company = {
-  // s18; the same company as logos in companyLogos
-  title: 'Our orbit has had some remarkable company.',
+  // s15 (c: the orbit stays as it is; the last line drops only if it crowds)
+  title: 'Join our remarkable company.',
+  lines: ['Brands we’ve worked with.', 'Relationships we’re proud to build on.'],
+  across: 'Across Masters’ Union University’s events, programmes and partnerships.',
   names: [
     'PwC',
     'HYROX',
@@ -465,23 +393,21 @@ export const deliverables: { name: string; values: Record<TierId, Entitlement> }
 ];
 
 export const tiersIntro = {
-  // s19–20
-  lead: 'We now invite you to',
-  title: 'mark your place in the Milky Way',
+  // s16–17
+  title: 'Mark your place in the Milky Way',
   footnote: 'The deliverables can be further curated specific to the company.',
 } as const;
 
 export const signal = {
-  // s22
-  title: "Let's put your brand on our map.",
-  line: 'Every great presence starts with a signal.',
-  lineTail: 'Send yours our way.',
-  team: 'Sponsorship',
+  // s18
+  title: "Let's build something out of this world.",
+  line: 'Send us a signal.',
+  team: 'Sponsorship Team',
   contacts: [
     { name: 'Ananya Singh', email: 'ananya.singh1@mastersunion.org' },
     { name: 'Chirag Naryani', email: 'chirag.naryani_UGTBM2028@mastersunion.org' },
   ],
-  general: { label: 'Or reach us at', email: 'milkyway@mastersunion.org' },
+  general: { label: 'Or for any further queries', email: 'milkyway@mastersunion.org' },
   address: "Masters' Union University, Gurugram, Haryana.",
   subject: 'Milky Way 2027 — Sponsorship',
 } as const;
@@ -489,13 +415,13 @@ export const signal = {
 /** Waypoints on the flight path, in page order. Used by the nav and the trajectory. */
 export const waypoints = [
   { id: 'launch', label: 'Launch' },
-  { id: 'origin', label: 'Origin' },
-  { id: 'milky-way', label: 'Milky Way' },
-  { id: 'road', label: 'Road to Milky Way' },
-  { id: 'landing', label: 'Yashobhoomi' },
-  { id: 'worlds', label: 'The Main Days' },
+  { id: 'milky-way', label: 'The fest' },
+  { id: 'audience', label: 'The audience' },
+  { id: 'landing', label: 'The venue' },
+  { id: 'road', label: 'The journey' },
+  { id: 'origin', label: 'Our story' },
   { id: 'reach', label: 'Digital multiverse' },
   { id: 'company', label: 'Company' },
-  { id: 'tiers', label: 'Your place' },
-  { id: 'signal', label: 'Signal' },
+  { id: 'tiers', label: 'Sponsorship tiers' },
+  { id: 'signal', label: 'Contact' },
 ] as const;

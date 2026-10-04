@@ -32,7 +32,9 @@
   filter: grayscale(1) contrast(1.25) brightness(1.08);
 }
 
-.print:hover .img {
+/* Hover on desktop; on phones the photo in the middle of the screen (FocusLight) */
+.print:hover .img,
+.print[data-focus] .img {
   filter: none;
   mix-blend-mode: normal;
 }

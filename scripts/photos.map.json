@@ -190,6 +190,64 @@
     "investment-fund": {
       "file": "s19-03.jpg",
       "slide": 9
+    },
+    "venue-stage": {
+      "file": "v3-s07-01.png",
+      "source": "Main deck w changes, slide 7"
+    },
+    "venue-hall": {
+      "file": "v3-s07-03.png",
+      "source": "Main deck w changes, slide 7"
+    },
+    "guest-fireside": {
+      "file": "v3-s09-04.jpg",
+      "source": "Main deck w changes, slide 9"
+    },
+    "guest-saree": {
+      "file": "v3-s09-07.jpg",
+      "source": "Main deck w changes, slide 9"
+    },
+    "lexis-kitchen": {
+      "file": "v3-s10-01.jpg",
+      "source": "Main deck w changes, slide 10"
+    },
+    "hyrox-delhi-sign": {
+      "file": "v3-s11-01.jpg",
+      "source": "Main deck w changes, slide 11"
+    },
+    "demo-day-hall": {
+      "file": "v3-s11-02.jpg",
+      "source": "Main deck w changes, slide 11"
+    },
+    "reel-01": {
+      "file": "v3-s13-01.png",
+      "source": "Main deck w changes, slide 13"
+    },
+    "reel-02": {
+      "file": "v3-s13-02.jpg",
+      "source": "Main deck w changes, slide 13"
+    },
+    "reel-03": {
+      "file": "v3-s13-03.jpg",
+      "source": "Main deck w changes, slide 13"
+    },
+    "reel-04": {
+      "file": "v3-s14-01.png",
+      "source": "Main deck w changes, slide 14",
+      "crop": [
+        651,
+        347,
+        366,
+        526
+      ]
+    },
+    "reel-05": {
+      "file": "v3-s14-02.png",
+      "source": "Main deck w changes, slide 14"
+    },
+    "reel-06": {
+      "file": "v3-s14-03.png",
+      "source": "Main deck w changes, slide 14"
     }
   },
   "logos": {

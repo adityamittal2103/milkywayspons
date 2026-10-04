@@ -299,6 +299,17 @@ ol {
   padding-left: calc(var(--gutter) + var(--rail));
 }
 
+/* Mobile sheet: where two dark sections meet, the break carries no colour change,
+   so two full paddings read as an empty void. Halve them on phones. */
+@media (max-width: 767px) {
+  .section[data-field='black']:has(+ .section[data-field='black']) {
+    padding-bottom: calc(var(--section-pad) * 0.5);
+  }
+  .section[data-field='black'] + .section[data-field='black'] {
+    padding-top: calc(var(--section-pad) * 0.5);
+  }
+}
+
 @media (max-width: 767px) {
   :root {
     --node: 2.1rem;

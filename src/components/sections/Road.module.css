@@ -20,29 +20,46 @@
   margin-top: var(--s-7);
 }
 
+.titleBlock {
+  grid-column: 1 / span 6;
+  display: grid;
+  gap: var(--s-4);
+}
+
 .title {
-  grid-column: 1 / span 7;
   font-size: var(--t-h1);
-  max-width: 9ch;
+}
+
+.strapline {
+  max-width: 24ch;
+  color: var(--yellow);
 }
 
 .lead {
   grid-column: 8 / -1;
   display: grid;
-  gap: var(--s-3);
+  gap: var(--s-4);
   max-width: 34rem;
 }
 
-.deckTitle {
-  font-weight: 650;
-}
-
-.strap {
-  max-width: 44ch;
-  opacity: 0.78;
+.what {
+  font-size: var(--t-body);
   line-height: 1.45;
   text-wrap: pretty;
 }
+
+.name {
+  font-weight: 800;
+  color: var(--yellow);
+}
+
+.subhead {
+  font-size: var(--t-h3);
+}
+
+
+
+
 
 /* ---------- the pinned stage ---------- */
 .stage {
@@ -363,34 +380,31 @@
 }
 
 /* ---------- coda: the deck's three lines around the map, after the stillness ---------- */
+/* The closing invitation, set after the map's stillness */
 .coda {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  column-gap: var(--s-6);
   padding-top: var(--s-8);
   padding-bottom: var(--s-9);
 }
 
-.micro {
-  display: grid;
-  grid-template-columns: 0.9rem minmax(0, 1fr);
-  column-gap: var(--s-3);
-  align-items: start;
-  max-width: 30ch;
-  padding-top: var(--s-3);
-  border-top: var(--rule) solid color-mix(in srgb, var(--paper) 40%, transparent);
-  font-size: 1.02rem;
-  line-height: 1.4;
-  text-wrap: pretty;
+.ride {
+  display: flex;
+  align-items: baseline;
+  gap: var(--s-4);
+  max-width: 26ch;
+  margin-left: auto;
+  margin-right: 6%;
+  font-size: var(--t-h2);
+  text-wrap: balance;
 }
 
-.microStar {
-  width: 0.8rem;
-  margin-top: 0.3em;
+.rideStar {
+  flex: none;
+  width: 0.6em;
+  --ink-color: var(--yellow);
 }
 
 @media (max-width: 1023px) {
-  .title,
+  .titleBlock,
   .lead {
     grid-column: 1 / -1;
   }
@@ -401,8 +415,10 @@
   .frame {
     padding: 4.25rem var(--gutter) 6.5rem;
   }
+  /* India keeps a few units of empty sea on each side; letting the chart run
+     slightly past the frame uses the full screen width without cropping it. */
   .camera {
-    width: min(100%, calc((100svh - 13rem) * 0.898));
+    width: min(106%, calc((100svh - 11rem) * 0.898));
   }
   .grid text {
     font-size: 24px;
@@ -438,9 +454,11 @@
     text-align: left;
   }
   .coda {
-    grid-template-columns: minmax(0, 1fr);
-    row-gap: var(--s-5);
     padding-top: var(--s-7);
+  }
+  .ride {
+    margin-right: 0;
+    font-size: clamp(1.6rem, 7vw, 2.2rem);
   }
 }
 

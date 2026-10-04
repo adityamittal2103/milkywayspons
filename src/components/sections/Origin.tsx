@@ -1,119 +1,190 @@
-import type { CSSProperties } from 'react';
-import manifest from '@/content/photos.json';
-import { experiences, impact, origin, visitors } from '@/content/milky-way';
+'use client';
+
+import { useEffect, useRef } from 'react';
+import { firsts, learned, moments } from '@/content/milky-way';
+import { prefersReducedMotion } from '@/lib/motion';
 import { CutEdge } from '../CutEdge';
-import { DeckLogo } from '../DeckLogo';
-import { Drift } from '../Drift';
-import { Ink } from '../Ink';
+import { Glyph } from '../Ink';
 import { Photo } from '../Photo';
 import { Waypoint } from '../Waypoint';
 import styles from './Origin.module.css';
 
-const dims = manifest as Record<string, { w: number; h: number }>;
-// Bloomberg's slim wordmark reads small at the shared optical size, so it gets a larger one.
-const LOGO_SIZE: Record<string, string> = {
-  default: 'clamp(2.6rem, 4vw, 4rem)',
-  bloomberg: 'clamp(3.3rem, 5vw, 5rem)',
-};
-const ar = (id: string) => (dims[id] ? `${dims[id].w} / ${dims[id].h}` : '4 / 5');
-
+/**
+ * s9–11, read as one sentence: we've learned from the best, pulled off our
+ * firsts, and crafted the biggest moments. The guests run past on their own
+ * (s9 comment); the moments scroll sideways under arrows and show their words
+ * only when a picture is hovered, focused or tapped (s11 comment).
+ */
 export function Origin() {
-  const [lead, ...rest] = origin.stats;
+  const track = useRef<HTMLUListElement>(null);
+  const strip = useRef<HTMLDivElement>(null);
+  const holdUntil = useRef(0);
+
+  // The guests drift on their own, slowly (mobile sheet: it was too fast), and
+  // stop for a few seconds whenever the reader swipes, scrolls, hovers or uses the arrows.
+  useEffect(() => {
+    const el = strip.current;
+    if (!el || prefersReducedMotion()) return;
+    let raf = 0;
+    let last = 0;
+    let pos = el.scrollLeft;
+    let hover = false;
+    let visible = false;
+    const half = () => (el.firstElementChild as HTMLElement).scrollWidth / 2;
+    const tick = (now: number) => {
+      const dt = last ? Math.min(64, now - last) : 16;
+      last = now;
+      if (hover || now < holdUntil.current) pos = el.scrollLeft;
+      else {
+        pos += ((window.innerWidth < 768 ? 20 : 26) * dt) / 1000;
+        if (pos >= half()) pos -= half();
+        el.scrollLeft = pos;
+      }
+      raf = visible ? requestAnimationFrame(tick) : 0;
+    };
+    const hold = () => (holdUntil.current = performance.now() + 3500);
+    const enter = () => (hover = true);
+    const leave = () => {
+      hover = false;
+      hold();
+    };
+    const io = new IntersectionObserver(([e]) => {
+      visible = e.isIntersecting;
+      if (visible && !raf) {
+        last = 0;
+        raf = requestAnimationFrame(tick);
+      }
+    });
+    io.observe(el);
+    el.addEventListener('pointerdown', hold);
+    el.addEventListener('touchstart', hold, { passive: true });
+    el.addEventListener('wheel', hold, { passive: true });
+    el.addEventListener('mouseenter', enter);
+    el.addEventListener('mouseleave', leave);
+    return () => {
+      io.disconnect();
+      cancelAnimationFrame(raf);
+      el.removeEventListener('pointerdown', hold);
+      el.removeEventListener('touchstart', hold);
+      el.removeEventListener('wheel', hold);
+      el.removeEventListener('mouseenter', enter);
+      el.removeEventListener('mouseleave', leave);
+    };
+  }, []);
+
+  const nudge = (dir: 1 | -1) => {
+    const el = strip.current;
+    if (!el) return;
+    holdUntil.current = performance.now() + 4000;
+    const card = el.querySelector('li');
+    const half = (el.firstElementChild as HTMLElement).scrollWidth / 2;
+    // Going back from the very start wraps to the matching point of the second copy.
+    if (dir < 0 && el.scrollLeft < 4) el.scrollLeft += half;
+    const gap = parseFloat(getComputedStyle(el.querySelector('ul')!).columnGap) || 0;
+    el.scrollBy({ left: dir * ((card?.getBoundingClientRect().width ?? 200) + gap), behavior: prefersReducedMotion() ? 'auto' : 'smooth' });
+  };
+  const step = (dir: 1 | -1) => {
+    const el = track.current;
+    if (!el) return;
+    const item = el.querySelector('li');
+    const gap = parseFloat(getComputedStyle(el).columnGap) || 0;
+    el.scrollBy({ left: dir * ((item?.getBoundingClientRect().width ?? el.clientWidth * 0.8) + gap), behavior: 'smooth' });
+  };
+
   return (
     <section id="origin" className={`section ${styles.origin}`} data-field="indigo" aria-labelledby="origin-title">
       <CutEdge seed={2} />
-      <div className={styles.portal} aria-hidden="true">
-        <Ink name="portal" color="yellow" />
+      <div className="wrap content">
+        {/* The page's flight path lifts over the Road to Milky Way chart and resumes here */}
+        <Waypoint breakBefore />
+        <h2 id="origin-title" className={`headline ${styles.title}`}>
+          {learned.title}
+        </h2>
+      </div>
+
+      {/* The guests, running past. The second copy closes the loop for sighted readers only. */}
+      <div ref={strip} className={styles.marquee} role="region" aria-label="Guests who have spoken at Masters' Union" tabIndex={0}>
+        <div className={styles.run}>
+          {[0, 1].map((copy) => (
+            <ul key={copy} className={styles.people} aria-hidden={copy === 1 || undefined}>
+              {learned.people.map((p) => (
+                <li key={p.photo} className={styles.person}>
+                  <Photo
+                    id={p.photo}
+                    alt={copy === 1 ? '' : p.name ?? 'A guest speaker at Masters’ Union'}
+                    className={styles.portrait}
+                    sizes="16rem"
+                  />
+                  {p.name ? <span className={`headline ${styles.name}`}>{p.name}</span> : null}
+                </li>
+              ))}
+            </ul>
+          ))}
+        </div>
+      </div>
+
+      <div className={`wrap content ${styles.stripControls}`}>
+        <p className={`coord ${styles.swipe}`}>Swipe or use the arrows</p>
+        <button type="button" className={styles.arrow} onClick={() => nudge(-1)} aria-label="Previous guests">
+          <Glyph name="forward" className={`${styles.arrowGlyph} ${styles.back}`} />
+        </button>
+        <button type="button" className={styles.arrow} onClick={() => nudge(1)} aria-label="More guests">
+          <Glyph name="forward" className={styles.arrowGlyph} />
+        </button>
       </div>
 
       <div className="wrap content">
-        <Waypoint />
+        <div className={styles.firsts}>
+          <h3 className={`headline ${styles.beat}`}>{firsts.title}</h3>
+          <ul className={styles.firstList}>
+            {firsts.items.map((f) => (
+              <li key={f.figure} className={styles.first}>
+                <Photo
+                  id={f.photo.id}
+                  alt={f.photo.alt}
+                  caption={f.photo.caption}
+                  className={styles.firstPhoto}
+                  sizes="(max-width: 767px) 100vw, 30vw"
+                />
+                <p className={`numeral ${styles.firstFigure}`}>{f.figure}</p>
+                <p className={styles.firstLabel}>{f.label}</p>
+              </li>
+            ))}
+          </ul>
 
-        <header className={styles.head}>
-          <h2 id="origin-title" className={`display ${styles.title}`}>
-            {origin.title}
-          </h2>
-          <p className={`lede ${styles.tail}`}>{origin.titleTail}</p>
-        </header>
-
-        <Photo id={origin.photo.id} alt={origin.photo.alt} className={styles.band} sizes="(max-width: 767px) 100vw, 88vw" />
-
-        <div className={styles.grid}>
-          <div className={`prose ${styles.body}`}>
-            <p>
-              {origin.body[0]} {origin.body[1].charAt(0).toLowerCase() + origin.body[1].slice(1)}
+          <div className={styles.scratch}>
+            <p className={`display ${styles.doing}`}>{firsts.lead}</p>
+            <p className={`headline ${styles.building}`}>{firsts.line}</p>
+            <p className={styles.team}>
+              {firsts.team.lead} <span className={`numeral ${styles.teamValue}`}>{firsts.team.value}</span> {firsts.team.label}
             </p>
-            <p>{origin.body[2]}</p>
-            <p className={styles.kicker}>{origin.kicker}</p>
+            <p className={styles.support}>{firsts.support}</p>
           </div>
+        </div>
 
-          <dl className={styles.stats}>
-            <div className={styles.lead}>
-              <dt className={styles.statLabel}>{lead.label}</dt>
-              <dd className={`numeral ${styles.leadValue}`}>{lead.value}</dd>
+        <div className={styles.moments}>
+          <div className={styles.momentsHead}>
+            <h3 className={`headline ${styles.beat}`}>
+              {moments.title} <span className={styles.signature}>{moments.signature}</span>
+            </h3>
+            <div className={styles.arrows}>
+              <button type="button" className={styles.arrow} onClick={() => step(-1)} aria-label="Previous moment">
+                <Glyph name="forward" className={`${styles.arrowGlyph} ${styles.back}`} />
+              </button>
+              <button type="button" className={styles.arrow} onClick={() => step(1)} aria-label="Next moment">
+                <Glyph name="forward" className={styles.arrowGlyph} />
+              </button>
             </div>
-            {rest.map((s) => (
-              <div key={s.label} className={styles.stat}>
-                <dt className={styles.statLabel}>{s.label}</dt>
-                <dd className={`numeral ${styles.statValue}`}>{s.value}</dd>
-              </div>
-            ))}
-          </dl>
-        </div>
-
-        <div className={styles.visitors}>
-          <h3 className={`headline ${styles.subhead}`}>{visitors.title}</h3>
-          <ul className={styles.people}>
-            {visitors.people.map((p) => (
-              <li key={p.name} className={styles.person}>
-                <Photo id={p.photo} alt={`${p.name} at Masters' Union`} className={styles.portrait} sizes="10rem" />
-                <span className={`display ${styles.name}`}>{p.name}</span>
-                <span className={styles.note}>{p.note}</span>
-              </li>
-            ))}
-          </ul>
-          <Drift label="Guest sessions at Masters' Union" className={styles.sessions}>
-            {visitors.sessions.map((id) => (
-              <li key={id} style={{ '--ar': ar(id) } as CSSProperties}>
-                <Photo id={id} alt="A guest speaker in a session at Masters' Union" sizes="24rem" />
-              </li>
-            ))}
-          </Drift>
-        </div>
-
-        <div className={styles.experiences}>
-          <h3 className={`headline ${styles.subhead}`}>{experiences.title}</h3>
-          <ul className={styles.index}>
-            {experiences.items.map((x) => (
-              <li key={x.name} className={styles.row}>
-                <h4 className={styles.rowName}>
-                  {x.logo ? <DeckLogo id={x.logo} name={x.name} color="paper" size={LOGO_SIZE[x.logo] ?? LOGO_SIZE.default} /> : x.name}
-                </h4>
-                {x.figure ? <p className={`numeral ${styles.rowFigure}`}>{x.figure}</p> : <span className={styles.rowFigure} />}
-                <p className={styles.rowText}>{x.text}</p>
-                <Photo id={x.photo.id} alt={x.photo.alt} className={styles.rowPhoto} sizes="(max-width: 767px) 100vw, 18rem" />
-              </li>
-            ))}
-          </ul>
-          <ul className={styles.mosaic} aria-label="Moments from those experiences">
-            {experiences.gallery.map((g, i) => (
-              <li key={g.id} className={styles.tile} data-tile={i}>
-                <Photo id={g.id} alt={g.alt} sizes="(max-width: 767px) 50vw, 33vw" />
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <div id="impact" className={styles.impact}>
-          <h3 className={`headline ${styles.subhead}`}>{impact.title}</h3>
-          <ul className={styles.impactList}>
-            {impact.items.map((it) => (
-              <li key={it.figure} className={styles.impactItem}>
-                <Photo id={it.photo.id} alt={it.photo.alt} className={styles.impactPhoto} sizes="(max-width: 767px) 100vw, 30vw" />
-                <p className={`numeral ${styles.impactFigure}`}>{it.figure}</p>
-                <p className={styles.impactLead}>{it.lead}</p>
-                {it.detail ? <p className={styles.impactDetail}>{it.detail}</p> : null}
-                <p className={styles.impactNote}>{it.note}</p>
+          </div>
+          <ul ref={track} className={styles.momentTrack}>
+            {moments.items.map((m) => (
+              <li key={m.name} className={styles.moment} tabIndex={0} data-focus-reveal>
+                <Photo id={m.photo.id} alt={m.photo.alt} className={styles.momentPhoto} sizes="(max-width: 767px) 85vw, 40vw" />
+                <Glyph name="special-point" className={styles.hint} />
+                <div className={styles.momentText}>
+                  <p className={`headline ${styles.momentName}`}>{m.name}</p>
+                  <p className={styles.momentLine}>{m.text}</p>
+                </div>
               </li>
             ))}
           </ul>

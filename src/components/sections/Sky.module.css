@@ -1,0 +1,127 @@
+.sky {
+  position: relative;
+}
+
+.sky > :global(.wrap) {
+  padding-left: calc(var(--gutter) + var(--rail));
+  padding-block: clamp(8rem, 22vh, 16rem) clamp(5rem, 12vh, 9rem);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--s-5);
+  row-gap: var(--s-8);
+}
+
+/* "45k+ GenZs, / Under One Sky, / And You Light it Up." */
+.title {
+  grid-column: 2 / span 10;
+  display: grid;
+  font-size: var(--t-h1);
+  line-height: 1;
+}
+
+.line:nth-child(2) {
+  padding-left: 1.2em;
+}
+
+.line:nth-child(3) {
+  padding-left: 2.4em;
+  color: var(--yellow);
+}
+
+.count {
+  font-size: 1.5em;
+  line-height: 0.8;
+  color: var(--yellow);
+}
+
+/* s2: the location pin, linked to the venue on the map */
+.landing {
+  grid-column: 1 / -1;
+  margin-left: calc(var(--rail) * -1);
+  display: flex;
+  align-items: center;
+  gap: var(--s-4);
+  justify-self: start;
+  text-decoration: none;
+}
+
+.node {
+  display: grid;
+  place-items: center;
+  width: var(--node);
+  height: var(--node);
+  flex: none;
+  border-radius: 50%;
+  background: var(--paper);
+  transition: background var(--dur-micro) linear;
+}
+
+.pin {
+  width: calc(var(--node) * 0.42);
+  --ink-color: var(--vermilion);
+}
+
+.landingText {
+  display: grid;
+  gap: 2px;
+  font-weight: 650;
+  font-size: var(--t-small);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.coords {
+  text-transform: none;
+  letter-spacing: 0.02em;
+  font-size: 0.95rem;
+  color: var(--yellow);
+}
+
+.place {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  margin-top: 4px;
+  font-size: 1.05rem;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.25em;
+}
+
+.go {
+  width: 0.85em;
+  --ink-color: var(--yellow);
+}
+
+.landing:hover .node {
+  background: var(--yellow);
+}
+
+.landing:hover .place {
+  text-decoration-color: var(--yellow);
+}
+
+@media (max-width: 767px) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: var(--s-7);
+  }
+  .title,
+  .landing {
+    grid-column: 1;
+  }
+  /* Mobile sheet: closer to the hero, and the three lines on one left edge */
+  .sky > :global(.wrap) {
+    padding-block: var(--s-6) var(--s-8);
+  }
+  .title {
+    font-size: clamp(2.3rem, 10.5vw, 3.4rem);
+  }
+  .line:nth-child(2),
+  .line:nth-child(3) {
+    padding-left: 0;
+  }
+}

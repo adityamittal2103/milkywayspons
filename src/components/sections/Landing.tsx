@@ -1,4 +1,4 @@
-import { festival, landing } from '@/content/milky-way';
+import { festival, venue } from '@/content/milky-way';
 import { CutEdge } from '../CutEdge';
 import { Ink } from '../Ink';
 import { Photo } from '../Photo';
@@ -6,9 +6,9 @@ import { Waypoint } from '../Waypoint';
 import styles from './Landing.module.css';
 
 /**
- * The deck's "wow" slide: the route touches down and the number takes the
- * page. Set in deep indigo (the kit's Indigo drawn toward Phantom Black) so
- * the venue stays inside the Deep Space world.
+ * s7: the venue. The capacity takes the page; the place, the dates and the
+ * promise sit around it. Set in deep indigo (the kit's Indigo drawn toward
+ * Phantom Black) so the venue stays inside the Deep Space world.
  */
 export function Landing() {
   return (
@@ -19,42 +19,41 @@ export function Landing() {
       </div>
 
       <div className="wrap content">
-        <Waypoint glyph="location" breakBefore />
+        <Waypoint glyph="location" />
 
-        <h2 id="landing-title" className={`headline ${styles.title}`}>
-          {landing.title}
-        </h2>
-        <p className={`lede ${styles.subtitle}`}>{landing.subtitle}</p>
+        <header className={styles.head}>
+          <h2 id="landing-title" className={`display ${styles.title}`}>
+            {venue.title}
+          </h2>
+          <p className={`lede ${styles.lead}`}>{venue.lead}</p>
+          <p className={`headline ${styles.place}`}>{venue.place}</p>
+          <p className={styles.booked}>{venue.booked}</p>
+        </header>
 
         <div className={styles.figureBlock}>
           <p className={styles.figure}>
-            <span className={`numeral ${styles.figureValue}`}>{landing.figure}</span>
-            <span className={`display ${styles.figureLabel}`}>{landing.figureLabel}</span>
+            <span className={styles.figureLead}>{venue.capacity.lead}</span>
+            <span className={`numeral ${styles.figureValue}`}>{venue.capacity.value}</span>
+            <span className={`display ${styles.figureLabel}`}>{venue.capacity.label}</span>
           </p>
-          <p className={`lede ${styles.note}`}>{landing.figureNote}</p>
+          <div className={styles.promise}>
+            <p className={`lede ${styles.memorable}`}>{venue.memorable}</p>
+            <p className={styles.draw}>{venue.draw}</p>
+          </div>
         </div>
 
         <div className={styles.venue}>
-          {landing.photos.map((p, n) => (
+          {venue.photos.map((p, n) => (
             <Photo
               key={p.id}
               id={p.id}
               alt={p.alt}
               className={styles.venuePhoto}
-              style={{ gridColumn: n === 0 ? '1 / 8' : '8 / 13' }}
-              sizes="(max-width: 767px) 100vw, 55vw"
+              style={{ gridArea: `p${n}` }}
+              sizes="(max-width: 767px) 100vw, 50vw"
             />
           ))}
         </div>
-
-        <ul className={styles.facts}>
-          {landing.facts.map((f) => (
-            <li key={f.label} className={styles.fact}>
-              <span className={`numeral ${styles.factValue}`}>{f.value}</span>
-              <span className={styles.factLabel}>{f.label}</span>
-            </li>
-          ))}
-        </ul>
 
         <p className={styles.dateline}>
           <time dateTime="2027-02-20">{festival.dates}</time>

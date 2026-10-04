@@ -1,9 +1,21 @@
-import { milkyWay } from '@/content/milky-way';
+import type { CSSProperties } from 'react';
+import { fest } from '@/content/milky-way';
 import { CutEdge } from '../CutEdge';
-import { Ink, Logo } from '../Ink';
+import { Ink, type InkName } from '../Ink';
 import { Waypoint } from '../Waypoint';
 import styles from './MilkyWay.module.css';
 
+// "Floating worlds = different festival experiences" (brand kit symbolism).
+// Positions are % of the sky; the dotted lines join them into a constellation.
+const SKY = [
+  { x: 9, y: 22, size: 0.95 },
+  { x: 36, y: 8, size: 0.85 },
+  { x: 62, y: 26, size: 0.95 },
+  { x: 24, y: 72, size: 0.9 },
+  { x: 80, y: 66, size: 1.3 }, // pronites: when the sun goes down
+];
+
+/** s3: what Milky Way is, in numbers; then the day and night of it, drawn as worlds (s4 comment). */
 export function MilkyWay() {
   return (
     <section id="milky-way" className={`section ${styles.mw}`} data-field="plum" aria-labelledby="mw-title">
@@ -15,18 +27,57 @@ export function MilkyWay() {
       <div className="wrap content">
         <Waypoint />
 
-        <h2 id="mw-title" className={styles.title}>
-          <span className={`headline ${styles.lead}`}>{milkyWay.title}</span>
-          <Logo name="wordmark-horizontal" label={milkyWay.titleName} color="yellow" className={styles.wordmark} />
-        </h2>
+        <header className={styles.head}>
+          <p className={styles.label}>{fest.label}</p>
+          <h2 id="mw-title" className={`headline ${styles.title}`}>
+            {fest.title}
+          </h2>
+          <p className={`lede ${styles.subhead}`}>{fest.subhead}</p>
+        </header>
 
-        <div className={`prose ${styles.body}`}>
-          {milkyWay.paragraphs.map((p) => (
-            <p key={p.slice(0, 16)}>{p}</p>
+        {/* Four callouts side by side, largest to smallest */}
+        <dl className={styles.stats}>
+          {fest.stats.map((s, i) => (
+            <div key={s.label} className={styles.stat} style={{ '--step': i } as CSSProperties}>
+              <dt className={styles.statLabel}>{s.label}</dt>
+              <dd className={`numeral ${styles.statValue}`}>{s.value}</dd>
+            </div>
           ))}
+        </dl>
+
+        <div className={styles.days}>
+          <p className={`lede ${styles.events}`}>{fest.events}</p>
+          <p className={styles.body}>{fest.body}</p>
         </div>
 
-        <p className={`display ${styles.ask}`}>{milkyWay.ask}</p>
+        <div className={styles.sky}>
+          <svg className={styles.lines} viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+            <polyline points={SKY.map((p) => `${p.x},${p.y}`).join(' ')} />
+            <line x1={SKY[0].x} y1={SKY[0].y} x2={SKY[3].x} y2={SKY[3].y} />
+          </svg>
+          <ul className={styles.list} aria-label="What the festival days hold">
+            {fest.symbols.map((w, i) => (
+              <li
+                key={w.name}
+                className={styles.world}
+                style={
+                  {
+                    '--x': `${SKY[i].x}%`,
+                    '--y': `${SKY[i].y}%`,
+                    '--size': SKY[i].size,
+                    '--bob': `${7 + i * 1.3}s`,
+                  } as CSSProperties
+                }
+                data-nights={i === fest.symbols.length - 1 || undefined}
+              >
+                <span className={styles.art}>
+                  <Ink name={w.art as InkName} color="black" />
+                </span>
+                <span className={`headline ${styles.name}`}>{w.name}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </section>
   );

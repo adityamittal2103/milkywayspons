@@ -12,23 +12,19 @@ export function Signal() {
     <section id="signal" className={`section ${styles.signal}`} data-field="lime" aria-labelledby="signal-title">
       <CutEdge seed={10} />
       <div className="wrap content">
-        <div className={styles.beacon}>
+        {/* The rings broadcast from the node itself: where the page's flight path ends */}
+        <Waypoint glyph="live">
           <span className={styles.rings} aria-hidden="true">
             <span />
             <span />
             <span />
           </span>
-          <Waypoint glyph="live" />
-        </div>
+        </Waypoint>
 
         <h2 id="signal-title" className={`display ${styles.title}`}>
           {signal.title}
         </h2>
-        <p className={`lede ${styles.line}`}>
-          {signal.line}
-          <br />
-          {signal.lineTail}
-        </p>
+        <p className={`lede ${styles.line}`}>{signal.line}</p>
 
         <div className={styles.primary}>
           <CutLink href={mailto(signal.general.email)} tone="ink" size="lg" glyph="forward">

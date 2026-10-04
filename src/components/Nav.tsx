@@ -9,24 +9,24 @@ import styles from './Nav.module.css';
 const pad = (i: number) => String(i).padStart(2, '0');
 
 /**
- * Navigation as an instrument, not a bar: the mark top-left, the one action
+ * Navigation as an instrument, not a bar: the mark top-left, the two actions
  * top-right, and a readout bottom-left that names the current waypoint and
- * opens the full index.
+ * opens the full index. All of it stays on screen the whole way down (deck s1
+ * comments: the sponsorship tiers button constant throughout, navigation on
+ * throughout).
  */
 export function Nav() {
   const [current, setCurrent] = useState(0);
-  const [tucked, setTucked] = useState(false);
-  const [inHero, setInHero] = useState(true);
   const dialog = useRef<HTMLDialogElement>(null);
 
   useEffect(() => {
-    const sections = [...waypoints.map((w) => w.id), 'prologue']
+    const sections = [...waypoints.map((w) => w.id), 'sky']
       .map((id) => document.getElementById(id))
       .filter((el): el is HTMLElement => !!el);
     const io = new IntersectionObserver(
       (entries) => {
         for (const e of entries) {
-          // The prologue belongs to the launch waypoint.
+          // The sky slide belongs to the launch waypoint.
           if (e.isIntersecting)
             setCurrent(
               Math.max(
@@ -39,26 +39,7 @@ export function Nav() {
       { rootMargin: '-45% 0px -50% 0px' },
     );
     sections.forEach((s) => io.observe(s));
-
-    // The readout sits over content; it steps aside while the reader moves down.
-    let last = window.scrollY;
-    let idle = 0;
-    const onScroll = () => {
-      const y = window.scrollY;
-      // The hero carries its own readout and action; the index waits until it has flown past.
-      setInHero(y < window.innerHeight * 0.9);
-      if (Math.abs(y - last) > 6) setTucked(y > last && y > 400);
-      last = y;
-      window.clearTimeout(idle);
-      idle = window.setTimeout(() => setTucked(false), 1100);
-    };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
-    return () => {
-      io.disconnect();
-      window.removeEventListener('scroll', onScroll);
-      window.clearTimeout(idle);
-    };
+    return () => io.disconnect();
   }, []);
 
   const open = () => dialog.current?.showModal();
@@ -73,18 +54,15 @@ export function Nav() {
       </a>
 
       <div className={styles.action}>
-        <CutLink href="#signal" glyph="forward">
-          Send a signal
+        <CutLink href="#tiers" glyph="forward" className={styles.tiers}>
+          Sponsorship tiers
+        </CutLink>
+        <CutLink href="#signal" tone="paper" glyph="forward" className={styles.contact}>
+          Contact us
         </CutLink>
       </div>
 
-      <button
-        type="button"
-        className={styles.readout}
-        onClick={open}
-        aria-haspopup="dialog"
-        data-tucked={tucked || inHero || undefined}
-      >
+      <button type="button" className={styles.readout} onClick={open} aria-haspopup="dialog">
         <span className={styles.readoutN} aria-hidden="true">
           {pad(Math.max(0, current))}/{pad(waypoints.length - 1)}
         </span>

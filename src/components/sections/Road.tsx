@@ -133,7 +133,8 @@ export function Road() {
         const unit = VW / w;
         svg.style.setProperty('--u', unit.toFixed(4));
         const pin = one<HTMLElement>('[data-pin]');
-        const side = Math.max(0, (st.clientWidth - w) / 2 - 28) * unit;
+        // Negative when the chart runs past the screen edge: labels then keep inside the visible width.
+        const side = ((st.clientWidth - w) / 2 - 10) * unit;
         const band = Math.max(0, (st.clientHeight - camera.offsetHeight) / 2 - 72) * unit;
         const placed = placeLabels({
           cities,
@@ -507,12 +508,17 @@ export function Road() {
       <div className={`wrap content ${styles.intro}`}>
         <Waypoint />
         <header className={styles.head}>
-          <h2 id="road-title" className={`display ${styles.title}`}>
-            {road.name}
-          </h2>
+          <div className={styles.titleBlock}>
+            <h2 id="road-title" className={`display ${styles.title}`}>
+              {road.title}
+            </h2>
+            <p className={`lede ${styles.strapline}`}>{road.strapline}</p>
+          </div>
           <div className={styles.lead}>
-            <p className={`lede ${styles.deckTitle}`}>{road.title}</p>
-            <p className={styles.strap}>{road.strapline}</p>
+            <p className={styles.what}>
+              <strong className={styles.name}>{road.name}</strong> {road.what}
+            </p>
+            <p className={`headline ${styles.subhead}`}>{road.subhead}</p>
           </div>
         </header>
         <ol className="sr-only" aria-label={`${road.name}: the seven cities, in order`}>
@@ -644,13 +650,12 @@ export function Road() {
         </div>
       </div>
 
+      {/* s8, to the sponsor: after the stillness, the invitation */}
       <div className={`wrap content ${styles.coda}`}>
-        {road.micro.map((m, i) => (
-          <p key={i} className={styles.micro}>
-            <Glyph name="star" className={styles.microStar} />
-            {m}
-          </p>
-        ))}
+        <p className={`headline ${styles.ride}`}>
+          <Glyph name="star" className={styles.rideStar} />
+          {road.body}
+        </p>
       </div>
     </section>
   );

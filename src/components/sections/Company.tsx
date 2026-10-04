@@ -26,9 +26,17 @@ export function Company() {
       <CutEdge seed={8} />
       <div className="wrap content">
         <Waypoint />
-        <h2 id="company-title" className={`headline ${styles.title}`}>
-          {company.title}
-        </h2>
+        <header className={styles.head}>
+          <h2 id="company-title" className={`headline ${styles.title}`}>
+            {company.title}
+          </h2>
+          <p className={`lede ${styles.lines}`}>
+            {company.lines.map((l) => (
+              <span key={l}>{l}</span>
+            ))}
+          </p>
+          <p className={styles.across}>{company.across}</p>
+        </header>
 
         {/* The orbit: every mark rides its ring and counter-turns to stay upright. */}
         <div className={styles.orbit} aria-hidden="true">
