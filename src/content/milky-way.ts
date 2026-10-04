@@ -111,17 +111,17 @@ export const road = {
 
 export const learned = {
   // s9 (c: "a horizontal auto scroll of these people with their name underneath").
-  // The deck names three of the eight; the rest stay unnamed until the team supplies names.
+  // Names for the five the deck leaves unnamed were supplied by the Milky Way team.
   title: 'We’ve learned from the best,',
   people: [
     { photo: 'rohit-sharma', name: 'Rohit Sharma' },
     { photo: 'samay-raina', name: 'Samay Raina' },
     { photo: 'tanmay-bhat', name: 'Tanmay Bhat' },
-    { photo: 'guest-fireside', name: null },
-    { photo: 'guest-01', name: null },
-    { photo: 'guest-08', name: null },
-    { photo: 'guest-saree', name: null },
-    { photo: 'guest-07', name: null },
+    { photo: 'guest-fireside', name: 'Sahiba Bali' },
+    { photo: 'guest-01', name: 'Nuseir Yasin' },
+    { photo: 'guest-08', name: 'Ganeshprasad Sridharan' },
+    { photo: 'guest-saree', name: 'Dr. Nandini Seth' },
+    { photo: 'guest-07', name: 'Peyush Bansal' },
   ],
 } as const;
 

@@ -27,7 +27,7 @@ the mobile revision sheet (Google Sheets), and the Milky Way brand kit.
 | Comments (yashika bhatia 2 Oct; Ainayat Bagga 3 Oct) | 6 | Reduce picture size; remove the marked photo; add to previous slide; keep a backup pic instead | Master | Collage moved into Audience at a smaller size; the marked photo (festival grounds at dusk, `fest-02`) removed; backup in its place: HYROX athletes with medals | Done (backup choice open, item 3) |
 | Slides | 7 | The Venue: Yashobhoomi, Delhi; booked 20th–21st February 2027; capacity 20K+; making room for something memorable; competitions, performances, branded experiences; three photos | Master | Venue rebuilt with the deck's three photos; 20K+ as the headline figure; old 45,000+ footfall, 250+ colleges, 7+ cities and "Multiple live stages" removed | Done |
 | Slides | 8 | The Journey copy (strapline, Road to Milky Way line, subhead, body to the sponsor) | Master | Road intro rewritten; the body line closes the section after the map; the old three micro copies removed (not in this deck); map unchanged | Done |
-| Comment (yashika bhatia) | 9 | Horizontal auto scroll of these people with their names underneath | All | Auto-scrolling strip of the 8 people; pauses on hover/focus; still under reduced motion | Done for 3 names (open item 2) |
+| Comment (yashika bhatia) | 9 | Horizontal auto scroll of these people with their names underneath | All | Auto-scrolling strip of the 8 people; pauses on hover/focus; still under reduced motion | Done (all eight named; five names supplied by the team) |
 | Slides | 10 | 40+ / ₹1.2 crore+ / ₹5 crore; "We learn by doing. This time, we're building a festival from scratch."; team of 100+ students; supported by MUU | Master | Firsts block rebuilt | Done |
 | Comments (Ainayat Bagga ×3) | 10 | Label photos: Lexi's Gourmet Sandwiches / The Dropshipping Mela / Masters' Union Investment Fund | Master | Captions on each photo | Done |
 | Slides | 11 | HYROX Delhi & Mumbai, Demo Day, AI Summit with the deck's lines | Master | Moments block rebuilt; Next Gene and Bloomberg rows removed (not in this deck) | Done |
@@ -60,9 +60,7 @@ the mobile revision sheet (Google Sheets), and the Milky Way brand kit.
 1. **Coordinates (s2).** The deck says "Landing At 28.5049° N, 77.0892° E", which is in Gurugram
    (the previous deck's "Launching from"). Yashobhoomi is at 28.5549° N, 77.0446° E. The site
    shows the deck's figure until the team confirms which to use; the map link already opens Yashobhoomi.
-2. **Guest names (s9).** The deck names Rohit Sharma, Samay Raina and Tanmay Bhat; the other five
-   people on the slide are unnamed, so they show without a name.
-3. **Backup picture (s6).** No backup photo is attached to the comment; the HYROX athletes photo
+2. **Backup picture (s6).** No backup photo is attached to the comment; the HYROX athletes photo
    stands in. Swap on request.
 
 ## Files changed
