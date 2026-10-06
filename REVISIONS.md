@@ -179,3 +179,17 @@ Deck updated to match (20 slides: "We learn by doing" removed, 1L+, the exact he
 - Impeccable critique (persuade surface; heuristics 5, 7, 9, 10 n/a): visibility of status 3, match with the real world 4,
   user control 3, consistency 4, recognition 4, aesthetic and minimal 3 = **21/24**. Strengths: one narrative from the
   Road to Yashobhoomi, consistent controls and casing, brand-specific art throughout. Priority: the pause control above.
+
+## Final overrides, 6 Oct 2026
+
+| Override | Built state | Status |
+| --- | --- | --- |
+| Campus first (18th–19th), then Yashobhoomi (20th–21st) | Page order: The Journey → On Campus → The Venue → The Audience …; the page's flight path now resumes at the campus marker; the venue keeps its full-width statement and wide colour vista | Done |
+| 250+ → 2500+ target colleges | Fest stats; one size with the others at every width, no collisions (1440–375) | Done |
+| "Join Our Remarkable Company" → "Brands In Our Orbit" | Section heading and nav label | Done |
+| Ananya Singh: +91 83907 37132; Chirag Naryani: +91 92005 30000 | Under each email, as tap-to-call links | Done |
+| Remove "Masters' Union University, Gurugram, Haryana." under Chirag | Removed (no replacement line) | Done |
+| Audit | No "250+ target", "Join Our Remarkable Company" or "Haryana" left in the site, deck or metadata | Done |
+
+Also: the campus tour's still now stays up until the player is running, so YouTube's loading screen never shows.
+Deck updated: campus slide before the venue, 2500+, "Brands In Our Orbit", phone numbers, no address line.

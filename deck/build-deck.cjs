@@ -270,7 +270,7 @@ async function compose() {
     const cw = (W - 2 * M - 3 * 0.3) / 4;
     fest.stats.forEach((st, i) => {
       const x = M + i * (cw + 0.3);
-      s.text(x, 4.1, cw, 1.2, st.value, { size: 72, bold: true, color: 'yellow', valign: 'bottom', line: 0.9, name: `Stat ${st.label}` });
+      s.text(x, 4.1, cw, 1.2, st.value, { size: 60, bold: true, color: 'yellow', valign: 'bottom', line: 0.9, name: `Stat ${st.label}` });
       s.text(x, 5.4, cw, 0.5, st.label, { size: 18, bold: true, color: 'paper' });
     });
   }
@@ -311,34 +311,7 @@ async function compose() {
     await roadMap(s, 6.15, 0.3, 6.6);
   }
 
-  // 6 · The venue
-  {
-    const s = add('DEEP', {
-      section: 'The destination',
-      title: venue.title,
-      notes: `${venue.kicker}: ${venue.place}. ${venue.booked}. ${venue.statement}.`,
-    });
-    kicker(s, venue.kicker, 'yellow');
-    const vw = 5.55;
-    s.image(W - vw, 0, vw, H, await photo('yashobhoomi-outside', vw, H), { name: 'Yashobhoomi', alt: venue.photos[1].alt });
-    s.text(M, 1.6, 6.6, 0.55, venue.place, { size: 26, bold: true, color: 'paper' });
-    s.text(M, 2.18, 6.6, 0.4, venue.booked, { size: 15, color: 'muted' });
-    s.text(M, 3.3, 7.1, 2.4, venue.statement, { size: 46, bold: true, color: 'paper', line: 0.95, name: 'Statement' });
-  }
-
-  // 7 · The venue: the experience
-  {
-    const s = add('DEEP', { section: 'The destination', title: venue.memorable, notes: `${venue.memorable}. ${venue.draw}` });
-    s.text(M, 2.0, 7.6, 0.5, venue.draw, { size: 17, color: 'paper' });
-    const flag = await ill('badge-flag', 'indigo', 1000);
-    s.image(10.7, 0.3, 2.2, 2.2 / flag.ratio, flag.file, { name: 'Flag planet' });
-    const top = 2.85;
-    const ph = 7.0 - 0.2 - top;
-    s.image(M, top, 3.3, ph, await photo('venue-stage', 3.3, ph), { alt: venue.photos[0].alt });
-    s.image(M + 3.3 + 0.2, top, W - 2 * M - 3.5, ph, await photo('venue-hall', W - 2 * M - 3.5, ph), { alt: venue.photos[2].alt });
-  }
-
-  // 8 · Campus
+  // 6 · Campus (18th–19th, before the venue)
   {
     const s = add('DARK', {
       section: 'The destination',
@@ -369,6 +342,33 @@ async function compose() {
     const play = await glyph('forward', 'cyan');
     s.image(vx + vw / 2 - 0.17, 1.15 + vh / 2 - 0.17, 0.34, 0.34, play.file, { link });
     s.text(vx, 1.3 + vh, vw, 0.35, [{ text: `${campus.video.title}  ·  watch on YouTube`, o: { link } }], { size: 12, color: 'muted' });
+  }
+
+  // 7 · The venue
+  {
+    const s = add('DEEP', {
+      section: 'The destination',
+      title: venue.title,
+      notes: `${venue.kicker}: ${venue.place}. ${venue.booked}. ${venue.statement}.`,
+    });
+    kicker(s, venue.kicker, 'yellow');
+    const vw = 5.55;
+    s.image(W - vw, 0, vw, H, await photo('yashobhoomi-outside', vw, H), { name: 'Yashobhoomi', alt: venue.photos[1].alt });
+    s.text(M, 1.6, 6.6, 0.55, venue.place, { size: 26, bold: true, color: 'paper' });
+    s.text(M, 2.18, 6.6, 0.4, venue.booked, { size: 15, color: 'muted' });
+    s.text(M, 3.3, 7.1, 2.4, venue.statement, { size: 46, bold: true, color: 'paper', line: 0.95, name: 'Statement' });
+  }
+
+  // 8 · The venue: the experience
+  {
+    const s = add('DEEP', { section: 'The destination', title: venue.memorable, notes: `${venue.memorable}. ${venue.draw}` });
+    s.text(M, 2.0, 7.6, 0.5, venue.draw, { size: 17, color: 'paper' });
+    const flag = await ill('badge-flag', 'indigo', 1000);
+    s.image(10.7, 0.3, 2.2, 2.2 / flag.ratio, flag.file, { name: 'Flag planet' });
+    const top = 2.85;
+    const ph = 7.0 - 0.2 - top;
+    s.image(M, top, 3.3, ph, await photo('venue-stage', 3.3, ph), { alt: venue.photos[0].alt });
+    s.image(M + 3.3 + 0.2, top, W - 2 * M - 3.5, ph, await photo('venue-hall', W - 2 * M - 3.5, ph), { alt: venue.photos[2].alt });
   }
 
   // 9 · The audience
@@ -441,7 +441,7 @@ async function compose() {
     }
   }
 
-  // 14 · Moments
+  // 13 · Moments
   {
     const s = add('INDIGO', { section: 'Our story', title: moments.title, notes: moments.items.map((m) => `${m.name}: ${m.text}`).join(' ') });
     kicker(s, moments.signature, 'yellow');
@@ -456,7 +456,7 @@ async function compose() {
     }
   }
 
-  // 15 · Reach
+  // 14 · Reach
   {
     const s = add('CYAN', { section: 'Reach and company', title: reach.title, notes: reach.platforms.map((p) => `${p.name}: ${p.value} ${p.unit}${p.label ? ` (${p.label})` : ''}.`).join(' ') });
     for (let i = 0; i < reach.platforms.length; i++) {
@@ -483,7 +483,7 @@ async function compose() {
     }
   }
 
-  // 16 · Company
+  // 15 · Brands in our orbit
   {
     const s = add('DARK', { section: 'Reach and company', title: company.title.replace(/\.$/, ''), notes: `${company.lines.join(' ')} ${company.across} ${company.names.join(', ')}.` });
     s.text(M, 1.75, 4.6, 1.0, company.lines.map((t, i, a) => ({ text: t, o: { br: i < a.length - 1 } })), { size: 18, bold: true, color: 'paper' });
@@ -511,7 +511,7 @@ async function compose() {
     }
   }
 
-  // 17 · Tiers
+  // 16 · Tiers
   {
     const s = add('DARK', { section: 'Sponsorship', title: tiersIntro.title, notes: tiers.map((t) => `${t.name}: ${deliverables[0].values[t.id]}.`).join(' ') });
     kicker(s, 'Sponsorship 2027', 'yellow');
@@ -528,7 +528,7 @@ async function compose() {
     });
   }
 
-  // 18–19 · Deliverables
+  // 17–18 · Deliverables
   {
     const cell = (v) => (v === true ? '✓' : v === null ? '—' : v);
     const head = [
@@ -553,12 +553,12 @@ async function compose() {
     });
   }
 
-  // 20 · Signal
+  // 19 · Signal
   {
     const s = add('LIME', {
       section: 'Contact',
       title: signal.title.replace(/\.$/, ''),
-      notes: `${signal.line} ${signal.team}: ${signal.contacts.map((c) => `${c.name}, ${c.email}`).join('; ')}. ${signal.general.label} ${signal.general.email}. ${signal.address}`,
+      notes: `${signal.line} ${signal.team}: ${signal.contacts.map((c) => `${c.name}, ${c.email}, ${c.phone}`).join('; ')}. ${signal.general.label} ${signal.general.email}.`,
     });
     const mail = `mailto:${signal.general.email}?subject=${encodeURIComponent(signal.subject)}`;
     s.text(M, 2.25, 6, 0.5, signal.line, { size: 22, bold: true, color: 'black' });
@@ -568,18 +568,20 @@ async function compose() {
     signal.contacts.forEach((c, i) => {
       const x = M + i * 6.2;
       s.text(x, 4.65, 6, 0.6, c.name, { size: 30, bold: true, color: 'black' });
-      s.text(x, 5.3, 6, 0.35, c.email, { size: 13, color: 'black' });
+      s.text(x, 5.3, 6, 0.6, [
+        { text: c.email, o: { br: true } },
+        { text: c.phone, o: { bold: true } },
+      ], { size: 13, color: 'black', line: 1.15 });
     });
-    s.text(M, 6.05, 6, 0.6, [
+    s.text(M, 6.2, 6, 0.6, [
       { text: signal.general.label, o: { br: true } },
       { text: signal.general.email, o: { bold: true } },
     ], { size: 13, color: 'black' });
-    s.text(6.8, 6.05, 5.9, 0.6, signal.address, { size: 13, color: 'black', align: 'right' });
     const burst = await ill('starburst', 'black', 1000);
     s.image(10.55, 0.55, 2.2, 2.2 / burst.ratio, burst.file, { name: 'Starburst' });
   }
 
-  // 21 · Close
+  // 20 · Close
   {
     const s = add('COVER', { section: 'Contact', notes: `${festival.name}: ${festival.tagline}. ${festival.lockupLine}.` });
     const mark = await logo('wordmark-stacked', 'paper', 1400);

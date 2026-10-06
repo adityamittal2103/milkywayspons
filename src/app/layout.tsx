@@ -37,7 +37,7 @@ const CONTRACT = `
 THESIS: The sponsorship is a journey, so the page is a flight plan: one route from Masters' Union's coordinates through seven numbered RTM nodes to the Yashobhoomi landing, ending at the sponsor's signal. Refuses hero-plus-cards-plus-pricing-grid and the purple-gradient starfield.
 OWN-WORLD: The kit's cut-ink cosmos. Linocut illustrations as mask inks on full-bleed brand spot fields (indigo, plum, yellow, purple, cyan, lime) around Phantom Black; official wordmark paths; condensed Bricolage 800; a cased route line like a printed map. No gradients, glows, glass or radii.
 STORY: Know what Milky Way is, when and where; believe MU builds at this scale; read reach and all four tiers in one table; email the team.
-FIRST VIEWPORT: Official stacked wordmark ~60vh, centred, letters under pointer gravity; MU presents above; tagline, dates lower-left with the tiers and contact actions; 1L+ GenZs, then 2L+ / 250+ / 70+ / 7 in the sections that follow; cropped purple ringed planet.
+FIRST VIEWPORT: Official stacked wordmark ~60vh, centred, letters under pointer gravity; MU presents above; tagline, dates lower-left with the tiers and contact actions; 1L+ GenZs, then 2L+ / 2500+ / 70+ / 7 in the sections that follow; cropped purple ringed planet.
 FORM: Launch trajectory, position 1 of 7; seed 1ccec88b.
 FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance
 `;

@@ -110,7 +110,7 @@
   padding-top: var(--s-4);
 }
 
-/* The second contact closes the row on the right edge, over the postal address */
+/* The second contact closes the row on the right edge */
 .person:nth-child(2) {
   justify-items: end;
   text-align: right;
@@ -121,6 +121,7 @@
 }
 
 .email,
+.phone,
 .general a {
   font-weight: 600;
   text-decoration-thickness: 2px;
@@ -128,7 +129,14 @@
   overflow-wrap: anywhere;
 }
 
+.phone {
+  font-variant-numeric: lining-nums tabular-nums;
+  text-decoration: none;
+  letter-spacing: 0.01em;
+}
+
 .email:hover,
+.phone:hover,
 .general a:hover,
 .address:hover {
   background: var(--black);
@@ -140,15 +148,6 @@
   grid-column: 1 / span 6;
   margin-top: var(--s-7);
   font-size: var(--t-lede);
-}
-
-.postal {
-  grid-column: 8 / -1;
-  text-align: right;
-  margin-top: var(--s-7);
-  font-style: normal;
-  font-size: var(--t-lede);
-  align-self: end;
 }
 
 @media (max-width: 767px) {
@@ -165,12 +164,7 @@
   .name {
     font-size: clamp(2.6rem, 13vw, 3.6rem);
   }
-  .general,
-  .postal {
+  .general {
     grid-column: 1 / -1;
-  }
-  .postal {
-    margin-top: var(--s-4);
-    text-align: left;
   }
 }

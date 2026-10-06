@@ -7,7 +7,7 @@ import styles from './Landing.module.css';
 
 /**
  * s7: the venue, the main festival and the page's destination (team brief,
- * 6 Oct 2026): the Road to Milky Way converges here. The place's standing takes
+ * 6 Oct 2026): after the campus days, the festival lands here. The place's standing takes
  * the page at full width, then Yashobhoomi itself, wide and in colour, easing in
  * as it scrolls past; the stage, the hall and the promise follow. Set in deep
  * indigo (the kit's Indigo drawn toward Phantom Black) inside the Deep Space world.
@@ -22,9 +22,7 @@ export function Landing() {
       </div>
 
       <div className="wrap content">
-        {/* The page's flight path lifts over the Road to Milky Way chart and resumes here,
-            at the venue the journey converges on */}
-        <Waypoint glyph="location" breakBefore />
+        <Waypoint glyph="location" />
 
         {/* "The Venue", then the place and dates beside it, not stacked into one narrow column */}
         <header className={styles.head}>

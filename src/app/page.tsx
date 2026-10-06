@@ -16,10 +16,11 @@ import { Signal } from '@/components/sections/Signal';
 import { Sky } from '@/components/sections/Sky';
 import { Tiers } from '@/components/sections/Tiers';
 
-// The narrative the team set on 6 Oct 2026: who we are and what the festival is,
-// then the Road to Milky Way building toward Delhi, Yashobhoomi (the main
-// festival), the campus days, then the audience, our story, reach, the company
-// we keep, the tiers and the signal. Within that, the deck's slide order holds.
+// The narrative the team set on 6 Oct 2026 (final overrides): who we are and what
+// the festival is, the Road to Milky Way, then the festival in calendar order:
+// the campus days (18th–19th), then Yashobhoomi (20th–21st, the main festival);
+// then the audience, our story, reach, the brands in our orbit, the tiers and the
+// signal. Within that, the deck's slide order holds.
 export default function Page() {
   return (
     <>
@@ -30,8 +31,8 @@ export default function Page() {
         <Sky />
         <MilkyWay />
         <Road />
-        <Landing />
         <Campus />
+        <Landing />
         <Audience />
         <Origin />
         <Reach />

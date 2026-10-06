@@ -49,7 +49,7 @@ export const fest = {
   // s3: four callouts side by side; one size for all four (team review, 6 Oct)
   stats: [
     { value: '2L+', label: 'student registrations' }, // dc
-    { value: '250+', label: 'target colleges' },
+    { value: '2500+', label: 'target colleges' }, // final overrides (6 Oct)
     { value: '70+', label: 'events' }, // dc
     { value: '7', label: 'cities' },
   ],
@@ -91,7 +91,7 @@ export const audience = {
 } as const;
 
 export const campus = {
-  // Placed after Yashobhoomi by the team's brief (6 Oct 2026): the festival's other half.
+  // Final overrides (6 Oct): campus first (18th–19th), then Yashobhoomi (20th–21st).
   kicker: 'Two days on campus',
   // dc: "Add campus photo slide (18th to 19th) - campus tour video". The video was
   // supplied by the Milky Way team (YouTube, Masters' Union University's channel).
@@ -214,7 +214,7 @@ export const reach = {
 
 export const company = {
   // s15 (c: the orbit stays as it is; the last line drops only if it crowds)
-  title: 'Join Our Remarkable Company.',
+  title: 'Brands In Our Orbit', // final overrides (6 Oct)
   lines: ['Brands we’ve worked with.', 'Relationships we’re proud to build on.'],
   across: 'Across Masters’ Union University’s events, programmes and partnerships.',
   names: [
@@ -420,14 +420,14 @@ export const signal = {
   title: "Let's Build Something Out Of This World.", // title case (team review, 6 Oct)
   line: 'Send us a signal.',
   team: 'Sponsorship Team',
+  // Final overrides (6 Oct): a phone number for each; no postal line
   contacts: [
-    { name: 'Ananya Singh', email: 'ananya.singh1@mastersunion.org' },
-    { name: 'Chirag Naryani', email: 'chirag.naryani_UGTBM2028@mastersunion.org' },
+    { name: 'Ananya Singh', email: 'ananya.singh1@mastersunion.org', phone: '+91 83907 37132' },
+    { name: 'Chirag Naryani', email: 'chirag.naryani_UGTBM2028@mastersunion.org', phone: '+91 92005 30000' },
   ],
   // Team review (6 Oct): the CTA says "Let's Connect" ("send us a signal" was said twice)
   cta: "Let's Connect",
   general: { label: 'For further queries write to us at', email: 'milkyway@mastersunion.org' },
-  address: "Masters' Union University, Gurugram, Haryana.",
   subject: 'Milky Way 2027 — Sponsorship',
 } as const;
 
@@ -436,12 +436,12 @@ export const waypoints = [
   { id: 'launch', label: 'Launch' },
   { id: 'milky-way', label: 'The Fest' },
   { id: 'road', label: 'The Journey' },
-  { id: 'landing', label: 'The Venue' },
   { id: 'campus', label: 'On Campus' },
+  { id: 'landing', label: 'The Venue' },
   { id: 'audience', label: 'The Audience' },
   { id: 'origin', label: 'Our Story' },
   { id: 'reach', label: 'Digital Multiverse' },
-  { id: 'company', label: 'Company' },
+  { id: 'company', label: 'Brands In Our Orbit' },
   { id: 'tiers', label: 'Sponsorship Tiers' },
   { id: 'signal', label: 'Contact' },
 ] as const;

@@ -6,11 +6,11 @@ import { Waypoint } from '../Waypoint';
 import styles from './Campus.module.css';
 
 /**
- * Deck changes (Chirag), placed by the team's brief of 6 Oct 2026: after
- * Yashobhoomi, the festival's other half, at a smaller scale. Two days at
- * Masters' Union University in Gurugram, with the campus tour. The page's order
- * puts the venue first (it is the main event); the dates run in calendar order,
- * campus first, and say which half is which.
+ * Deck changes (Chirag), placed by the team's final overrides (6 Oct 2026): the
+ * festival in calendar order, the campus days first, then Yashobhoomi. Two days
+ * at Masters' Union University in Gurugram, with the campus tour, at a smaller
+ * scale than the venue that follows (the main festival). The two date lines say
+ * which half is which.
  */
 export function Campus() {
   const [onCampus] = festival.legs;
@@ -21,7 +21,8 @@ export function Campus() {
         <Ink name="crescent" color="indigo" />
       </div>
       <div className="wrap content">
-        <Waypoint glyph="location" />
+        {/* The page's flight path lifts over the Road to Milky Way chart and resumes here */}
+        <Waypoint glyph="location" breakBefore />
         <div className={styles.grid}>
           <div className={styles.copy}>
             <p className={`coord ${styles.kicker}`}>{campus.kicker}</p>

@@ -29,14 +29,19 @@ export function TourVideo({ id, title }: Props) {
   const send = (func: 'playVideo' | 'pauseVideo' | 'mute' | 'unMute') => {
     player.current?.contentWindow?.postMessage(JSON.stringify({ event: 'command', func, args: [] }), '*');
   };
+  // The still lifts only once the player is running, so YouTube's own loading
+  // screen never shows.
+  const reveal = () => window.setTimeout(() => want.current === 'play' && setStarted(true), 900);
   const play = (byHand = false) => {
     if (held.current && !byHand) return;
     if (byHand) held.current = false;
     want.current = 'play';
     setLoad(true);
-    setStarted(true);
     setPlaying(true);
-    if (ready.current) send('playVideo');
+    if (ready.current) {
+      send('playVideo');
+      reveal();
+    }
   };
   const pause = (byHand = false) => {
     if (byHand) held.current = true;
@@ -93,7 +98,10 @@ export function TourVideo({ id, title }: Props) {
     window.setTimeout(() => {
       ready.current = true;
       if (sound) send('unMute');
-      if (want.current === 'play') send('playVideo');
+      if (want.current === 'play') {
+        send('playVideo');
+        reveal();
+      }
     }, 600);
   };
 

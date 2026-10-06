@@ -44,13 +44,15 @@ export function Signal() {
                 <a className={styles.email} href={mailto(c.email)}>
                   {c.email}
                 </a>
+                <a className={styles.phone} href={`tel:${c.phone.replace(/\s/g, '')}`}>
+                  {c.phone}
+                </a>
               </li>
             ))}
           </ul>
           <p className={styles.general}>
             {signal.general.label} <a href={mailto(signal.general.email)}>{signal.general.email}</a>
           </p>
-          <address className={styles.postal}>{signal.address}</address>
         </div>
       </div>
     </section>
