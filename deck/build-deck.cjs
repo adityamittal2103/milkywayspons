@@ -216,9 +216,15 @@ async function compose() {
     });
     const planet = await ill('ringed-planet-2', 'purple', 1600);
     s.image(8.35, -0.95, 5.6, 5.6 / planet.ratio, planet.file, { name: 'Planet' });
-    const lock = await logo('lockup-presents-stacked', 'paper', 1400);
-    s.image(0.85, 0.75, 5.2 * lock.ratio, 5.2, lock.file, { name: 'Milky Way, presented by Masters’ Union University', alt: 'Masters’ Union University presents Milky Way, MU Fest 2027' });
-    s.text(6.55, 3.55, 6.2, 1.5, caps(festival.line), { size: 34, bold: true, color: 'paper', line: 0.92, name: 'Line' });
+    // The kit's presents lockup, set from its parts: its artwork reads "MU Fest 2027",
+    // which the team corrected to "A Masters' Union University Fest" (6 Oct)
+    const mu = await logo('mu-logo', 'paper', 1200);
+    const mark = await logo('wordmark-stacked', 'paper', 1400);
+    s.image(1.55, 0.9, 3.4, 3.4 / mu.ratio, mu.file, { alt: festival.presenter });
+    s.text(0.85, 1.72, 4.8, 0.3, 'PRESENTS', { size: 11, bold: true, color: 'paper', charSpacing: 4, align: 'center' });
+    s.image(0.85, 2.2, 4.8, 4.8 / mark.ratio, mark.file, { name: 'Milky Way', alt: 'Milky Way' });
+    s.text(0.6, 2.2 + 4.8 / mark.ratio + 0.2, 5.3, 0.45, festival.lockupLine, { size: 17, bold: true, color: 'paper', align: 'center', name: 'Descriptor' });
+    s.text(6.55, 3.55, 6.2, 1.5, festival.line, { size: 36, bold: true, color: 'paper', line: 0.92, name: 'Line' });
     s.text(6.55, 5.15, 6.2, 0.45, festival.dates, { size: 20, bold: true, color: 'yellow', name: 'Dates' });
     s.text(6.55, 5.62, 6.2, 0.7, `${onCampus.place}, Gurugram  ·  ${atVenue.place}, Delhi`, { size: 13, color: 'muted', name: 'Places' });
     s.text(6.55, 6.62, 6.2, 0.3, 'SPONSORSHIP 2027', { size: 11, bold: true, color: 'yellow', charSpacing: 3, name: 'Label' });
@@ -317,7 +323,7 @@ async function compose() {
     s.image(W - vw, 0, vw, H, await photo('yashobhoomi-outside', vw, H), { name: 'Yashobhoomi', alt: venue.photos[1].alt });
     s.text(M, 1.6, 6.6, 0.55, venue.place, { size: 26, bold: true, color: 'paper' });
     s.text(M, 2.18, 6.6, 0.4, venue.booked, { size: 15, color: 'muted' });
-    s.text(M, 3.2, 6.9, 3.5, caps(venue.statement), { size: 54, bold: true, color: 'paper', line: 0.88, name: 'Statement' });
+    s.text(M, 3.3, 7.1, 2.4, venue.statement, { size: 46, bold: true, color: 'paper', line: 0.95, name: 'Statement' });
   }
 
   // 7 · The venue: the experience
@@ -342,14 +348,16 @@ async function compose() {
     kicker(s, campus.kicker, 'cyan');
     s.text(M, 1.75, 5.7, 0.45, caps(`${onCampus.place} ✱ ${onCampus.city}`), { size: 15, bold: true, color: 'paper' });
     const pin = await glyph('location', 'vermilion');
-    [atVenue, onCampus].forEach((l, i) => {
-      const y = 3.55 + i * 1.05;
+    // Calendar order: the campus days, then the main festival (team review, 6 Oct)
+    [onCampus, atVenue].forEach((l, i) => {
+      const y = 3.35 + i * 1.3;
       const here = l === onCampus;
-      s.image(M, y + 0.04, 0.26, 0.26, pin.file);
-      s.text(M + 0.45, y, 5.0, 0.9, [
+      s.image(M, y + 0.26, 0.26, 0.26, pin.file);
+      s.text(M + 0.45, y, 5.2, 1.15, [
+        { text: caps(here ? campus.kicker : venue.kicker), o: { color: here ? 'cyan' : 'yellow', size: 10, br: true } },
         { text: caps(l.dates), o: { color: 'yellow', br: true } },
         { text: caps(`${l.place} ✱ ${l.city}`), o: { color: here ? 'paper' : 'muted' } },
-      ], { size: 13, bold: true, line: 1.05 });
+      ], { size: 13, bold: true, line: 1.1 });
     });
     const vx = 6.45;
     const vw = W - M - vx;
@@ -431,22 +439,6 @@ async function compose() {
       s.text(x, 5.05, cw, 0.85, f.figure, { size: 46, bold: true, color: 'yellow', valign: 'bottom' });
       s.text(x, 5.95, cw, 0.7, f.label, { size: 16, bold: true, color: 'paper' });
     }
-  }
-
-  // 13 · We learn by doing
-  {
-    const s = add('INDIGO', {
-      section: 'Our story',
-      title: [{ text: firsts.lead.replace(/\.$/, ''), o: { color: 'yellow' } }],
-      notes: `${firsts.lead} ${firsts.line} ${firsts.team.lead} ${firsts.team.value} ${firsts.team.label}. ${firsts.support}.`,
-    });
-    s.text(M, 2.05, 6.6, 1.6, firsts.line, { size: 34, bold: true, color: 'paper', line: 0.95 });
-    s.text(M, 4.35, 6.6, 0.4, firsts.team.lead, { size: 16, color: 'paper' });
-    s.text(M, 4.7, 6.6, 1.15, firsts.team.value, { size: 80, bold: true, color: 'yellow', line: 0.9 });
-    s.text(M, 5.85, 6.6, 0.4, firsts.team.label, { size: 18, bold: true, color: 'paper' });
-    s.text(M, 6.4, 6.6, 0.35, firsts.support, { size: 13, color: 'muted' });
-    const px = 7.6;
-    s.image(px, 0.6, W - M - px, 6.15, await photo('launchpad-kitchen', W - M - px, 6.15), { alt: 'Students at work in the Launchpad kitchen' });
   }
 
   // 14 · Moments
@@ -548,7 +540,7 @@ async function compose() {
     parts.forEach((rows, k) => {
       const s = add('PAPER', {
         section: 'Sponsorship',
-        title: `What each orbit carries (${k + 1}/2)`,
+        title: `What Each Orbit Carries (${k + 1}/2)`,
         notes: rows.map((d) => `${d.name}: ${tiers.map((t) => `${t.name} ${cell(d.values[t.id])}`).join('; ')}.`).join(' '),
       });
       const start = k === 0 ? 0 : parts[0].length;
@@ -566,16 +558,16 @@ async function compose() {
     const s = add('LIME', {
       section: 'Contact',
       title: signal.title.replace(/\.$/, ''),
-      notes: `${signal.line} ${signal.team}: ${signal.contacts.map((c) => `${c.name}, ${c.email}`).join('; ')}. ${signal.general.label}: ${signal.general.email}. ${signal.address}`,
+      notes: `${signal.line} ${signal.team}: ${signal.contacts.map((c) => `${c.name}, ${c.email}`).join('; ')}. ${signal.general.label} ${signal.general.email}. ${signal.address}`,
     });
     const mail = `mailto:${signal.general.email}?subject=${encodeURIComponent(signal.subject)}`;
     s.text(M, 2.25, 6, 0.5, signal.line, { size: 22, bold: true, color: 'black' });
-    s.plate(M, 3.0, 2.9, 0.75, 'black', { link: mail, name: 'Send a signal' });
-    s.text(M + 0.3, 3.0, 2.4, 0.75, [{ text: 'Send a signal  ↗', o: { link: mail } }], { size: 16, bold: true, color: 'lime', valign: 'middle' });
+    s.plate(M, 3.0, 2.9, 0.75, 'black', { link: mail, name: signal.cta });
+    s.text(M + 0.3, 3.0, 2.4, 0.75, [{ text: `${signal.cta}  ↗`, o: { link: mail } }], { size: 16, bold: true, color: 'lime', valign: 'middle' });
     s.text(M, 4.25, 6, 0.3, caps(signal.team), { size: 11, bold: true, color: 'black', charSpacing: 2.5 });
     signal.contacts.forEach((c, i) => {
       const x = M + i * 6.2;
-      s.text(x, 4.65, 6, 0.6, caps(c.name), { size: 30, bold: true, color: 'black' });
+      s.text(x, 4.65, 6, 0.6, c.name, { size: 30, bold: true, color: 'black' });
       s.text(x, 5.3, 6, 0.35, c.email, { size: 13, color: 'black' });
     });
     s.text(M, 6.05, 6, 0.6, [
@@ -590,9 +582,11 @@ async function compose() {
   // 21 · Close
   {
     const s = add('COVER', { section: 'Contact', notes: `${festival.name}: ${festival.tagline}. ${festival.lockupLine}.` });
-    const lock = await logo('lockup-tagline-stacked', 'paper', 1400);
-    const lh = 4.4;
-    s.image((W - lh * lock.ratio) / 2, 1.0, lh * lock.ratio, lh, lock.file, { alt: `${festival.name}: ${festival.tagline}. ${festival.lockupLine}` });
+    const mark = await logo('wordmark-stacked', 'paper', 1400);
+    const mw = 5.4;
+    s.text(0, 0.75, W, 0.5, caps(festival.tagline), { size: 18, bold: true, color: 'paper', align: 'center', charSpacing: 2 });
+    s.image((W - mw) / 2, 1.4, mw, mw / mark.ratio, mark.file, { alt: festival.name });
+    s.text(0, 1.55 + mw / mark.ratio, W, 0.5, festival.lockupLine, { size: 22, bold: true, color: 'paper', align: 'center' });
     const mu = await logo('mu-logo', 'paper', 1200);
     s.image((W - 2.6) / 2, 6.0, 2.6, 2.6 / mu.ratio, mu.file, { alt: festival.presenter });
     const planet = await ill('ringed-planet-1', 'purple', 1200);

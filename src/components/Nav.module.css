@@ -196,7 +196,6 @@
   font-variation-settings:
     'opsz' 96,
     'wdth' 75;
-  text-transform: uppercase;
   font-size: clamp(2rem, 5.6vh, 4.5rem);
   line-height: 1;
   transition:

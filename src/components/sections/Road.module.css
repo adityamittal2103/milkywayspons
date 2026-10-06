@@ -391,26 +391,17 @@
 
 /* ---------- coda: the deck's three lines around the map, after the stillness ---------- */
 /* The closing invitation, set after the map's stillness */
+/* Breathing room before the venue: the journey's destination */
 .coda {
   padding-top: var(--s-8);
   padding-bottom: var(--s-9);
 }
 
+/* Team review (6 Oct): on the page's left edge, like every other section's copy */
 .ride {
-  display: flex;
-  align-items: baseline;
-  gap: var(--s-4);
-  max-width: 26ch;
-  margin-left: auto;
-  margin-right: 6%;
+  max-width: 30ch;
   font-size: var(--t-h2);
   text-wrap: balance;
-}
-
-.rideStar {
-  flex: none;
-  width: 0.6em;
-  --ink-color: var(--yellow);
 }
 
 @media (max-width: 1023px) {
@@ -467,7 +458,6 @@
     padding-top: var(--s-7);
   }
   .ride {
-    margin-right: 0;
     font-size: clamp(1.6rem, 7vw, 2.2rem);
   }
 }

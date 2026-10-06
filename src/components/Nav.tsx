@@ -113,12 +113,12 @@ export function Nav() {
         <div className={styles.actions}>
           <span className={styles.slot} data-away={here.tiers || undefined}>
             <CutLink href="#tiers" glyph="forward">
-              Sponsorship tiers
+              Sponsorship Tiers
             </CutLink>
           </span>
           <span className={styles.slot} data-away={here.signal || undefined}>
             <CutLink href="#signal" tone="paper" glyph="forward">
-              Contact us
+              Contact Us
             </CutLink>
           </span>
         </div>

@@ -7,12 +7,14 @@ import styles from './MilkyWay.module.css';
 
 // "Floating worlds = different festival experiences" (brand kit symbolism).
 // Positions are % of the sky; the dotted lines join them into a constellation.
+// Team review (6 Oct): Performing Arts sat under the Pronites world; it now
+// rises up and to the left, and Pronites settles lower right, with clear sky between.
 const SKY = [
   { x: 9, y: 22, size: 0.95 },
-  { x: 36, y: 8, size: 0.85 },
-  { x: 62, y: 26, size: 0.95 },
+  { x: 34, y: 8, size: 0.85 },
+  { x: 57, y: 18, size: 0.95 },
   { x: 24, y: 72, size: 0.9 },
-  { x: 80, y: 66, size: 1.3 }, // pronites: when the sun goes down
+  { x: 84, y: 70, size: 1.15 }, // pronites: when the sun goes down
 ];
 
 /** s3: what Milky Way is, in numbers; then the day and night of it, drawn as worlds (s4 comment). */
@@ -35,10 +37,10 @@ export function MilkyWay() {
           <p className={`lede ${styles.subhead}`}>{fest.subhead}</p>
         </header>
 
-        {/* Four callouts side by side, largest to smallest */}
+        {/* Four callouts side by side, all one size */}
         <dl className={styles.stats}>
-          {fest.stats.map((s, i) => (
-            <div key={s.label} className={styles.stat} style={{ '--step': i } as CSSProperties}>
+          {fest.stats.map((s) => (
+            <div key={s.label} className={styles.stat}>
               <dt className={styles.statLabel}>{s.label}</dt>
               <dd className={`numeral ${styles.statValue}`}>{s.value}</dd>
             </div>

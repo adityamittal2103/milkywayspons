@@ -242,7 +242,7 @@ ol {
     'wdth' 75;
   line-height: 0.86;
   letter-spacing: -0.01em;
-  text-transform: uppercase;
+  /* Headings keep their own (title) case: team review, 6 Oct */
 }
 
 .headline {

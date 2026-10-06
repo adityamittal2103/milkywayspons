@@ -26,16 +26,21 @@ export function Landing() {
             at the venue the journey converges on */}
         <Waypoint glyph="location" breakBefore />
 
+        {/* "The Venue", then the place and dates beside it, not stacked into one narrow column */}
         <header className={styles.head}>
-          <p className={`coord ${styles.kicker}`}>{venue.kicker}</p>
-          <h2 id="landing-title" className={`display ${styles.title}`}>
-            {venue.title}
-          </h2>
-          <p className={`headline ${styles.place}`}>{venue.place}</p>
-          <p className={styles.booked}>{venue.booked}</p>
+          <div className={styles.titleBlock}>
+            <p className={`coord ${styles.kicker}`}>{venue.kicker}</p>
+            <h2 id="landing-title" className={`display ${styles.title}`}>
+              {venue.title}
+            </h2>
+          </div>
+          <div className={styles.where}>
+            <p className={`headline ${styles.place}`}>{venue.place}</p>
+            <p className={styles.booked}>{venue.booked}</p>
+          </div>
         </header>
 
-        {/* Deck changes: the place's standing, not a number, takes the page */}
+        {/* Deck changes: the place's standing, not a number, takes the page, in two lines */}
         <p className={`display ${styles.statement}`}>{venue.statement}</p>
       </div>
 
@@ -45,13 +50,14 @@ export function Landing() {
       </div>
 
       <div className="wrap content">
+        {/* The promise reads first, on the page's left edge; the stage and the hall follow */}
+        <div className={styles.promise}>
+          <p className={`headline ${styles.memorable}`}>{venue.memorable}</p>
+          <p className={`lede ${styles.draw}`}>{venue.draw}</p>
+        </div>
         <div className={styles.more}>
           <Photo id={stage.id} alt={stage.alt} className={styles.stagePhoto} sizes="(max-width: 767px) 50vw, 34vw" />
           <Photo id={hall.id} alt={hall.alt} className={styles.hallPhoto} sizes="(max-width: 767px) 50vw, 60vw" />
-          <div className={styles.promise}>
-            <p className={`headline ${styles.memorable}`}>{venue.memorable}</p>
-            <p className={`lede ${styles.draw}`}>{venue.draw}</p>
-          </div>
         </div>
       </div>
     </section>

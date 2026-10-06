@@ -13,7 +13,7 @@
 export const festival = {
   name: 'Milky Way',
   presenter: "Masters' Union University",
-  line: 'A fest where the universe comes alive', // s1
+  line: 'A Fest Where the Universe Comes Alive', // s1; headings in title case (team review, 6 Oct)
   tagline: 'The universe is yours', // brand kit lockup (footer)
   dates: '18th–21st February 2027', // dc: the whole festival, campus days and Yashobhoomi
   // dc: the two halves of the festival, in the doc's own wording
@@ -23,12 +23,14 @@ export const festival = {
   ],
   venue: 'Yashobhoomi Convention Center', // s1
   city: 'Delhi, India', // s1
-  lockupLine: 'MU Fest 2027', // brand kit lockup
+  // Team review (6 Oct): "MU Fest is wrong". The descriptor under the wordmark.
+  lockupLine: "A Masters' Union University Fest",
 } as const;
 
 export const sky = {
   // s2
-  title: ['45K–1L+ GenZs,', 'Under One Sky,', 'And You Light it Up.'], // dc: footfall 45K–1L+
+  // Team review (6 Oct): one number, not the 45K–1L+ range
+  title: ['1L+ GenZs,', 'Under One Sky,', 'And You Light it Up.'],
   landing: 'Landing at',
   // As the deck gives it. Note: this point is in Gurugram (the earlier deck's
   // "Launching from"); Yashobhoomi itself is at 28.5549° N, 77.0446° E.
@@ -41,9 +43,10 @@ export const sky = {
 export const fest = {
   // s3
   label: "Masters' Union University's Cultural Fest",
-  title: "We are building Asia's largest college festival, and we want you to build it with us.",
+  // Team review (6 Oct): this exact wording and casing
+  title: "We are Building Asia's Largest College Festival, and We Want You to Shape it With Us.",
   subhead: 'From our classrooms to a cultural experience like never before',
-  // s3: "4 callouts side by side, largest to smallest"
+  // s3: four callouts side by side; one size for all four (team review, 6 Oct)
   stats: [
     { value: '2L+', label: 'student registrations' }, // dc
     { value: '250+', label: 'target colleges' },
@@ -65,7 +68,7 @@ export const fest = {
 
 export const audience = {
   // s5 (c: "needs to be highlighted with the help of design")
-  title: 'The audience',
+  title: 'The Audience',
   finding: ['They’re finding themselves.', 'Their tastes.', 'Their next favourite brands.'],
   who: 'College students between 18 to 22 are coming together around what they love.',
   brand: 'Your brand can be part of their experience,',
@@ -77,13 +80,13 @@ export const audience = {
   // s6 c: smaller pictures, added to this slide; the marked photo (festival
   // grounds at dusk) removed, with a backup picture in its place.
   photos: [
-    { id: 'fest-01', alt: 'A performer on stage in coloured smoke' },
-    { id: 'fest-06', alt: 'A crowd under stage lights and green smoke at night' },
-    { id: 'fest-03', alt: 'A dance troupe performing on a lit stage' },
-    { id: 'hyrox-athletes', alt: 'Two athletes with finisher medals at HYROX' },
-    { id: 'fest-05', alt: 'A sports team celebrating together' },
-    { id: 'fest-07', alt: 'A large group in festive dress posing together' },
-    { id: 'hyrox-crowd', alt: "A Masters' Union fan club cheering with placards" },
+    { id: 'fest-01', alt: 'A performer on stage in coloured smoke', focus: '30% 50%' },
+    { id: 'fest-06', alt: 'A crowd under stage lights and green smoke at night', focus: '62% 55%' },
+    { id: 'fest-03', alt: 'A dance troupe performing on a lit stage', focus: '50% 55%' },
+    { id: 'hyrox-athletes', alt: 'Two athletes with finisher medals at HYROX', focus: '50% 22%' },
+    { id: 'fest-05', alt: 'A sports team celebrating together', focus: '50% 68%' },
+    { id: 'fest-07', alt: 'A large group in festive dress posing together', focus: '50% 68%' },
+    { id: 'hyrox-crowd', alt: "A Masters' Union fan club cheering with placards", focus: '50% 30%' },
   ],
 } as const;
 
@@ -130,7 +133,7 @@ export const road = {
 export const learned = {
   // s9 (c: "a horizontal auto scroll of these people with their name underneath").
   // Names for the five the deck leaves unnamed were supplied by the Milky Way team.
-  title: 'We’ve learned from the best,',
+  title: 'We’ve Learned From the Best,',
   people: [
     { photo: 'rohit-sharma', name: 'Rohit Sharma' },
     { photo: 'samay-raina', name: 'Samay Raina' },
@@ -145,7 +148,7 @@ export const learned = {
 
 export const firsts = {
   // s10 (c: each photograph labelled)
-  title: 'Pulled off our firsts',
+  title: 'Pulled Off Our Firsts',
   items: [
     {
       figure: '40+',
@@ -163,15 +166,11 @@ export const firsts = {
       photo: { id: 'investment-fund', caption: "Masters' Union Investment Fund", alt: 'Students in conversation beneath a Nifty market ticker' },
     },
   ],
-  lead: 'We learn by doing.',
-  line: 'This time, we’re building a festival from scratch.',
-  team: { lead: 'With a team of', value: '100+', label: 'students' },
-  support: "Supported by Masters' Union University",
 } as const;
 
 export const moments = {
   // s11 (c: "only show text when they hover on the picture, horizontal scroll with arrows")
-  title: 'And crafted the biggest moments',
+  title: 'And Crafted the Biggest Moments',
   signature: "Masters' Union University",
   items: [
     {
@@ -194,7 +193,7 @@ export const moments = {
 
 export const reach = {
   // s12 (c: metrics above or below the reels; the icons all the same size)
-  title: 'Enter our digital multiverse',
+  title: 'Enter Our Digital Multiverse',
   platforms: [
     { id: 'instagram', name: 'Instagram', value: '200M+', unit: 'views', label: '@masters.union' },
     { id: 'youtube', name: 'YouTube', value: '112M', unit: 'lifetime views', label: null },
@@ -215,7 +214,7 @@ export const reach = {
 
 export const company = {
   // s15 (c: the orbit stays as it is; the last line drops only if it crowds)
-  title: 'Join our remarkable company.',
+  title: 'Join Our Remarkable Company.',
   lines: ['Brands we’ve worked with.', 'Relationships we’re proud to build on.'],
   across: 'Across Masters’ Union University’s events, programmes and partnerships.',
   names: [
@@ -412,20 +411,22 @@ export const deliverables: { name: string; values: Record<TierId, Entitlement> }
 
 export const tiersIntro = {
   // s16–17
-  title: 'Mark your place in the Milky Way',
+  title: 'Mark Your Place in the Milky Way',
   footnote: 'The deliverables can be further curated specific to the company.',
 } as const;
 
 export const signal = {
   // s18
-  title: "Let's build something out of this world.",
+  title: "Let's Build Something Out Of This World.", // title case (team review, 6 Oct)
   line: 'Send us a signal.',
   team: 'Sponsorship Team',
   contacts: [
     { name: 'Ananya Singh', email: 'ananya.singh1@mastersunion.org' },
     { name: 'Chirag Naryani', email: 'chirag.naryani_UGTBM2028@mastersunion.org' },
   ],
-  general: { label: 'Or for any further queries', email: 'milkyway@mastersunion.org' },
+  // Team review (6 Oct): the CTA says "Let's Connect" ("send us a signal" was said twice)
+  cta: "Let's Connect",
+  general: { label: 'For further queries write to us at', email: 'milkyway@mastersunion.org' },
   address: "Masters' Union University, Gurugram, Haryana.",
   subject: 'Milky Way 2027 — Sponsorship',
 } as const;
@@ -433,14 +434,14 @@ export const signal = {
 /** Waypoints on the flight path, in page order. Used by the nav and the trajectory. */
 export const waypoints = [
   { id: 'launch', label: 'Launch' },
-  { id: 'milky-way', label: 'The fest' },
-  { id: 'road', label: 'The journey' },
-  { id: 'landing', label: 'The venue' },
-  { id: 'campus', label: 'On campus' },
-  { id: 'audience', label: 'The audience' },
-  { id: 'origin', label: 'Our story' },
-  { id: 'reach', label: 'Digital multiverse' },
+  { id: 'milky-way', label: 'The Fest' },
+  { id: 'road', label: 'The Journey' },
+  { id: 'landing', label: 'The Venue' },
+  { id: 'campus', label: 'On Campus' },
+  { id: 'audience', label: 'The Audience' },
+  { id: 'origin', label: 'Our Story' },
+  { id: 'reach', label: 'Digital Multiverse' },
   { id: 'company', label: 'Company' },
-  { id: 'tiers', label: 'Sponsorship tiers' },
+  { id: 'tiers', label: 'Sponsorship Tiers' },
   { id: 'signal', label: 'Contact' },
 ] as const;

@@ -174,9 +174,9 @@ export function Hero() {
               <time dateTime="2027-02-18">{festival.dates}</time>
             </p>
             <div className={styles.actions}>
-              <CutLink href="#tiers">Sponsorship tiers</CutLink>
+              <CutLink href="#tiers">Sponsorship Tiers</CutLink>
               <CutLink href="#signal" tone="paper">
-                Contact us
+                Contact Us
               </CutLink>
             </div>
           </div>

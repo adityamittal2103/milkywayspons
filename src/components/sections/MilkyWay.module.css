@@ -37,10 +37,10 @@
   max-width: 40ch;
 }
 
-/* Four callouts in a row, each a step smaller than the last */
+/* Four callouts in a row, one size for all */
 .stats {
   display: grid;
-  grid-template-columns: 1.5fr 1.25fr 1.05fr 0.9fr;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   align-items: end;
   column-gap: var(--s-5);
   margin-top: var(--s-9);
@@ -55,13 +55,14 @@
 
 .statValue {
   order: -1;
-  font-size: calc(clamp(4.2rem, 10vw, 10.5rem) * (1 - var(--step) * 0.2));
+  /* One size for every figure (team review, 6 Oct: "drop the taper") */
+  font-size: clamp(3.6rem, 7.6vw, 8.4rem);
   color: var(--yellow);
 }
 
 .statLabel {
   font-weight: 700;
-  font-size: calc(var(--t-lede) * (1 - var(--step) * 0.08));
+  font-size: var(--t-lede);
   line-height: 1.15;
   max-width: 14ch;
 }
@@ -168,9 +169,6 @@
   }
 }
 
-/* In a two-by-two grid a step-down reads as a mistake (team review), so the four
-   figures share one size; the single row on wide screens keeps the deck's
-   largest-to-smallest step. */
 @media (max-width: 1023px) {
   .stats {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -226,7 +224,10 @@
     width: 64%;
     justify-self: center;
   }
+  /* A two-word name wraps inside its own column instead of running into the next */
   .name {
     font-size: 1.15rem;
+    white-space: normal;
+    text-align: center;
   }
 }

@@ -7,6 +7,9 @@ const photos = manifest as Record<string, { w: number; h: number; source: string
 
 export type PhotoId = string;
 
+/** A photograph's own proportions (width / height), from the manifest */
+export const ratioOf = (id: PhotoId) => photos[id].w / photos[id].h;
+
 type Props = {
   id: PhotoId;
   alt: string;
@@ -17,6 +20,8 @@ type Props = {
   priority?: boolean;
   style?: CSSProperties;
   caption?: string;
+  /** Where the subject sits, for the crop (object-position); centre by default */
+  focus?: string;
 };
 
 /**
@@ -33,6 +38,7 @@ export function Photo({
   priority,
   style,
   caption,
+  focus,
 }: Props) {
   const p = photos[id];
   const img = (
@@ -46,6 +52,7 @@ export function Photo({
       loading={priority ? 'eager' : 'lazy'}
       decoding="async"
       className={styles.img}
+      style={focus ? { objectPosition: focus } : undefined}
     />
   );
   const cls = `${styles.photo} ${treatment === 'print' ? styles.print : ''}${className ? ` ${className}` : ''}`;

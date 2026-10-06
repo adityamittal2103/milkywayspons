@@ -2,6 +2,17 @@
   overflow: clip;
 }
 
+/* A crescent, tone on tone: the night before the main festival */
+.moon {
+  position: absolute;
+  z-index: var(--z-art);
+  right: -4vw;
+  top: clamp(2rem, 5vw, 5rem);
+  width: clamp(160px, 18vw, 300px);
+  rotate: -12deg;
+  opacity: 0.9;
+}
+
 /* After the venue, a change of scale: copy and the tour side by side */
 .grid {
   display: grid;
@@ -28,15 +39,15 @@
 /* "18th–19th February 2027 / Masters' Union University ✱ Gurugram, India" */
 .title {
   display: grid;
-  gap: var(--s-2);
+  gap: var(--s-3);
 }
 
 .dates {
-  font-size: var(--t-h2);
+  font-size: clamp(2.8rem, 5.4vw, 5.6rem);
   color: var(--yellow);
+  text-wrap: balance;
 }
 
-/* In the doc's own setting: capitals, the star between place and city */
 .place {
   font-weight: 750;
   font-variation-settings:
@@ -44,19 +55,18 @@
     'wdth' 80;
   font-size: var(--t-lede);
   line-height: 1.15;
-  text-transform: uppercase;
 }
 
 .star {
   color: var(--yellow);
 }
 
-/* The two halves of the festival, joined by the dotted line of the flight plan */
+/* The two halves in calendar order, joined by the dotted line of the flight plan */
 .route {
   position: relative;
   display: grid;
-  gap: var(--s-4);
-  padding-top: var(--s-4);
+  gap: var(--s-5);
+  padding-top: var(--s-5);
   border-top: var(--rule) solid color-mix(in srgb, var(--paper) 30%, transparent);
 }
 
@@ -64,8 +74,8 @@
   content: '';
   position: absolute;
   left: 0.7rem;
-  top: calc(var(--s-4) + 1.2rem);
-  bottom: 1.2rem;
+  top: calc(var(--s-5) + 1.3rem);
+  bottom: 2.6rem;
   border-left: 2px dotted var(--paper);
   opacity: 0.5;
 }
@@ -76,7 +86,7 @@
   grid-template-columns: 1.4rem minmax(0, 1fr);
   column-gap: var(--s-3);
   align-items: start;
-  opacity: 0.62;
+  opacity: 0.66;
 }
 
 .leg[data-here] {
@@ -87,7 +97,7 @@
   display: grid;
   place-items: center;
   width: 1.4rem;
-  padding-top: 0.1rem;
+  padding-top: 0.15rem;
   background: var(--black);
 }
 
@@ -97,6 +107,8 @@
 }
 
 .legText {
+  display: grid;
+  gap: 2px;
   font-weight: 750;
   font-variation-settings:
     'opsz' 48,
@@ -106,18 +118,21 @@
   line-height: 1.2;
 }
 
-/* The date on its own line, then place ✱ city (the doc's line, set in two) */
-.legDates {
-  display: block;
+.legTag {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  color: var(--cyan);
+}
+
+.leg:not([data-here]) .legTag {
   color: var(--yellow);
 }
 
-.legDates + .legSep {
-  display: none;
-}
-
-.legPlace {
-  display: block;
+.legDates {
+  color: var(--yellow);
+  font-size: 1.15rem;
 }
 
 .legSep {
@@ -131,5 +146,16 @@
   .copy,
   .media {
     grid-column: 1;
+  }
+}
+
+@media (max-width: 767px) {
+  .moon {
+    width: 34vw;
+    right: -8vw;
+    top: 1rem;
+  }
+  .dates {
+    font-size: clamp(2.6rem, 12.5vw, 3.6rem);
   }
 }

@@ -195,17 +195,9 @@ export function Origin() {
               </li>
             ))}
           </ul>
-
-          <div className={styles.scratch}>
-            <p className={`display ${styles.doing}`}>{firsts.lead}</p>
-            <p className={`headline ${styles.building}`}>{firsts.line}</p>
-            <p className={styles.team}>
-              {firsts.team.lead} <span className={`numeral ${styles.teamValue}`}>{firsts.team.value}</span> {firsts.team.label}
-            </p>
-            <p className={styles.support}>{firsts.support}</p>
-          </div>
         </div>
 
+        {/* Team review (6 Oct): "We learn by doing" is dropped; the firsts lead straight into the moments */}
         <div className={styles.moments}>
           <div className={styles.momentsHead}>
             <h3 className={`headline ${styles.beat}`}>

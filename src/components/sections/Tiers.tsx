@@ -151,7 +151,7 @@ export function Tiers() {
 
         <div ref={plate} className={styles.plate} data-field="paper">
           <div className={styles.plateHead}>
-            <h3 className={`headline ${styles.plateTitle}`}>What each orbit carries</h3>
+            <h3 className={`headline ${styles.plateTitle}`}>What Each Orbit Carries</h3>
             <label className={styles.compare}>
               <input type="checkbox" checked={compareAll} onChange={(e) => setCompareAll(e.target.checked)} />
               <span>Compare all four</span>
@@ -210,7 +210,7 @@ export function Tiers() {
               <p>The deck lists deliverables, not prices. Investment details come from the sponsorship team.</p>
             </div>
             <CutLink href="#signal" tone="ink">
-              Ask about {tiers[activeIndex].name}
+              Ask About {tiers[activeIndex].name}
             </CutLink>
           </div>
         </div>

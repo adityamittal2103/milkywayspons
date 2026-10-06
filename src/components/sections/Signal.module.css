@@ -51,7 +51,7 @@
 }
 
 .title {
-  margin-top: var(--s-8);
+  margin-top: var(--s-7);
   font-size: var(--t-display);
   max-width: 12ch;
 }

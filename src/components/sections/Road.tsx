@@ -716,10 +716,7 @@ export function Road() {
 
       {/* s8, to the sponsor: after the stillness, the invitation */}
       <div className={`wrap content ${styles.coda}`}>
-        <p className={`headline ${styles.ride}`}>
-          <Glyph name="star" className={styles.rideStar} />
-          {road.body}
-        </p>
+        <p className={`headline ${styles.ride}`}>{road.body}</p>
       </div>
     </section>
   );

@@ -1,17 +1,28 @@
+.figure {
+  margin: 0;
+  display: grid;
+  gap: var(--s-3);
+}
+
+/* A cut plate, like the site's cards and buttons: the film sits inside the page's
+   print world rather than in a player's rectangle */
 .frame {
   position: relative;
   aspect-ratio: 16 / 9;
   background: var(--black);
-  border: var(--rule-heavy) solid var(--paper);
+  clip-path: polygon(0% 1.6%, 99.3% 0%, 100% 98.2%, 0.8% 100%);
   overflow: hidden;
 }
 
+/* A little larger than the frame, so the player's edges never show at the cut */
 .player {
   position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
+  left: -1%;
+  top: -1.5%;
+  width: 102%;
+  height: 103%;
   border: 0;
+  pointer-events: none;
 }
 
 /* The still sits over the player until the film first plays, then lifts away */
@@ -29,8 +40,90 @@
   opacity: 0;
 }
 
+.cover {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.cover:focus-visible {
+  outline: 3px solid var(--yellow);
+  outline-offset: -6px;
+}
+
+.play {
+  display: grid;
+  place-items: center;
+  width: 4.5rem;
+  height: 3.6rem;
+  background: var(--black);
+  clip-path: polygon(0% 6%, 96% 0%, 100% 92%, 4% 100%);
+}
+
+.playGlyph {
+  width: 1.4rem;
+  --ink-color: var(--cyan);
+}
+
+/* Caption and the site's own controls, in the kit's coordinate type */
+.bar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--s-2) var(--s-4);
+  font-size: var(--t-small);
+}
+
+.caption {
+  font-weight: 650;
+  color: color-mix(in srgb, var(--paper) 78%, transparent);
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+}
+
+.control {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  min-height: 44px;
+  padding: 0 var(--s-3);
+  border: var(--rule) solid var(--paper);
+  background: transparent;
+  color: var(--paper);
+  font: inherit;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background var(--dur-micro) linear,
+    color var(--dur-micro) linear;
+}
+
+.control:hover,
+.control:focus-visible,
+.control[aria-pressed='true'] {
+  background: var(--paper);
+  color: var(--black);
+}
+
+.out {
+  width: 0.7em;
+  --ink-color: currentColor;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .still {
+  .still,
+  .control {
     transition: none;
   }
 }

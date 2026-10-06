@@ -1,11 +1,11 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, type CSSProperties } from 'react';
 import { audience } from '@/content/milky-way';
 import { prefersReducedMotion } from '@/lib/motion';
 import { CutEdge } from '../CutEdge';
 import { Dots } from '../Dots';
-import { Photo } from '../Photo';
+import { Photo, ratioOf } from '../Photo';
 import { Waypoint } from '../Waypoint';
 import styles from './Audience.module.css';
 
@@ -122,14 +122,19 @@ export function Audience() {
           <div className={`${styles.albumWrap} ${styles.gated}`}>
             <ul ref={album} className={styles.album} aria-label="Festival photographs">
               {audience.photos.map((p, n) => (
-                <li key={p.id} className={styles.frame} data-frame={n}>
-                  <Photo id={p.id} alt={p.alt} sizes="(max-width: 767px) 80vw, 26vw" />
+                <li key={p.id} className={styles.frame} data-frame={n} style={{ '--ar': ratioOf(p.id) } as CSSProperties}>
+                  <Photo id={p.id} alt={p.alt} focus={p.focus} sizes="(max-width: 767px) 80vw, 26vw" />
                 </li>
               ))}
               {/* Copies of the first two, for the slider's seamless loop on phones */}
               {audience.photos.slice(0, 2).map((p) => (
-                <li key={`${p.id}-loop`} className={`${styles.frame} ${styles.loop}`} aria-hidden="true">
-                  <Photo id={p.id} alt="" sizes="80vw" />
+                <li
+                  key={`${p.id}-loop`}
+                  className={`${styles.frame} ${styles.loop}`}
+                  aria-hidden="true"
+                  style={{ '--ar': ratioOf(p.id) } as CSSProperties}
+                >
+                  <Photo id={p.id} alt="" focus={p.focus} sizes="80vw" />
                 </li>
               ))}
             </ul>

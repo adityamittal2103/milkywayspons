@@ -141,3 +141,41 @@ doing"; moments; digital reach; company; tiers; the deliverables table (two slid
 - PDF: printed by Chrome from an HTML twin built from the same layout spec, so both match.
 - Rebuild after content changes: `node deck/build-deck.cjs` (reads `src/content/milky-way.ts` and
   `src/content/india-map.json`).
+
+## Final revision pass, 6 Oct 2026 (team comments, "Untitled Document (7)")
+
+| Comment | Built state | Status |
+| --- | --- | --- |
+| Drop "We learn by doing"; go straight from the firsts to the moments | Section, content and styles removed; no gap or marker left | Done |
+| One audience number: "1L+ GenZs, Under One Sky, And You Light it Up." | As given (the team's own casing, "Light it Up") | Done |
+| All metric numbers one size; no taper | 2L+ / 250+ / 70+ / 7 share one size and equal columns at every width | Done |
+| Headline exactly "We are Building Asia's Largest College Festival, and We Want You to Shape it With Us." | Verbatim, casing kept | Done |
+| Performing Arts covered by Pronites | Worlds repositioned: ~60px clear both ways at 1440; no label/art collision at 1024–1440; on phones the name wraps in its own column | Done |
+| All headings in Pascal (title) case, e.g. "The Journey" | The display style no longer forces capitals; every section heading, the nav index and the buttons are set in title case. Capitals remain only for small labels, city names, the "ways in" plates and the doc's campus date lines | Done |
+| Journey closing line: left align, as across the page | On the page's left edge (same x as the heading) | Done |
+| "The Venue", then "One of India's Most Sought After Spaces" in two lines; nothing crammed on the left | Header split: title left, place and dates right; statement full width in two lines (1024–1440; three balanced lines on phones); the promise sits beside its heading before the photos | Done |
+| Campus dates reversed and the section less appealing | Calendar order (campus 18–19, then the main festival 20–21), each half named; larger date; the tour as a cut-plate film without YouTube chrome, with the site's own Play / Sound / YouTube controls; a tone-on-tone crescent | Done |
+| Audience grid cropped and squashed | Three columns, each photograph given rows in proportion to its own shape; crops ≤ 9% and centred on each subject; on phones every photograph at its own proportions (0% crop) | Done |
+| CTA: "Let's Connect"; headline in title case | "Let's Connect"; "Let's Build Something Out Of This World." | Done |
+| "For further queries write to us at milkyway@mastersunion.org" | As given | Done |
+| "MU Fest is wrong" → "A Masters' Union University Fest" | Footer lockup set from the official wordmark plus the corrected line (the kit artwork carries "MU Fest 2027"); share image regenerated (`scripts/build-og.mjs`); the deck's cover and close too | Done |
+| Spacing | Journey → Venue given room again (~210px); Tiers → Contact tightened; other gaps ~280px at 1440 | Done |
+
+Deck updated to match (20 slides: "We learn by doing" removed, 1L+, the exact headline, title-case headings, calendar-order campus dates, "Let's Connect", the corrected descriptor).
+
+### QA
+
+- Rendered checks at 1440, 1280, 1024, 430, 390, 375: no horizontal overflow, no text past the viewport, no h2 set in capitals,
+  venue statement in two lines from 1024 up, one size for every metric, no world label/art collisions, audience crops ≤ 9%
+  (desktop) and 0% (phones), no console errors.
+- Motion: guests strip drifts (~25px/s), reels revolve with three cards in view, Road to Milky Way follows scroll to
+  "Everyone meets in Delhi", tour video plays on hover / in view, comet and gates unchanged.
+- Production build passes.
+- Impeccable detector: 0 findings on `src`. (Its URL mode needs puppeteer, not installed; the rendered checks above cover the live page.)
+- Impeccable audit, by hand against its five dimensions: accessibility 3, performance 3, responsive 3, theming 3,
+  implementation integrity 4 = **16/20 (Good)**. Open items: the guests strip and the reels move continuously with no
+  explicit pause control (WCAG 2.2.2; they slow or hold on touch, hover or a dot, and stop under reduced motion); header
+  buttons are 38px tall on phones (44px recommended).
+- Impeccable critique (persuade surface; heuristics 5, 7, 9, 10 n/a): visibility of status 3, match with the real world 4,
+  user control 3, consistency 4, recognition 4, aesthetic and minimal 3 = **21/24**. Strengths: one narrative from the
+  Road to Yashobhoomi, consistent controls and casing, brand-specific art throughout. Priority: the pause control above.

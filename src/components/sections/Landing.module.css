@@ -14,8 +14,23 @@
 
 .head {
   display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--s-5);
+  row-gap: var(--s-4);
+  align-items: end;
+}
+
+.titleBlock {
+  grid-column: 1 / span 7;
+  display: grid;
   gap: var(--s-3);
-  max-width: 48rem;
+}
+
+.where {
+  grid-column: 8 / -1;
+  display: grid;
+  gap: var(--s-2);
+  padding-bottom: 0.4em;
 }
 
 .kicker {
@@ -36,12 +51,11 @@
 }
 
 /* "One of India's Most Sought After Spaces": the page's largest words after the
-   wordmark, across the full column */
+   wordmark, across the full column in two lines (team review, 6 Oct) */
 .statement {
   margin-top: var(--s-8);
-  font-size: clamp(3.2rem, 9.4vw, 10.5rem);
-  line-height: 0.86;
-  max-width: 15ch;
+  font-size: clamp(3rem, 8.2vw, 9.6rem);
+  line-height: 0.88;
   text-wrap: balance;
 }
 
@@ -88,20 +102,35 @@
   }
 }
 
-/* The stage, the hall and the promise */
+/* The promise, then the stage and the hall at one height */
+.promise {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--s-5);
+  row-gap: var(--s-3);
+  align-items: end;
+  margin-top: var(--s-7);
+}
+
+.memorable {
+  grid-column: 1 / span 6;
+  font-size: var(--t-h2);
+}
+
+.draw {
+  grid-column: 8 / -1;
+  max-width: 38ch;
+}
+
 .more {
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
   column-gap: var(--s-4);
-  row-gap: var(--s-6);
-  margin-top: var(--s-4);
-  align-items: start;
+  margin-top: var(--s-6);
 }
 
 .stagePhoto {
   grid-column: 1 / span 4;
-  grid-row: 1 / span 2;
-  aspect-ratio: 4 / 5;
 }
 
 .hallPhoto {
@@ -109,19 +138,13 @@
   aspect-ratio: 16 / 9;
 }
 
-.promise {
-  grid-column: 5 / span 7;
-  display: grid;
-  gap: var(--s-3);
-}
-
-.memorable {
-  font-size: var(--t-h3);
-  max-width: 24ch;
-}
-
-.draw {
-  max-width: 38ch;
+@media (max-width: 1023px) {
+  .titleBlock,
+  .where,
+  .memorable,
+  .draw {
+    grid-column: 1 / -1;
+  }
 }
 
 @media (max-width: 767px) {
@@ -133,35 +156,26 @@
   .title {
     font-size: clamp(2.8rem, 14vw, 4rem);
   }
-  /* Mobile sheet: room between the headline and what follows */
-  .place {
-    margin-top: var(--s-2);
-  }
   .statement {
     margin-top: var(--s-6);
-    font-size: clamp(2.7rem, 13vw, 4rem);
+    font-size: clamp(2.6rem, 12.4vw, 3.8rem);
   }
   .vista {
     margin-top: var(--s-6);
     height: auto;
     aspect-ratio: 4 / 5;
   }
+  .promise {
+    margin-top: var(--s-6);
+  }
   .more {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     column-gap: var(--s-3);
-    row-gap: var(--s-5);
-    margin-top: var(--s-3);
+    margin-top: var(--s-5);
   }
-  .stagePhoto {
-    grid-column: 1;
-    grid-row: 1;
-  }
+  .stagePhoto,
   .hallPhoto {
-    grid-column: 2;
-    grid-row: 1;
+    grid-column: auto;
     aspect-ratio: 4 / 5;
-  }
-  .promise {
-    grid-column: 1 / -1;
   }
 }

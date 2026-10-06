@@ -28,7 +28,7 @@ export function Signal() {
 
         <div className={styles.primary}>
           <CutLink href={mailto(signal.general.email)} tone="ink" size="lg" glyph="forward">
-            Send a signal
+            {signal.cta}
           </CutLink>
           <a className={styles.address} href={mailto(signal.general.email)}>
             {signal.general.email}
