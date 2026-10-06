@@ -11,61 +11,83 @@ import path from 'node:path';
 const ROOT = path.resolve(import.meta.dirname, '..');
 const GEO = path.join(ROOT, '.cache/geo');
 
-// Road to Milky Way stops, in the order the journey runs. The Milky Way team
-// asked for an order that draws the clearest figure: it zigzags across the
-// country (south, east, back west, north) without a line crossing another,
-// and ends in Delhi, where the festival lands.
+// Road to Milky Way stops, in the order the journey runs (the Milky Way team's
+// final revision, 6 Oct 2026): Delhi, Jaipur, Bangalore, Chandigarh, Mumbai,
+// Varanasi, Guwahati. Then the course turns home: everyone meets in Delhi,
+// where the festival itself happens at Yashobhoomi.
 const CITIES = [
-  { id: 'mumbai', name: 'Mumbai', state: 'Maharashtra', lat: 19.076, lon: 72.8777 },
-  { id: 'pune', name: 'Pune', state: 'Maharashtra', lat: 18.5204, lon: 73.8567 },
-  { id: 'bangalore', name: 'Bangalore', state: 'Karnataka', lat: 12.9716, lon: 77.5946 },
-  { id: 'kolkata', name: 'Kolkata', state: 'West Bengal', lat: 22.5726, lon: 88.3639 },
-  { id: 'ahmedabad', name: 'Ahmedabad', state: 'Gujarat', lat: 23.0225, lon: 72.5714 },
-  { id: 'jaipur', name: 'Jaipur', state: 'Rajasthan', lat: 26.9124, lon: 75.7873 },
   { id: 'delhi', name: 'Delhi', state: 'Delhi', lat: 28.6139, lon: 77.209 },
+  { id: 'jaipur', name: 'Jaipur', state: 'Rajasthan', lat: 26.9124, lon: 75.7873 },
+  { id: 'bangalore', name: 'Bangalore', state: 'Karnataka', lat: 12.9716, lon: 77.5946 },
+  { id: 'chandigarh', name: 'Chandigarh', state: 'Chandigarh', lat: 30.7333, lon: 76.7794 },
+  { id: 'mumbai', name: 'Mumbai', state: 'Maharashtra', lat: 19.076, lon: 72.8777 },
+  { id: 'varanasi', name: 'Varanasi', state: 'Uttar Pradesh', lat: 25.3176, lon: 82.9739 },
+  { id: 'guwahati', name: 'Guwahati', state: 'Assam', lat: 26.1445, lon: 91.7362 },
 ];
 
 // The asteroid's course, in map units (x east, y south). Cities are fixed by
-// their coordinates; between them the course bows to the outside of the figure
-// it is drawing, so it never crosses a constellation line or itself. It comes
-// in over the Arabian Sea, where the page's flight path hands over, and
-// settles into Delhi.
+// their coordinates; between them the course bows clear of the constellation
+// it is drawing and of itself. It drops in from deep space above the
+// Himalaya, straight down to Delhi; runs down to Bangalore east of the Jaipur line and
+// back up west of it; swings round the southern tip on its way from Mumbai to
+// Varanasi; crosses to Guwahati below the figure; and returns over the north to
+// Delhi, the convergence, where it settles.
 const ROUTE = [
-  [-170, 560],
-  [0, 596],
-  [104, 640],
-  'mumbai',
-  [196, 696],
-  'pune',
-  [236, 808],
-  'bangalore',
-  [410, 944],
-  [548, 912],
-  [650, 800],
-  [706, 660],
-  'kolkata',
-  [612, 462],
-  [462, 432],
-  [300, 470],
-  'ahmedabad',
-  [128, 478],
-  [184, 404],
-  'jaipur',
-  [278, 334],
+  [430, -170],
+  [376, -20],
+  [342, 120],
+  [326, 236],
   'delhi',
-  [338, 300],
-  [346, 292],
+  [310, 352],
+  'jaipur',
+  [300, 450],
+  [350, 620],
+  [368, 780],
+  [366, 852],
+  'bangalore',
+  [300, 866],
+  [290, 800],
+  [262, 660],
+  [236, 500],
+  [226, 400],
+  [258, 290],
+  'chandigarh',
+  [292, 208],
+  [236, 218],
+  [158, 290],
+  [110, 450],
+  [120, 580],
+  'mumbai',
+  [196, 790],
+  [280, 960],
+  [400, 940],
+  [470, 760],
+  [494, 560],
+  'varanasi',
+  [620, 470],
+  [730, 456],
+  'guwahati',
+  [812, 366],
+  [760, 322],
+  [640, 296],
+  [480, 280],
+  [380, 290],
+  'delhi',
+  [298, 332],
+  [292, 336],
 ];
 
-// The constellation the journey leaves behind: the seven cities as stars,
-// joined in journey order. Each line is listed from the star lit first.
+// The constellation the journey leaves behind: the seven cities as stars, a
+// figure centred on Delhi. Each line forms as its later star lights; the last
+// (Guwahati to Delhi, `final`) draws as the asteroid flies home, completing it.
 const FIGURE = [
-  ['mumbai', 'pune'],
-  ['pune', 'bangalore'],
-  ['bangalore', 'kolkata'],
-  ['kolkata', 'ahmedabad'],
-  ['ahmedabad', 'jaipur'],
-  ['jaipur', 'delhi'],
+  ['delhi', 'jaipur'],
+  ['jaipur', 'bangalore'],
+  ['delhi', 'chandigarh'],
+  ['bangalore', 'mumbai'],
+  ['delhi', 'varanasi'],
+  ['varanasi', 'guwahati'],
+  ['guwahati', 'delhi', 'final'],
 ];
 
 // Equirectangular, corrected for latitude at India's middle (22°N).
@@ -180,17 +202,18 @@ function bezier(p0, p1, p2, p3) {
   return `C${f1(c1[0])} ${f1(c1[1])} ${f1(c2[0])} ${f1(c2[1])} ${f1(p2[0])} ${f1(p2[1])}`;
 }
 const segs = pts.slice(0, -1).map((p, i) => bezier(pts[i - 1] || p, p, pts[i + 1], pts[i + 2] || pts[i + 1]));
-// One leg per stretch between stops: entry → Jaipur, Jaipur → Delhi, … Kolkata → exit.
+// One leg per stretch between stops: entry → Delhi, Delhi → Jaipur, … Guwahati → Delhi, settling.
 const bounds = [0, ...stopAt, pts.length - 1];
 const d = `M${f1(pts[0][0])} ${f1(pts[0][1])}` + segs.join('');
 const legs = bounds.slice(0, -1).map((a, k) => `M${f1(pts[a][0])} ${f1(pts[a][1])}` + segs.slice(a, bounds[k + 1]).join(''));
 // Star-chart convention: a figure's lines stop just short of its stars.
 const GAP = 11;
-const figure = FIGURE.map(([a, b]) => {
+const figure = FIGURE.map(([a, b, final]) => {
   const [p, q] = [byId[a], byId[b]];
   const len = Math.hypot(q.x - p.x, q.y - p.y);
   const [ux, uy] = [(q.x - p.x) / len, (q.y - p.y) / len];
-  return { from: a, to: b, x1: f1(p.x + ux * GAP), y1: f1(p.y + uy * GAP), x2: f1(q.x - ux * GAP), y2: f1(q.y - uy * GAP) };
+  const line = { from: a, to: b, x1: f1(p.x + ux * GAP), y1: f1(p.y + uy * GAP), x2: f1(q.x - ux * GAP), y2: f1(q.y - uy * GAP) };
+  return final ? { ...line, final: true } : line;
 });
 
 // ---------- stars: a sparse chart field, and a small cluster around each city ----------

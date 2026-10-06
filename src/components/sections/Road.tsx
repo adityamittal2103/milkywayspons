@@ -16,13 +16,15 @@ type Cluster = keyof typeof map.stars.clusters;
 
 const [VX, VY, VW, VH] = map.viewBox;
 const cities = map.cities as City[];
-const LEGS = map.route.legs; // way in → Mumbai, Mumbai → Pune, … Jaipur → Delhi, settling
+const LEGS = map.route.legs; // way in → Delhi, Delhi → Jaipur, … Guwahati → Delhi (home), settling
 const order = Object.fromEntries(cities.map((c, i) => [c.id, i])) as Record<string, number>;
-// Each figure line belongs to the later of its two stars.
-const figureLit = map.figure.map((f) => Math.max(order[f.from], order[f.to]));
-const LAST = cities.length - 1;
+// Each figure line belongs to the later of its two stars; the closing line
+// (`final`) to the flight home.
+const figureLit = map.figure.map((f) => ('final' in f ? -1 : Math.max(order[f.from], order[f.to])));
 const EXIT = LEGS.length - 1;
-const PARK = 4; // Kolkata → Ahmedabad, the long arc across the north
+const HOME = EXIT - 1; // Guwahati → Delhi: everyone meets in Delhi
+const DELHI = order.delhi;
+const PARK = HOME; // reduced motion: mid-flight across the north, on the way home
 const pct = (x: number, y: number) => ({ left: `${((x - VX) / VW) * 100}%`, top: `${((y - VY) / VH) * 100}%` });
 const pad2 = (n: number) => String(n).padStart(2, '0');
 const clamp = (v: number, a = 0, b = 1) => Math.min(b, Math.max(a, v));
@@ -30,18 +32,20 @@ const smooth = (v: number) => v * v * (3 - 2 * v);
 
 // The flown course is art-directed: each leg carries its own weight, and the
 // way in from deep space stays faint.
-const LEG_OPACITY = [0.3, 0.85, 0.7, 0.62, 0.74, 0.66, 0.82, 0.5];
-// The figure's lines, each with its own weight (map.figure order).
-const FIGURE_OPACITY = [0.95, 0.9, 0.7, 0.85, 0.8, 0.9, 0.62];
+const LEG_OPACITY = [0.3, 0.7, 0.82, 0.66, 0.74, 0.62, 0.78, 0.92, 0.5];
+// The figure's lines, each with its own weight (map.figure order); the closing
+// line home to Delhi is the brightest.
+const FIGURE_OPACITY = [0.9, 0.7, 0.85, 0.75, 0.85, 0.8, 1];
 // Small sparkles discovered along the course: [leg, fraction along it, size].
 const NODES: [number, number, number][] = [
-  [0, 0.6, 0.8],
+  [0, 0.55, 0.8],
   [2, 0.5, 0.9],
-  [3, 0.3, 0.8],
-  [3, 0.64, 1.2],
-  [4, 0.3, 1],
-  [4, 0.66, 0.8],
-  [5, 0.45, 0.7],
+  [3, 0.45, 1],
+  [4, 0.5, 0.8],
+  [5, 0.32, 1.2],
+  [5, 0.7, 0.9],
+  [6, 0.5, 0.7],
+  [7, 0.45, 1],
 ];
 // The kit's four-point sparkle, cut unevenly like the Starfield's.
 const SPARK = 'M0 -7.5L1.4 -1.4L6.4 0L1.5 1.7L0 6.4L-1.6 1.5L-6 0L-1.4 -1.5Z';
@@ -213,6 +217,9 @@ export function Road() {
         sites.forEach((s) => (s.dataset.state = 'dormant'));
         labels.forEach((l) => (l.dataset.state = 'dormant'));
         leaders.forEach((l) => (l.dataset.state = 'dormant'));
+        // Delhi is home only once the journey returns to it.
+        sites[DELHI].removeAttribute('data-home');
+        labels[DELHI].removeAttribute('data-home');
 
         // India draws itself as the stage rises into view.
         const approach = { trigger: st, start: 'top 92%', end: 'top 8%', scrub: 0.6 };
@@ -280,6 +287,26 @@ export function Road() {
             gsap.to(spark, { opacity: 0, duration: 0.35, delay: 0.85 });
           }
         };
+        // Home: the asteroid comes back to Delhi, where the festival happens. A
+        // stronger arrival than any city's: the star flares, three rings, and the
+        // whole figure brightens once as it completes.
+        const converge = () => {
+          const i = DELHI;
+          const pin = pinOf(i);
+          const rings = ringsOf(i);
+          gsap.killTweensOf([pin, ...rings, ...clusters[i], stars[i]]);
+          gsap.fromTo(stars[i], { opacity: 1, scale: 3.8 }, { scale: 1.35, duration: 1.8, ease: 'expo.out' });
+          gsap.fromTo(pin, { scale: 1.6, y: -6 }, { scale: 1.25, y: 0, duration: 1, ease: 'back.out(2)' });
+          gsap.fromTo(rings, { scale: 0.3, autoAlpha: 1 }, { scale: 4.6, autoAlpha: 0, duration: 2.2, ease: 'expo.out', stagger: 0.28 });
+          gsap.fromTo(clusters.flat(), { opacity: 1 }, { opacity: 0.6, duration: 1.8, ease: 'power2.out', stagger: 0.012 });
+          gsap.fromTo(figEls, { opacity: 1 }, { opacity: (j: number) => FIGURE_OPACITY[j], duration: 1.6, ease: 'power2.out', clearProps: 'opacity' });
+        };
+        const leaveHome = () => {
+          const i = DELHI;
+          gsap.killTweensOf([pinOf(i), stars[i]]);
+          gsap.to(pinOf(i), { scale: 1, duration: 0.3 });
+          gsap.to(stars[i], { scale: 1, duration: 0.3 });
+        };
         const depart = (i: number) => {
           const pin = pinOf(i);
           const rings = ringsOf(i);
@@ -292,6 +319,15 @@ export function Road() {
 
         let lit = -1;
         let active = -2;
+        let home = false;
+        const setHome = (on: boolean, forward: boolean) => {
+          if (on === home) return;
+          home = on;
+          sites[DELHI].toggleAttribute('data-home', on);
+          labels[DELHI].toggleAttribute('data-home', on);
+          if (on && forward) converge();
+          else if (!on) leaveHome();
+        };
         const setCities = (n: number, current: number, forward: boolean) => {
           for (let i = 0; i < cities.length; i++) {
             const state = i >= n ? 'dormant' : i === current ? 'active' : 'resolved';
@@ -306,7 +342,15 @@ export function Road() {
           if (n !== lit) readN.textContent = pad2(n);
           lit = n;
           if (current !== active) {
-            readName.textContent = current >= 0 ? cities[current].name : n === cities.length ? `${cities.length} cities` : '';
+            // Home in Delhi, the reading names where the festival lands.
+            readName.textContent =
+              current >= 0
+                ? home && current === DELHI
+                  ? 'Delhi · Yashobhoomi'
+                  : cities[current].name
+                : n === cities.length
+                  ? 'Everyone meets in Delhi'
+                  : '';
             active = current;
           }
         };
@@ -388,14 +432,15 @@ export function Road() {
           const ts = (s / total) * tailTotal;
           tails.forEach((t, j) => reveal(t, Math.max(0, ts - TAIL[j]), ts, tailTotal));
 
-          // Settling into Delhi: the asteroid shrinks away, the last line forms, and
-          // the course it flew sits back so the constellation reads first.
+          // Settling into Delhi: the asteroid shrinks away and the course it flew
+          // sits back so the constellation reads first.
           const out = k === EXIT ? (s - cum[EXIT]) / legLen[EXIT] : s >= total ? 1 : 0;
           figEls.forEach((e, j) => {
-            // A line forms as its second star lights; at Delhi, as the asteroid settles.
+            // A line forms as its second star lights; the closing line draws
+            // alongside the asteroid on its way home to Delhi.
             const r =
-              figureLit[j] === LAST
-                ? smooth(clamp(out / 0.4))
+              figureLit[j] < 0
+                ? smooth(clamp((s - cum[HOME]) / legLen[HOME]))
                 : smooth(clamp((s - cityAt[figureLit[j]]) / (figLen[j] * 0.45 + 50)));
             reveal(e, 0, figLen[j] * r, figLen[j]);
           });
@@ -416,7 +461,10 @@ export function Road() {
           sky.setAttribute('transform', `translate(${(nx * 14 * env).toFixed(2)} ${(ny * 10 * env).toFixed(2)})`);
 
           const n = cityAt.filter((c) => s >= c - 0.5).length;
-          const current = out > 0.5 ? -1 : n - 1;
+          // Back in Delhi: Delhi is the city in focus again until the asteroid settles.
+          const atHome = s >= cum[EXIT] - 0.5;
+          const current = out > 0.5 ? -1 : atHome ? DELHI : n - 1;
+          setHome(atHome, forward);
           setCities(n, current, forward);
 
           nodes.forEach((nd, i) => {
@@ -488,6 +536,8 @@ export function Road() {
           sky.removeAttribute('transform');
           sites.forEach((s) => (s.dataset.state = 'resolved'));
           labels.forEach((l) => (l.dataset.state = 'resolved'));
+          sites[DELHI].setAttribute('data-home', '');
+          labels[DELHI].setAttribute('data-home', '');
           leaders.forEach((l) => (l.dataset.state = 'resolved'));
           nodes.forEach((nd) => nd.removeAttribute('data-on'));
           setAsteroid(cum[PARK] + legLen[PARK] * 0.42, 1);
@@ -618,7 +668,14 @@ export function Road() {
 
             <div className={styles.pins}>
               {cities.map((c) => (
-                <div key={c.id} className={styles.site} style={pct(c.x, c.y)} data-site data-state="resolved">
+                <div
+                  key={c.id}
+                  className={styles.site}
+                  style={pct(c.x, c.y)}
+                  data-site
+                  data-state="resolved"
+                  data-home={c.id === 'delhi' || undefined}
+                >
                   <span className={styles.ring} data-ring />
                   <span className={styles.ring} data-ring />
                   <span className={styles.pin} data-pin>
@@ -627,7 +684,14 @@ export function Road() {
                 </div>
               ))}
               {cities.map((c, i) => (
-                <p key={c.id} className={styles.label} style={pct(c.x + 14, c.y - 14)} data-label data-state="resolved">
+                <p
+                  key={c.id}
+                  className={styles.label}
+                  style={pct(c.x + 14, c.y - 14)}
+                  data-label
+                  data-state="resolved"
+                  data-home={c.id === 'delhi' || undefined}
+                >
                   <span className={`coord ${styles.labelN}`}>{pad2(i + 1)}</span>
                   <span className={styles.labelName}>{c.name}</span>
                 </p>
@@ -642,7 +706,7 @@ export function Road() {
             <p className="coord">
               <span data-read-n>{pad2(cities.length)}</span>/{pad2(cities.length)}
               <span className={styles.readName} data-read-name>
-                {cities.length} cities
+                Everyone meets in Delhi
               </span>
             </p>
             <p className={`coord ${styles.readCoord}`} data-read-coord />

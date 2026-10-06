@@ -1,16 +1,32 @@
-.home,
-.action,
-.readout {
+/* The floating header: one bar, out of the hero, away while scrolling down */
+.bar {
   position: fixed;
   z-index: var(--z-nav);
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--s-4);
+  height: 4.25rem;
+  padding: 0 var(--gutter);
+  background: var(--black);
+  border-bottom: var(--rule) solid color-mix(in srgb, var(--paper) 22%, transparent);
+  color: var(--paper);
+  translate: 0 -105%;
+  transition: translate 0.42s var(--ease-out);
+}
+
+.bar[data-shown],
+.bar:focus-within {
+  translate: 0 0;
 }
 
 .home {
-  top: var(--s-4);
-  left: var(--gutter);
   display: block;
-  width: 44px;
-  height: 44px;
+  flex: none;
+  width: 40px;
+  height: 40px;
   transition: transform var(--dur-ui) var(--ease-out);
 }
 
@@ -23,71 +39,73 @@
   height: 100%;
 }
 
-.action {
-  top: var(--s-4);
-  right: var(--gutter);
+/* Where you are; opens the index. Its label sits centred in the bar. */
+.where {
+  flex: 1;
+  min-width: 0;
   display: flex;
+  justify-content: center;
+  align-items: baseline;
+  gap: var(--s-3);
+  min-height: 44px;
+  padding: 0 var(--s-3);
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  text-align: center;
+}
+
+.whereN {
+  flex: none;
+  opacity: 0.7;
+}
+
+.whereLabel {
+  overflow: hidden;
+  font-weight: 700;
+  font-size: 0.95rem;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.where:hover .whereLabel {
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
+}
+
+.actions {
+  display: flex;
+  flex: none;
   align-items: center;
   gap: var(--s-2);
 }
 
-/* The readout: where you are on the flight plan */
-.readout {
-  left: var(--gutter);
-  bottom: var(--s-4);
-  display: grid;
-  grid-template-columns: auto auto;
-  grid-template-rows: auto auto;
-  column-gap: var(--s-3);
-  row-gap: 6px;
-  align-items: baseline;
-  min-height: 48px;
-  padding: 10px 14px 11px;
-  border: var(--rule) solid var(--paper);
-  background: var(--black);
-  color: var(--paper);
-  cursor: pointer;
-  text-align: left;
-}
-
-.readout {
+/* An action steps aside on its own section */
+.slot {
+  display: block;
   transition:
-    background var(--dur-micro) linear,
-    color var(--dur-micro) linear;
+    opacity var(--dur-ui) var(--ease-out),
+    max-width var(--dur-ui) var(--ease-out);
+  max-width: 16rem;
+  overflow: hidden;
 }
 
-.readout:hover {
-  background: var(--paper);
-  color: var(--black);
+/* Gone for keyboards and screen readers too, once it has faded */
+.slot[data-away] {
+  opacity: 0;
+  max-width: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    opacity var(--dur-ui) var(--ease-out),
+    max-width var(--dur-ui) var(--ease-out),
+    visibility 0s linear var(--dur-ui);
 }
 
-.readoutN {
-  font-family: var(--font-mono);
-  font-size: var(--t-micro);
-  font-variant-numeric: tabular-nums;
-}
-
-.readoutLabel {
-  font-weight: 700;
-  font-size: 0.95rem;
-  line-height: 1;
-}
-
-.readoutTrack {
-  grid-column: 1 / -1;
-  display: flex;
-  gap: 3px;
-}
-
-.tick {
-  width: 14px;
-  height: 3px;
-  background: currentColor;
-  opacity: 0.25;
-}
-
-.tick[data-on] {
-  opacity: 1;
+.slot :global(a) {
+  min-height: 40px;
+  white-space: nowrap;
 }
 
 /* ---------- index ---------- */
@@ -202,25 +220,28 @@
 }
 
 @media (max-width: 767px) {
+  .bar {
+    gap: var(--s-2);
+    height: 3.6rem;
+  }
   .home {
-    width: 40px;
-    height: 40px;
+    width: 34px;
+    height: 34px;
   }
-  /* Thumb reach: the readout spans the bottom edge */
-  .readout {
-    right: var(--gutter);
-    bottom: max(var(--s-3), env(safe-area-inset-bottom));
+  .where {
+    padding: 0 var(--s-1);
   }
-  /* Both actions stay; they tighten to fit beside the mark */
-  .action {
+  /* Phones: the number alone; the index still opens on tap */
+  .whereLabel {
+    display: none;
+  }
+  .actions {
     gap: 6px;
   }
-  .action :global(a) {
+  .slot :global(a) {
+    min-height: 38px;
     padding-inline: 10px;
     font-size: 0.82rem;
-  }
-  .tick {
-    flex: 1;
   }
   .itemLabel {
     font-size: clamp(1.7rem, 8.5vw, 2.6rem);
@@ -232,7 +253,9 @@
     animation: none;
   }
   .home,
-  .itemLabel {
+  .itemLabel,
+  .bar,
+  .slot {
     transition: none;
   }
 }

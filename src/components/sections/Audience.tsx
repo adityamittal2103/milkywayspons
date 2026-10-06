@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import { audience } from '@/content/milky-way';
 import { prefersReducedMotion } from '@/lib/motion';
 import { CutEdge } from '../CutEdge';
+import { Dots } from '../Dots';
 import { Photo } from '../Photo';
 import { Waypoint } from '../Waypoint';
 import styles from './Audience.module.css';
@@ -28,13 +29,13 @@ export function Audience() {
     const n = audience.photos.length;
     const phone = window.matchMedia('(max-width: 767px)');
     const frames = () => Array.from(el.children) as HTMLElement[];
-    const left = (f: HTMLElement) => f.offsetLeft - (el.clientWidth - f.offsetWidth) / 2;
+    // Each photograph rests with its left edge where the copy above starts.
+    const left = (f: HTMLElement) => f.offsetLeft - frames()[0].offsetLeft;
     const nearest = () => {
-      const mid = el.scrollLeft + el.clientWidth / 2;
       let best = 0;
       let dist = Infinity;
       frames().forEach((f, i) => {
-        const d = Math.abs(f.offsetLeft + f.offsetWidth / 2 - mid);
+        const d = Math.abs(left(f) - el.scrollLeft);
         if (d < dist) {
           dist = d;
           best = i;
@@ -96,7 +97,7 @@ export function Audience() {
     const f = el?.children[i] as HTMLElement | undefined;
     if (!el || !f) return;
     holdUntil.current = performance.now() + 5000;
-    el.scrollTo({ left: f.offsetLeft - (el.clientWidth - f.offsetWidth) / 2, behavior: prefersReducedMotion() ? 'auto' : 'smooth' });
+    el.scrollTo({ left: f.offsetLeft - (el.children[0] as HTMLElement).offsetLeft, behavior: prefersReducedMotion() ? 'auto' : 'smooth' });
   };
 
   return (
@@ -132,28 +133,26 @@ export function Audience() {
                 </li>
               ))}
             </ul>
-            <div className={styles.dots} role="group" aria-label="Choose a photograph">
-              {audience.photos.map((p, n) => (
-                <button
-                  key={p.id}
-                  type="button"
-                  className={styles.dot}
-                  data-on={n === slide || undefined}
-                  onClick={() => goTo(n)}
-                  aria-label={`Photograph ${n + 1} of ${audience.photos.length}`}
-                  aria-current={n === slide || undefined}
-                />
-              ))}
+            <div className={styles.dots}>
+              <Dots
+                count={audience.photos.length}
+                current={slide}
+                onPick={goTo}
+                label="Choose a photograph"
+                name={(n) => `Photograph ${n + 1} of ${audience.photos.length}`}
+              />
             </div>
           </div>
         </div>
 
         <div className={styles.pitch}>
           <p className={`headline ${styles.brand}`}>{audience.brand}</p>
+          {/* Three aligned columns: the lead-in, the highlighted way in, the rest */}
           <p className={`display ${styles.ways}`}>
             {audience.ways.map((w) => (
               <span key={w.word} className={styles.way}>
-                {w.lead} <mark className={styles.word}>{w.word}</mark> {w.tail}
+                <span className={styles.lead}>{w.lead}</span> <mark className={styles.word}>{w.word}</mark>{' '}
+                <span className={styles.tail}>{w.tail}</span>
               </span>
             ))}
           </p>

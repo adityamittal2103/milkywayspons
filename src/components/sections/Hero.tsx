@@ -3,6 +3,7 @@
 import { useRef } from 'react';
 import { festival } from '@/content/milky-way';
 import { finePointer, gsap, prefersReducedMotion, registerGsap, seeded, useGSAP } from '@/lib/motion';
+import { CutLink } from '../CutLink';
 import { Ink, Logo } from '../Ink';
 import { Starfield } from '../Starfield';
 import { Wordmark } from '../Wordmark';
@@ -160,19 +161,24 @@ export function Hero() {
           <Wordmark ref={mark} className={styles.mark} title={festival.name} />
           <span className="sr-only">
             {' '}
-            — {festival.lockupLine}, {festival.dates}, {festival.venue}, {festival.city}. Sponsorship.
+            — {festival.lockupLine}, {festival.dates}. Sponsorship.
           </span>
         </h1>
 
         <div className={styles.bottom} data-fly="down">
-          {/* s1: the line, then when and where. The tiers and contact actions live in the nav, on every screen. */}
+          {/* s1: the line, when, and the two actions. The venue waits for its own section
+              (feedback: it came up three times in the first seconds). */}
           <div className={styles.meta} data-intro="fade" data-reveal>
             <p className={`display ${styles.tagline}`}>{festival.line}</p>
             <p className={styles.when}>
-              <time dateTime="2027-02-20">{festival.dates}</time>
-              <br />
-              {festival.venue} <span className={styles.bar}>|</span> {festival.city}
+              <time dateTime="2027-02-18">{festival.dates}</time>
             </p>
+            <div className={styles.actions}>
+              <CutLink href="#tiers">Sponsorship tiers</CutLink>
+              <CutLink href="#signal" tone="paper">
+                Contact us
+              </CutLink>
+            </div>
           </div>
         </div>
       </div>

@@ -15,17 +15,15 @@
 .head {
   display: grid;
   gap: var(--s-3);
-  margin-top: var(--s-7);
-  max-width: 44rem;
+  max-width: 48rem;
+}
+
+.kicker {
+  color: var(--yellow);
 }
 
 .title {
   font-size: clamp(3rem, 7vw, 7.4rem);
-}
-
-.lead {
-  margin-top: var(--s-3);
-  color: var(--cyan);
 }
 
 .place {
@@ -37,92 +35,93 @@
   font-size: var(--t-lede);
 }
 
-.sep {
-  color: var(--cyan);
+/* "One of India's Most Sought After Spaces": the page's largest words after the
+   wordmark, across the full column */
+.statement {
+  margin-top: var(--s-8);
+  font-size: clamp(3.2rem, 9.4vw, 10.5rem);
+  line-height: 0.86;
+  max-width: 15ch;
+  text-wrap: balance;
 }
 
-/* The capacity takes the page */
-.figureBlock {
+/* Yashobhoomi, wide and in colour; it starts at the content column (clear of the
+   flight path in the rail) and runs out to the right edge */
+.vista {
+  position: relative;
+  margin-top: var(--s-8);
+  margin-left: calc(var(--gutter) + var(--rail));
+  height: clamp(20rem, 64vh, 46rem);
+  overflow: hidden;
+}
+
+.vistaPhoto {
+  height: 100%;
+}
+
+.vistaPhoto img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 60%;
+}
+
+/* Controlled motion: the building settles into frame as it scrolls through */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .vistaPhoto img {
+      animation: settle linear both;
+      animation-timeline: view();
+      animation-range: entry 0% exit 60%;
+    }
+  }
+}
+
+@keyframes settle {
+  from {
+    scale: 1.16;
+    translate: 0 -3%;
+  }
+  to {
+    scale: 1;
+    translate: 0 0;
+  }
+}
+
+/* The stage, the hall and the promise */
+.more {
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
-  column-gap: var(--s-5);
-  align-items: end;
-  margin-top: var(--s-8);
-}
-
-.figure {
-  grid-column: 1 / span 8;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
   column-gap: var(--s-4);
+  row-gap: var(--s-6);
+  margin-top: var(--s-4);
+  align-items: start;
 }
 
-.figureLead {
-  flex-basis: 100%;
-  font-weight: 650;
-  font-size: var(--t-lede);
+.stagePhoto {
+  grid-column: 1 / span 4;
+  grid-row: 1 / span 2;
+  aspect-ratio: 4 / 5;
 }
 
-.figureValue {
-  font-size: var(--t-mega);
-  margin-left: -0.04em;
-}
-
-.figureLabel {
-  font-size: var(--t-h1);
+.hallPhoto {
+  grid-column: 5 / -1;
+  aspect-ratio: 16 / 9;
 }
 
 .promise {
-  grid-column: 9 / -1;
+  grid-column: 5 / span 7;
   display: grid;
   gap: var(--s-3);
-  padding-bottom: var(--s-5);
 }
 
 .memorable {
-  font-weight: 650;
+  font-size: var(--t-h3);
+  max-width: 24ch;
 }
 
 .draw {
-  max-width: 32ch;
-  line-height: 1.45;
-}
-
-/* Three photographs: the stage tall, the building and the hall beside it */
-.venue {
-  display: grid;
-  grid-template-columns: repeat(12, minmax(0, 1fr));
-  grid-template-areas:
-    'p0 p0 p0 p0 p0 p1 p1 p1 p1 p1 p1 p1'
-    'p0 p0 p0 p0 p0 p2 p2 p2 p2 p2 p2 p2';
-  gap: var(--s-4);
-  margin-top: var(--s-9);
-}
-
-.venuePhoto {
-  min-height: 100%;
-}
-
-.dateline {
-  margin-top: var(--s-8);
-  font-weight: 750;
-  font-variation-settings:
-    'opsz' 48,
-    'wdth' 80;
-  text-transform: uppercase;
-  font-size: var(--t-h3);
-  line-height: 1.1;
-}
-
-@media (max-width: 1023px) {
-  .figure,
-  .promise {
-    grid-column: 1 / -1;
-  }
-  .promise {
-    margin-top: var(--s-5);
-  }
+  max-width: 38ch;
 }
 
 @media (max-width: 767px) {
@@ -134,28 +133,35 @@
   .title {
     font-size: clamp(2.8rem, 14vw, 4rem);
   }
-  /* Mobile sheet: room between the headline and its strapline */
-  .lead {
-    margin-top: var(--s-5);
+  /* Mobile sheet: room between the headline and what follows */
+  .place {
+    margin-top: var(--s-2);
   }
-  .figure {
-    row-gap: var(--s-2);
+  .statement {
+    margin-top: var(--s-6);
+    font-size: clamp(2.7rem, 13vw, 4rem);
   }
-  .figureValue {
-    font-size: clamp(4.5rem, 26vw, 7rem);
-    line-height: 0.9;
-  }
-  .venue {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    grid-template-areas:
-      'p1 p1'
-      'p0 p2';
-    gap: var(--s-3);
-  }
-  .venuePhoto {
+  .vista {
+    margin-top: var(--s-6);
+    height: auto;
     aspect-ratio: 4 / 5;
   }
-  .venuePhoto:nth-child(2) {
-    aspect-ratio: 3 / 2;
+  .more {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    column-gap: var(--s-3);
+    row-gap: var(--s-5);
+    margin-top: var(--s-3);
+  }
+  .stagePhoto {
+    grid-column: 1;
+    grid-row: 1;
+  }
+  .hallPhoto {
+    grid-column: 2;
+    grid-row: 1;
+    aspect-ratio: 4 / 5;
+  }
+  .promise {
+    grid-column: 1 / -1;
   }
 }

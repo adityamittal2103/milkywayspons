@@ -333,6 +333,16 @@
   opacity: 1;
 }
 
+/* Delhi, once the journey comes home: the convergence, in the festival's yellow */
+.label[data-home] {
+  opacity: 1;
+  color: var(--yellow);
+}
+
+.label[data-home] .labelName {
+  font-size: clamp(1.15rem, 1.45vw, 1.5rem);
+}
+
 /* ---------- the asteroid: the kit's comet, as ridden on the page's flight path ---------- */
 .asteroid {
   position: absolute;

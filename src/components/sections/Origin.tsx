@@ -1,27 +1,45 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { firsts, learned, moments } from '@/content/milky-way';
 import { prefersReducedMotion } from '@/lib/motion';
 import { CutEdge } from '../CutEdge';
+import { Dots } from '../Dots';
 import { Glyph } from '../Ink';
 import { Photo } from '../Photo';
 import { Waypoint } from '../Waypoint';
 import styles from './Origin.module.css';
 
+// One guest's step along the strip, and one copy of the whole row (the loop length)
+const pitch = (el: HTMLElement) => {
+  const li = el.querySelectorAll('li');
+  return li.length > 1 ? li[1].offsetLeft - li[0].offsetLeft : el.clientWidth;
+};
+const copy = (el: HTMLElement) => {
+  const rows = el.querySelectorAll('ul');
+  return rows[1] && rows[1].offsetWidth ? rows[1].offsetLeft - rows[0].offsetLeft : el.scrollWidth;
+};
+
 /**
  * s9–11, read as one sentence: we've learned from the best, pulled off our
  * firsts, and crafted the biggest moments. The guests run past on their own
- * (s9 comment); the moments scroll sideways under arrows and show their words
- * only when a picture is hovered, focused or tapped (s11 comment).
+ * (s9 comment); the moments scroll sideways, one at a time, and show their words
+ * only when a picture is hovered, focused or tapped (s11 comment). Both use the
+ * site's indicator dots (team review), not arrows.
  */
 export function Origin() {
   const track = useRef<HTMLUListElement>(null);
   const strip = useRef<HTMLDivElement>(null);
   const holdUntil = useRef(0);
+  const [guest, setGuest] = useState(0);
+  const [moment, setMoment] = useState(0);
+  // Where the moments can come to rest: one per picture on phones, fewer where
+  // two fit side by side (the last stop is the end of the row).
+  const [stops, setStops] = useState<number[]>(() => moments.items.map((_, i) => i));
+  const guests = learned.people.length;
 
   // The guests drift on their own, slowly (mobile sheet: it was too fast). Hover
-  // only slows them; a swipe, a scroll or the arrows hold them for a few seconds.
+  // only slows them; a swipe, a scroll or a dot holds them for a few seconds.
   useEffect(() => {
     const el = strip.current;
     if (!el || prefersReducedMotion()) return;
@@ -30,14 +48,13 @@ export function Origin() {
     let pos = el.scrollLeft;
     let hover = false;
     let visible = false;
-    const half = () => (el.firstElementChild as HTMLElement).scrollWidth / 2;
     const tick = (now: number) => {
       const dt = last ? Math.min(64, now - last) : 16;
       last = now;
       if (now < holdUntil.current) pos = el.scrollLeft;
       else {
         pos += ((window.innerWidth < 768 ? 20 : 26) * (hover ? 0.4 : 1) * dt) / 1000;
-        if (pos >= half()) pos -= half();
+        if (pos >= copy(el)) pos -= copy(el);
         el.scrollLeft = pos;
       }
       raf = visible ? requestAnimationFrame(tick) : 0;
@@ -69,31 +86,60 @@ export function Origin() {
     };
   }, []);
 
-  const nudge = (dir: 1 | -1) => {
+  // Which guest is at the head of the strip (just clear of the gate), and which
+  // moment is in front: both follow the scroll, however it was moved.
+  useEffect(() => {
+    const el = strip.current;
+    const row = track.current;
+    if (!el || !row) return;
+    const onStrip = () => setGuest(Math.round(el.scrollLeft / pitch(el)) % guests);
+    let rest: number[] = [];
+    const measure = () => {
+      const items = Array.from(row.children) as HTMLElement[];
+      const first = items[0]?.offsetLeft ?? 0;
+      const max = row.scrollWidth - row.clientWidth;
+      rest = items.map((it) => it.offsetLeft - first).filter((x) => x < max - 2);
+      rest.push(Math.max(0, max));
+      setStops([...rest]);
+      onTrack();
+    };
+    const onTrack = () => {
+      let best = 0;
+      rest.forEach((x, i) => {
+        if (Math.abs(x - row.scrollLeft) < Math.abs(rest[best] - row.scrollLeft)) best = i;
+      });
+      setMoment(best);
+    };
+    measure();
+    el.addEventListener('scroll', onStrip, { passive: true });
+    row.addEventListener('scroll', onTrack, { passive: true });
+    window.addEventListener('resize', measure);
+    return () => {
+      el.removeEventListener('scroll', onStrip);
+      row.removeEventListener('scroll', onTrack);
+      window.removeEventListener('resize', measure);
+    };
+  }, [guests]);
+
+  const toGuest = (i: number) => {
     const el = strip.current;
     if (!el) return;
-    holdUntil.current = performance.now() + 4000;
-    const card = el.querySelector('li');
-    const half = (el.firstElementChild as HTMLElement).scrollWidth / 2;
-    // Going back from the very start wraps to the matching point of the second copy.
-    if (dir < 0 && el.scrollLeft < 4) el.scrollLeft += half;
-    const gap = parseFloat(getComputedStyle(el.querySelector('ul')!).columnGap) || 0;
-    el.scrollBy({ left: dir * ((card?.getBoundingClientRect().width ?? 200) + gap), behavior: prefersReducedMotion() ? 'auto' : 'smooth' });
+    holdUntil.current = performance.now() + 4500;
+    // Of the two copies, go to whichever is nearer, so the strip never rewinds.
+    const a = i * pitch(el);
+    const b = a + copy(el);
+    const left = Math.abs(b - el.scrollLeft) < Math.abs(a - el.scrollLeft) ? b : a;
+    el.scrollTo({ left, behavior: prefersReducedMotion() ? 'auto' : 'smooth' });
   };
-  const step = (dir: 1 | -1) => {
-    const el = track.current;
-    if (!el) return;
-    const item = el.querySelector('li');
-    const gap = parseFloat(getComputedStyle(el).columnGap) || 0;
-    el.scrollBy({ left: dir * ((item?.getBoundingClientRect().width ?? el.clientWidth * 0.8) + gap), behavior: 'smooth' });
+  const toMoment = (i: number) => {
+    track.current?.scrollTo({ left: stops[i] ?? 0, behavior: prefersReducedMotion() ? 'auto' : 'smooth' });
   };
 
   return (
     <section id="origin" className={`section ${styles.origin}`} data-field="indigo" aria-labelledby="origin-title">
       <CutEdge seed={2} />
       <div className="wrap content">
-        {/* The page's flight path lifts over the Road to Milky Way chart and resumes here */}
-        <Waypoint breakBefore />
+        <Waypoint />
         <h2 id="origin-title" className={`headline ${styles.title}`}>
           {learned.title}
         </h2>
@@ -120,14 +166,15 @@ export function Origin() {
         </div>
       </div>
 
-      <div className={`wrap content ${styles.stripControls}`}>
-        <p className={`coord ${styles.swipe}`}>Swipe or use the arrows</p>
-        <button type="button" className={styles.arrow} onClick={() => nudge(-1)} aria-label="Previous guests">
-          <Glyph name="forward" className={`${styles.arrowGlyph} ${styles.back}`} />
-        </button>
-        <button type="button" className={styles.arrow} onClick={() => nudge(1)} aria-label="More guests">
-          <Glyph name="forward" className={styles.arrowGlyph} />
-        </button>
+      <div className="wrap content">
+        <Dots
+          className={styles.dots}
+          count={guests}
+          current={guest}
+          onPick={toGuest}
+          label="Choose a guest"
+          name={(i) => learned.people[i].name}
+        />
       </div>
 
       <div className="wrap content">
@@ -164,14 +211,6 @@ export function Origin() {
             <h3 className={`headline ${styles.beat}`}>
               {moments.title} <span className={styles.signature}>{moments.signature}</span>
             </h3>
-            <div className={styles.arrows}>
-              <button type="button" className={styles.arrow} onClick={() => step(-1)} aria-label="Previous moment">
-                <Glyph name="forward" className={`${styles.arrowGlyph} ${styles.back}`} />
-              </button>
-              <button type="button" className={styles.arrow} onClick={() => step(1)} aria-label="Next moment">
-                <Glyph name="forward" className={styles.arrowGlyph} />
-              </button>
-            </div>
           </div>
           <ul ref={track} className={styles.momentTrack}>
             {moments.items.map((m) => (
@@ -185,6 +224,14 @@ export function Origin() {
               </li>
             ))}
           </ul>
+          <Dots
+            className={styles.dots}
+            count={stops.length}
+            current={moment}
+            onPick={toMoment}
+            label="Choose a moment"
+            name={(i) => moments.items[i === stops.length - 1 ? moments.items.length - 1 : i].name}
+          />
         </div>
       </div>
     </section>

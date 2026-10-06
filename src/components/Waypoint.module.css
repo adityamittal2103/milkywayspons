@@ -1,4 +1,7 @@
+/* No height of its own: MarkerAlign sets each node level with its heading, so
+   the slot it used to hold above the heading was only empty space. */
 .waypoint {
+  height: 0;
   margin-left: calc(var(--rail) * -1);
   display: flex;
   align-items: center;

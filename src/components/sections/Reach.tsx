@@ -1,10 +1,11 @@
 'use client';
 
-import { useCallback, useEffect, useRef, useState, type CSSProperties, type MouseEvent } from 'react';
+import { useCallback, useEffect, useRef, useState, type CSSProperties, type MouseEvent, type PointerEvent } from 'react';
 import { reach } from '@/content/milky-way';
 import { prefersReducedMotion } from '@/lib/motion';
 import { CutEdge } from '../CutEdge';
 import { DeckLogo } from '../DeckLogo';
+import { Dots } from '../Dots';
 import { Glyph } from '../Ink';
 import { Photo } from '../Photo';
 import { Waypoint } from '../Waypoint';
@@ -16,7 +17,8 @@ const STEP_MS = 2800;
  * s12–14: the platforms in one row, icons all one size, then the six reels as
  * a revolving three-card system: one reel in front, one either side, the rest
  * waiting behind. It turns on its own from the moment it is in view, forever;
- * a tap on a side reel brings it forward, a tap on the reel in front opens it.
+ * a swipe turns it by hand, a tap on a side reel brings it forward, a tap on the
+ * reel in front opens it. The site's indicator dots sit beneath (team review).
  */
 export function Reach() {
   const stage = useRef<HTMLDivElement>(null);
@@ -26,6 +28,8 @@ export function Reach() {
   const [still, setStill] = useState(false);
   const timer = useRef(0);
   const visible = useRef(false);
+  const press = useRef<{ x: number; y: number } | null>(null);
+  const swiped = useRef(false);
 
   const schedule = useCallback(() => {
     window.clearTimeout(timer.current);
@@ -69,9 +73,32 @@ export function Reach() {
   };
 
   const onCard = (i: number) => (e: MouseEvent) => {
+    // The click that ends a swipe opens nothing.
+    if (swiped.current) {
+      swiped.current = false;
+      e.preventDefault();
+      return;
+    }
     if (offset(i) !== 0) {
       e.preventDefault();
       go(i);
+    }
+  };
+
+  // Swipe (or drag) sideways to turn the reels; vertical moves still scroll the page.
+  const onDown = (e: PointerEvent) => {
+    press.current = { x: e.clientX, y: e.clientY };
+    swiped.current = false;
+  };
+  const onUp = (e: PointerEvent) => {
+    const p = press.current;
+    press.current = null;
+    if (!p) return;
+    const dx = e.clientX - p.x;
+    const dy = e.clientY - p.y;
+    if (Math.abs(dx) > 36 && Math.abs(dx) > Math.abs(dy) * 1.2) {
+      swiped.current = true;
+      go(active + (dx < 0 ? 1 : -1));
     }
   };
 
@@ -108,6 +135,9 @@ export function Reach() {
         aria-roledescription="carousel"
         aria-label="Selected reels"
         data-still={still || undefined}
+        onPointerDown={onDown}
+        onPointerUp={onUp}
+        onPointerCancel={() => (press.current = null)}
       >
         <ul className={styles.system}>
           {reach.reels.map((r, i) => {
@@ -123,6 +153,7 @@ export function Reach() {
                   onClick={onCard(i)}
                   tabIndex={shown ? 0 : -1}
                   aria-hidden={!shown || undefined}
+                  draggable={false}
                 >
                   <Photo id={r.cover} alt="" treatment="color" priority className={styles.cover} sizes="(max-width: 767px) 50vw, 18rem" />
                   <span className={styles.play} aria-hidden="true">
@@ -139,17 +170,14 @@ export function Reach() {
       </div>
 
       <div className="wrap content">
-        <div className={styles.controls}>
-          <button type="button" className={styles.arrow} onClick={() => go(active - 1)} aria-label="Previous reel">
-            <Glyph name="forward" className={`${styles.arrowGlyph} ${styles.back}`} />
-          </button>
-          <p className={`coord ${styles.count}`} aria-live="polite">
-            {String(active + 1).padStart(2, '0')} / {String(total).padStart(2, '0')}
-          </p>
-          <button type="button" className={styles.arrow} onClick={() => go(active + 1)} aria-label="Next reel">
-            <Glyph name="forward" className={styles.arrowGlyph} />
-          </button>
-        </div>
+        <Dots
+          className={styles.dots}
+          count={total}
+          current={active}
+          onPick={go}
+          label="Choose a reel"
+          name={(i) => `Reel ${i + 1} of ${total}: ${reach.reels[i].alt}`}
+        />
       </div>
     </section>
   );

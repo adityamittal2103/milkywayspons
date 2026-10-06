@@ -27,9 +27,11 @@
   display: none;
 }
 
+/* The strip's first guest starts clear of the gate, not half-faded inside it */
 .run {
   display: flex;
   width: max-content;
+  padding-left: var(--gate-clear);
 }
 
 .people {
@@ -53,26 +55,9 @@
   font-size: var(--t-h3);
 }
 
-/* The manual controls under the strip (mobile sheet) */
-.stripControls {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  gap: var(--s-2);
+/* The site's indicator dots, under the strip and under the moments */
+.dots {
   margin-top: var(--s-4);
-}
-
-.swipe {
-  display: none;
-  margin-right: auto;
-  font-size: 0.8rem;
-  opacity: 0.8;
-}
-
-@media (hover: none) {
-  .swipe {
-    display: block;
-  }
 }
 
 /* Reduced motion: a still row the reader can swipe */
@@ -84,7 +69,7 @@
 
 /* ---------- the firsts ---------- */
 .firsts {
-  margin-top: var(--s-10);
+  margin-top: var(--s-9);
 }
 
 .firstList {
@@ -125,7 +110,7 @@
   grid-template-columns: repeat(12, minmax(0, 1fr));
   column-gap: var(--s-5);
   row-gap: var(--s-4);
-  margin-top: var(--s-10);
+  margin-top: var(--s-9);
   align-items: end;
 }
 
@@ -165,7 +150,7 @@
 
 /* ---------- the moments: a sideways scroller, words on hover ---------- */
 .moments {
-  margin-top: var(--s-10);
+  margin-top: var(--s-9);
 }
 
 .momentsHead {
@@ -183,43 +168,6 @@
   color: var(--yellow);
 }
 
-.arrows {
-  display: flex;
-  gap: var(--s-2);
-}
-
-.arrow {
-  display: grid;
-  place-items: center;
-  width: 52px;
-  height: 52px;
-  border: var(--rule) solid var(--ink);
-  background: transparent;
-  color: var(--ink);
-  cursor: pointer;
-  clip-path: polygon(0% 6%, 96% 0%, 100% 92%, 4% 100%);
-  transition: background var(--dur-micro) linear;
-}
-
-.arrow:hover,
-.arrow:focus-visible {
-  background: var(--ink);
-}
-
-.arrowGlyph {
-  width: 18px;
-  --ink-color: currentColor;
-}
-
-.arrow:hover .arrowGlyph,
-.arrow:focus-visible .arrowGlyph {
-  --ink-color: var(--indigo);
-}
-
-.back {
-  rotate: 180deg;
-}
-
 .momentTrack {
   display: flex;
   gap: var(--s-4);
@@ -235,11 +183,15 @@
   display: none;
 }
 
+/* One moment per swipe: a snap point that is never skipped, and on phones a card
+   narrower than the track (a card wider than the track scrolls freely inside
+   itself, which is what made this swipe feel loose) */
 .moment {
   position: relative;
   flex: none;
   width: min(84vw, 38rem);
   scroll-snap-align: start;
+  scroll-snap-stop: always;
   outline-offset: -4px;
   cursor: pointer;
 }
@@ -341,9 +293,8 @@
   .firstFigure {
     font-size: clamp(2.8rem, 13vw, 3.6rem);
   }
-  .arrow {
-    width: 48px;
-    height: 48px;
+  .moment {
+    width: calc(100% - 2.75rem);
   }
 }
 

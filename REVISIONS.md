@@ -81,3 +81,46 @@ the mobile revision sheet (Google Sheets), and the Milky Way brand kit.
 | Star fields | Moved only with the pointer or scroll. | A 90 s ambient drift, composited. |
 
 Checked: a scripted scroll through the whole page at 1440, 1280, 1024, 430, 390 and 375 px tested the comet's outline against every visible word, photo and control. No text, table or control collisions remain; the only overlaps are photographs inside a gate, which are faded out at the comet's position. Reduced motion: reels keep their three-card composition, still; the guests strip and the comet's drift stop. No horizontal overflow, no console errors.
+
+## Deck changes (Chirag) and team review, 6 Oct 2026
+
+Sources: "Deck Changes from Chirag" (PDF, 2 pages), 14 annotated phone screenshots from the team,
+the campus tour video link and "auto play on hover" (chat).
+
+| Source | Requested change | Built state | Status |
+| --- | --- | --- | --- |
+| PDF p1 | PPT/PDF version, formatted as a deck rather than a copy of the site | See "Deck" below | Done |
+| PDF p1 | Replace 20K footfall at Yashobhoomi with "One of India's Most Sought After Spaces", bolder and bigger | The statement is the venue's largest type; the 20K figure is gone | Done |
+| PDF p1 | Replace "partner access passes" in the tier microcopy (brands don't care much about passes) | Each tier in the picker now reads its brand association (Title integration with Milky Way, "Powered By" association, Associate / Co-Sponsor designation); the passes row in the table is ordinary type, no longer oversized | Done |
+| PDF p2 | Dates 18th–21st February | Hero, metadata and share description; the two halves are named where they apply (campus 18th–19th, Yashobhoomi 20th–21st, footer lists both) | Done |
+| PDF p2 | Footfall 45K–1L+ | Sky line "45K–1L+ GenZs" | Done |
+| PDF p2 | Registrations 2L+, events 70+ | Fest stats | Done |
+| PDF p2 | Sports → performing arts | Events line and the event symbols (Performing Arts uses the kit's arena-and-stage world) | Done |
+| PDF p2 | Campus photo slide (18th–19th) with the campus tour video and the two date lines | Campus section with the Masters' Union campus tour (YouTube, muted autoplay on hover / in view on phones) and both lines | Done |
+| PDF p2 | New Road to Milky Way description | Used verbatim | Done |
+| Screenshot 1 | Headings level with their markers; bottom bar text centred | MarkerAlign sets every marker on its heading's first line; the bottom bar is replaced by the floating header (screenshot 7), whose readout is centred | Done |
+| Screenshot 2 | "Ways in" alignment off on phones | Lead-ins share one right edge, plates one left edge | Done |
+| Screenshot 3 | Planet covers "Masters' Union University presents" | Planet sits behind the wordmark, clear of the presenter line | Done |
+| Screenshots 4, 13 | Deliverables column should stay put; vertical reading on phones | Phones read the table downwards, one deliverable at a time with each tier named on its line; no sideways scrolling | Done |
+| Screenshot 5 | Guest carousel: Rohit Sharma covered by the comet fade | The gate now ends exactly where the content column starts; the strip's first guest starts clear of it | Done |
+| Screenshot 6 | Purple haze cuts the phone photo slider | The photo in front rests wholly clear of the gate, aligned with the copy | Done |
+| Screenshot 7 | No nav/actions in the hero; merge the noise into one floating header that hides on scroll down and returns on scroll up | Done; the table's sticky heads follow the header | Done |
+| Screenshot 8 | Metrics in different sizes | The deck asks for a step-down, which reads in the single desktop row; in the two-by-two grid (tablet, phone) all four now share one size | Done |
+| Screenshot 9 | Venue mentioned three times in the first seconds; clear CTAs in the hero | Venue line removed from the hero; Sponsorship tiers and Contact us sit under the dates | Done |
+| Screenshots 10–12 | Arrows, page counts and dots differ; reels can't be swiped; moments swipe is loose | One control everywhere: the indicator dots under every carousel. Reels swipe. Moments snap one at a time (a card wider than its track had been scrolling freely) | Done |
+| Screenshot 13 | The rail line disappears over the paper table | On phones the table's paper starts at the content column, so the line stays visible | Done |
+| Screenshot 14 | "Contact us" visible in the header on the contact section | Each header action steps aside on its own section | Done |
+| Chat | Campus tour video autoplays on hover, not behind a play button | Muted autoplay on hover (pointer), when mostly in view (phones); still frame under reduced motion | Done |
+
+## Final narrative and layout revision, 6 Oct 2026
+
+| Request | Built state | Status |
+| --- | --- | --- |
+| Order: identity → festival → Road to Milky Way → Yashobhoomi → campus → audience, story, reach → sponsorship → CTA | Hero, Sky, The fest, The journey, The venue, On campus, The audience, Our story, Reach, Company, Tiers, Signal (nav index follows) | Done |
+| Yashobhoomi as the primary selling point | "The main festival" kicker; the statement at the venue's largest size across the column; Yashobhoomi itself wide, in colour, to the right edge, settling into frame as it scrolls; stage and hall after | Done |
+| Campus after Yashobhoomi, smaller | A change of scale: sub-display heading, copy and tour side by side; the two date lines in the doc's order (Yashobhoomi first) | Done |
+| Less unused space | Section padding 6–12rem → 4.5–8.5rem; the empty slot each marker held above its heading removed; Origin and Audience inner beats 8rem → 6rem. Typical gap between sections at 1440: ~440px → ~280px | Done |
+| RTM is experiential, not competitions | Approved description verbatim; no competition language in the Road section | Done |
+| New cities: Delhi, Jaipur, Bangalore, Chandigarh, Mumbai, Varanasi, Guwahati | Real coordinates; Pune, Ahmedabad, Kolkata removed | Done |
+| Rebuild route, constellation, labels, activation | `scripts/build-map.mjs` regenerated: the asteroid drops in over the Himalaya to Delhi and flies the cities in the given order, then home to Delhi. It runs down to Bangalore east of the Jaipur line and back up west of it, swings round the southern tip from Mumbai to Varanasi, and returns over the north. The figure is centred on Delhi; labels are placed by the existing collision solver | Done |
+| Delhi as the convergence | The last leg flies home to Delhi while the closing line (Guwahati–Delhi) draws beside it; on arrival Delhi's star flares, three rings, the whole figure brightens once, Delhi's name turns yellow, and the reading names "Delhi · Yashobhoomi", then "Everyone meets in Delhi". The page continues straight into the venue | Done |

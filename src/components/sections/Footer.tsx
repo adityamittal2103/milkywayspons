@@ -16,11 +16,14 @@ export function Footer() {
         />
         <div className={styles.meta}>
           <Logo name="mu-logo" label={festival.presenter} color="paper" className={styles.mu} />
-          <p>
-            <time dateTime="2027-02-20">{festival.dates}</time>
-            <br />
-            {festival.venue}, {festival.city}
-          </p>
+          {/* Both halves of the festival: campus days, then Yashobhoomi */}
+          {festival.legs.map((l) => (
+            <p key={l.iso}>
+              <time dateTime={l.iso}>{l.dates}</time>
+              <br />
+              {l.place}, {l.city}
+            </p>
+          ))}
         </div>
       </div>
     </footer>

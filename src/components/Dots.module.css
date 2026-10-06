@@ -1,0 +1,50 @@
+.dots {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2px;
+}
+
+/* A 32px target around an 8px diamond */
+.dot {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.dot::before {
+  content: '';
+  display: block;
+  width: 8px;
+  height: 8px;
+  margin: auto;
+  background: var(--ink);
+  opacity: 0.32;
+  rotate: 45deg;
+  transition:
+    opacity var(--dur-ui) var(--ease-out),
+    scale var(--dur-ui) var(--ease-out);
+}
+
+.dot:hover::before {
+  opacity: 0.6;
+}
+
+.dot[data-on]::before {
+  opacity: 1;
+  scale: 1.4;
+}
+
+.dot:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: -4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dot::before {
+    transition: none;
+  }
+}

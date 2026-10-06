@@ -58,8 +58,16 @@
   /* The margin rail: the flight path runs here, never through text */
   --node: 2.75rem;
   --rail: clamp(4.25rem, 6vw, 6.5rem);
+  /* The gate (see .gate): edge-to-edge bands are invisible up to --gate-from,
+     just past the comet's reach around the rail's nodes, and whole again from
+     --gate-clear, where the content column starts. */
+  --gate-clear: calc(var(--gutter) + var(--rail));
+  --gate-from: min(calc(var(--gutter) + var(--node) + 0.5rem), calc(var(--gate-clear) - 0.5rem));
+  /* How much of the top edge the floating header covers right now (see Nav) */
+  --nav-offset: 0px;
   --max: 1680px;
-  --section-pad: clamp(6rem, 12vw, 12rem);
+  /* Team brief (6 Oct 2026): intentional space, not unused space. Was 6–12rem. */
+  --section-pad: clamp(4.5rem, 8vw, 8.5rem);
 
   /* Lines: one weight family, like a printed plate */
   --rule: 2px;
@@ -316,6 +324,18 @@ ol {
   :root {
     --node: 2.1rem;
     --rail: 2.9rem;
+    --gate-clear: calc(var(--gutter) + var(--rail));
+    --gate-from: min(calc(var(--gutter) + var(--node) + 0.5rem), calc(var(--gate-clear) - 0.5rem));
+  }
+}
+
+:root[data-nav-shown] {
+  --nav-offset: 4.25rem;
+}
+
+@media (max-width: 767px) {
+  :root[data-nav-shown] {
+    --nav-offset: 3.6rem;
   }
 }
 
@@ -346,11 +366,11 @@ ol {
 
 /* The gate: a band that runs edge to edge (photo strips, the reels) fades out
    before it reaches the margin rail, where the flight path's comet flies.
-   Moving photographs end at the gate; they never pass under or over the comet. */
+   Moving photographs end at the gate; they never pass under or over the comet.
+   A picture at rest starts at --gate-clear, so it is never shown half-faded. */
 .gate {
-  --gate: calc(var(--gutter) + var(--rail) * 0.94);
-  -webkit-mask-image: linear-gradient(to right, transparent var(--gate), #000 calc(var(--gate) + 2.75rem));
-  mask-image: linear-gradient(to right, transparent var(--gate), #000 calc(var(--gate) + 2.75rem));
+  -webkit-mask-image: linear-gradient(to right, transparent var(--gate-from), #000 var(--gate-clear));
+  mask-image: linear-gradient(to right, transparent var(--gate-from), #000 var(--gate-clear));
 }
 
 .sr-only {

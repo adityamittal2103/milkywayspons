@@ -1,6 +1,7 @@
 /**
  * Every fact on the site lives here, taken from the live Google Slides deck
- * "MAIN DECK W CHANGES" (18 slides, read 4 Oct 2026) and the comments on it.
+ * "MAIN DECK W CHANGES" (18 slides, read 4 Oct 2026) and the comments on it,
+ * as updated by "Deck Changes from Chirag" (6 Oct 2026; `dc` below).
  * `s` = the deck slide each fact comes from; `c` = a change asked for in a
  * comment on that slide. The Road to Milky Way city names, and the order the
  * chart visits them in, were supplied by the Milky Way team.
@@ -14,7 +15,12 @@ export const festival = {
   presenter: "Masters' Union University",
   line: 'A fest where the universe comes alive', // s1
   tagline: 'The universe is yours', // brand kit lockup (footer)
-  dates: '20th–21st February 2027', // s1
+  dates: '18th–21st February 2027', // dc: the whole festival, campus days and Yashobhoomi
+  // dc: the two halves of the festival, in the doc's own wording
+  legs: [
+    { dates: '18th–19th February 2027', place: "Masters' Union University", city: 'Gurugram, India', iso: '2027-02-18' },
+    { dates: '20th–21st February 2027', place: 'Yashobhoomi Convention Centre', city: 'Delhi, India', iso: '2027-02-20' },
+  ],
   venue: 'Yashobhoomi Convention Center', // s1
   city: 'Delhi, India', // s1
   lockupLine: 'MU Fest 2027', // brand kit lockup
@@ -22,7 +28,7 @@ export const festival = {
 
 export const sky = {
   // s2
-  title: ['45k+ GenZs,', 'Under One Sky,', 'And You Light it Up.'],
+  title: ['45K–1L+ GenZs,', 'Under One Sky,', 'And You Light it Up.'], // dc: footfall 45K–1L+
   landing: 'Landing at',
   // As the deck gives it. Note: this point is in Gurugram (the earlier deck's
   // "Launching from"); Yashobhoomi itself is at 28.5549° N, 77.0446° E.
@@ -39,18 +45,19 @@ export const fest = {
   subhead: 'From our classrooms to a cultural experience like never before',
   // s3: "4 callouts side by side, largest to smallest"
   stats: [
-    { value: '1L+', label: 'student registrations' },
+    { value: '2L+', label: 'student registrations' }, // dc
     { value: '250+', label: 'target colleges' },
-    { value: '50+', label: 'events' },
+    { value: '70+', label: 'events' }, // dc
     { value: '7', label: 'cities' },
   ],
-  events: "It's bands, gaming, sports and informals all day long. And when the sun goes down, the pronites begin.",
+  // dc: sports becomes performing arts
+  events: "It's bands, gaming, performing arts and informals all day long. And when the sun goes down, the pronites begin.",
   body: 'We are bringing the brightest stars from across India into one arena of music, competition and culture.',
   // s4 c: "use the visual symbols on this page for the previous slide where we introduce MW, and write about events"
   symbols: [
     { name: 'Bands', art: 'badge-guitar' },
     { name: 'Gaming', art: 'badge-crystal' },
-    { name: 'Sports', art: 'badge-skate' },
+    { name: 'Performing Arts', art: 'playground-5' },
     { name: 'Informals', art: 'badge-rollercoaster' },
     { name: 'Pronites', art: 'badge-keyboard' },
   ],
@@ -80,13 +87,22 @@ export const audience = {
   ],
 } as const;
 
+export const campus = {
+  // Placed after Yashobhoomi by the team's brief (6 Oct 2026): the festival's other half.
+  kicker: 'Two days on campus',
+  // dc: "Add campus photo slide (18th to 19th) - campus tour video". The video was
+  // supplied by the Milky Way team (YouTube, Masters' Union University's channel).
+  video: { youtube: 'N5Crw6YCkSU', title: "Masters' Union Campus Tour 2026" },
+} as const;
+
 export const venue = {
-  // s7
+  // s7. The kicker states what the team's brief (6 Oct 2026) set: the main festival happens here.
+  kicker: 'The main festival',
   title: 'The Venue',
-  lead: "One of India's Most Sought After Spaces,",
   place: 'Yashobhoomi, Delhi',
   booked: 'Booked for 20th–21st February 2027',
-  capacity: { value: '20K+', lead: 'With a capacity of', label: 'people' },
+  // dc: replaces the 20K figure, "bolder and bigger"
+  statement: "One of India's Most Sought After Spaces",
   memorable: 'We are making room for something memorable',
   draw: 'With competitions, performances, branded experiences that draw students in.',
   photos: [
@@ -101,12 +117,14 @@ export const road = {
   name: 'Road to Milky Way',
   title: 'The Journey',
   strapline: "Before Delhi, there's a whole universe to cover",
-  what: 'takes competitions to campuses across India, selecting teams for the finale in Delhi.',
-  subhead: 'Seven cities. Thousands of young minds. Weeks of momentum, before the festival even lands.',
+  // dc: the description, as given
+  what: 'brings one signature experience to each city on the map, free for UG students across India.',
+  subhead: 'Seven cities. Seven nights nobody forgets. Then everyone meets in Delhi.',
   body: 'Ride the full journey with us, from the first city to the final night in Delhi.',
-  // Names from the Milky Way team. The order is the chart's (the team asked for
-  // the clearest figure): a zigzag across the country ending in Delhi.
-  stops: ['Mumbai', 'Pune', 'Bangalore', 'Kolkata', 'Ahmedabad', 'Jaipur', 'Delhi'],
+  // The Milky Way team's final revision (6 Oct 2026): one signature experience in
+  // each of seven cities, in this order, and then everyone meets in Delhi. The
+  // chart (scripts/build-map.mjs) flies them in this order and returns to Delhi.
+  stops: ['Delhi', 'Jaipur', 'Bangalore', 'Chandigarh', 'Mumbai', 'Varanasi', 'Guwahati'],
 } as const;
 
 export const learned = {
@@ -416,9 +434,10 @@ export const signal = {
 export const waypoints = [
   { id: 'launch', label: 'Launch' },
   { id: 'milky-way', label: 'The fest' },
-  { id: 'audience', label: 'The audience' },
-  { id: 'landing', label: 'The venue' },
   { id: 'road', label: 'The journey' },
+  { id: 'landing', label: 'The venue' },
+  { id: 'campus', label: 'On campus' },
+  { id: 'audience', label: 'The audience' },
   { id: 'origin', label: 'Our story' },
   { id: 'reach', label: 'Digital multiverse' },
   { id: 'company', label: 'Company' },

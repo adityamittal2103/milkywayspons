@@ -1,0 +1,135 @@
+.campus {
+  overflow: clip;
+}
+
+/* After the venue, a change of scale: copy and the tour side by side */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--s-6);
+  row-gap: var(--s-6);
+  align-items: center;
+}
+
+.copy {
+  grid-column: 1 / span 5;
+  display: grid;
+  gap: var(--s-5);
+}
+
+.media {
+  grid-column: 6 / -1;
+}
+
+.kicker {
+  color: var(--cyan);
+}
+
+/* "18th–19th February 2027 / Masters' Union University ✱ Gurugram, India" */
+.title {
+  display: grid;
+  gap: var(--s-2);
+}
+
+.dates {
+  font-size: var(--t-h2);
+  color: var(--yellow);
+}
+
+/* In the doc's own setting: capitals, the star between place and city */
+.place {
+  font-weight: 750;
+  font-variation-settings:
+    'opsz' 48,
+    'wdth' 80;
+  font-size: var(--t-lede);
+  line-height: 1.15;
+  text-transform: uppercase;
+}
+
+.star {
+  color: var(--yellow);
+}
+
+/* The two halves of the festival, joined by the dotted line of the flight plan */
+.route {
+  position: relative;
+  display: grid;
+  gap: var(--s-4);
+  padding-top: var(--s-4);
+  border-top: var(--rule) solid color-mix(in srgb, var(--paper) 30%, transparent);
+}
+
+.route::before {
+  content: '';
+  position: absolute;
+  left: 0.7rem;
+  top: calc(var(--s-4) + 1.2rem);
+  bottom: 1.2rem;
+  border-left: 2px dotted var(--paper);
+  opacity: 0.5;
+}
+
+.leg {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.4rem minmax(0, 1fr);
+  column-gap: var(--s-3);
+  align-items: start;
+  opacity: 0.62;
+}
+
+.leg[data-here] {
+  opacity: 1;
+}
+
+.pin {
+  display: grid;
+  place-items: center;
+  width: 1.4rem;
+  padding-top: 0.1rem;
+  background: var(--black);
+}
+
+.pinGlyph {
+  width: 0.9rem;
+  --ink-color: var(--vermilion);
+}
+
+.legText {
+  font-weight: 750;
+  font-variation-settings:
+    'opsz' 48,
+    'wdth' 80;
+  text-transform: uppercase;
+  font-size: 0.98rem;
+  line-height: 1.2;
+}
+
+/* The date on its own line, then place ✱ city (the doc's line, set in two) */
+.legDates {
+  display: block;
+  color: var(--yellow);
+}
+
+.legDates + .legSep {
+  display: none;
+}
+
+.legPlace {
+  display: block;
+}
+
+.legSep {
+  color: var(--cyan);
+}
+
+@media (max-width: 1023px) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .copy,
+  .media {
+    grid-column: 1;
+  }
+}

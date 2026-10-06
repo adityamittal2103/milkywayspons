@@ -66,6 +66,9 @@
   padding-left: calc(var(--gutter) + var(--rail));
   padding-right: var(--gutter);
   overflow: hidden;
+  /* Sideways swipes turn the reels; the page still scrolls vertically */
+  touch-action: pan-y;
+  user-select: none;
 }
 
 .system {
@@ -131,6 +134,12 @@
   position: relative;
   display: block;
   outline-offset: 4px;
+  -webkit-user-drag: none;
+}
+
+.reelLink img {
+  -webkit-user-drag: none;
+  pointer-events: none;
 }
 
 .cover {
@@ -161,60 +170,13 @@
   --ink-color: var(--cyan);
 }
 
-/* Reduced motion: the same three-card composition, still; arrows move it */
+/* Reduced motion: the same three-card composition, still; dots and swipes move it */
 .reels[data-still] .reel {
   transition: none;
 }
 
-.controls {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: var(--s-5);
+.dots {
   margin-top: var(--s-5);
-}
-
-.count {
-  min-width: 7ch;
-  text-align: center;
-  font-size: 0.9rem;
-}
-
-.arrow {
-  display: grid;
-  place-items: center;
-  width: 52px;
-  height: 52px;
-  border: var(--rule) solid var(--black);
-  background: transparent;
-  color: var(--black);
-  cursor: pointer;
-  clip-path: polygon(0% 6%, 96% 0%, 100% 92%, 4% 100%);
-  transition: background var(--dur-micro) linear;
-}
-
-.arrow:hover:not(:disabled),
-.arrow:focus-visible {
-  background: var(--black);
-}
-
-.arrow:disabled {
-  opacity: 0.3;
-  cursor: default;
-}
-
-.arrowGlyph {
-  width: 18px;
-  --ink-color: var(--black);
-}
-
-.arrow:hover:not(:disabled) .arrowGlyph,
-.arrow:focus-visible .arrowGlyph {
-  --ink-color: var(--cyan);
-}
-
-.back {
-  rotate: 180deg;
 }
 
 @media (max-width: 1023px) {

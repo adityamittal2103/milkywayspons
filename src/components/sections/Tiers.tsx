@@ -20,7 +20,9 @@ const ORBITS = [
 const TILT = -16;
 const RY = 0.4;
 
-const passes = (id: TierId) => deliverables.find((d) => d.name === 'Partner Access Passes')!.values[id] as string;
+// Deck changes (Chirag): each tier is introduced by what the brand becomes, not by
+// its access passes ("brand doesn't care much about access passes").
+const association = (id: TierId) => deliverables.find((d) => d.name === 'Brand Association')!.values[id] as string;
 
 function Cell({ value }: { value: Entitlement }) {
   if (value === true)
@@ -50,18 +52,13 @@ export function Tiers() {
   const svgRef = useRef<SVGSVGElement>(null);
   const sentinel = useRef<HTMLDivElement>(null);
   const plate = useRef<HTMLDivElement>(null);
-  const scroller = useRef<HTMLDivElement>(null);
 
-  // Mobile sheet: choosing a tier above takes the reader to that tier in the table.
+  // Mobile sheet: choosing a tier above takes the reader to it in the table, where
+  // its lines are highlighted (on phones the table reads downwards, one deliverable
+  // at a time, so there is no sideways scrolling to line up).
   const choose = (id: TierId) => {
     setActive(id);
     if (!window.matchMedia('(max-width: 767px)').matches) return;
-    // Line the table up on that tier first (it is still off screen), then bring the
-    // table into view: two smooth scrolls at once would cancel each other.
-    const box = scroller.current;
-    const col = box?.querySelector<HTMLElement>(`thead [data-tier='${id}']`);
-    const corner = box?.querySelector<HTMLElement>('thead th');
-    if (box && col) box.scrollTo({ left: col.offsetLeft - (corner?.offsetWidth ?? 0), behavior: 'instant' });
     plate.current?.scrollIntoView({ behavior: prefersReducedMotion() ? 'auto' : 'smooth', block: 'start' });
   };
 
@@ -146,9 +143,7 @@ export function Tiers() {
                 />
                 <span className={`coord ${styles.optionN}`}>{String(i + 1).padStart(2, '0')}</span>
                 <span className={styles.optionName}>{t.name}</span>
-                <span className={styles.optionMeta}>
-                  <span className="numeral">{passes(t.id)}</span> partner access passes
-                </span>
+                <span className={styles.optionMeta}>{association(t.id)}</span>
               </label>
             ))}
           </fieldset>
@@ -164,7 +159,7 @@ export function Tiers() {
           </div>
 
           <div ref={sentinel} aria-hidden="true" />
-          <div ref={scroller} className={styles.scroller} role="region" aria-label="Sponsorship deliverables by tier" tabIndex={0}>
+          <div className={styles.scroller} role="region" aria-label="Sponsorship deliverables by tier" tabIndex={0}>
             <table
               className={styles.table}
               data-active={active}
@@ -189,13 +184,17 @@ export function Tiers() {
               </thead>
               <tbody>
                 {deliverables.map((d, r) => (
-                  <tr key={d.name} data-passes={d.name === 'Partner Access Passes' || undefined}>
+                  <tr key={d.name}>
                     <th scope="row">
                       <span className={`coord ${styles.rowN}`}>{String(r + 1).padStart(2, '0')}</span>
                       {d.name}
                     </th>
                     {tiers.map((t) => (
                       <td key={t.id} data-tier={t.id} style={{ ['--tier' as string]: `var(--${t.ink})` }}>
+                        {/* Phones: the table reads downwards, so each value carries its tier's name */}
+                        <span className={styles.cellTier} aria-hidden="true">
+                          {t.name}
+                        </span>
                         <Cell value={d.values[t.id]} />
                       </td>
                     ))}

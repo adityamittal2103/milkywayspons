@@ -168,11 +168,18 @@
   }
 }
 
+/* In a two-by-two grid a step-down reads as a mistake (team review), so the four
+   figures share one size; the single row on wide screens keeps the deck's
+   largest-to-smallest step. */
 @media (max-width: 1023px) {
   .stats {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     row-gap: var(--s-5);
+    align-items: start;
     border-bottom: 0;
+  }
+  .statValue {
+    font-size: clamp(3rem, 10vw, 7rem);
   }
   .stat {
     border-bottom: var(--rule) solid var(--black);
@@ -183,7 +190,7 @@
   }
 }
 
-/* Phones: the stats still step down; the worlds become a two-column field */
+/* Phones: the worlds become a two-column field */
 @media (max-width: 767px) {
   .galaxy {
     top: 2%;
@@ -191,7 +198,7 @@
     width: 90vw;
   }
   .statValue {
-    font-size: calc(clamp(3rem, 15vw, 4.4rem) * (1 - var(--step) * 0.12));
+    font-size: clamp(3rem, 15vw, 4.4rem);
   }
   .statLabel {
     font-size: 0.95rem;

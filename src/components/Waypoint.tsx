@@ -18,7 +18,7 @@ type Props = {
  */
 export function Waypoint({ glyph = 'star', className, breakBefore, children }: Props) {
   return (
-    <div className={`${styles.waypoint}${className ? ` ${className}` : ''}`} aria-hidden="true">
+    <div className={`${styles.waypoint}${className ? ` ${className}` : ''}`} aria-hidden="true" data-waypoint>
       <span className={styles.node} data-anchor data-anchor-break={breakBefore || undefined}>
         {children}
         <Glyph name={glyph} className={styles.glyph} />

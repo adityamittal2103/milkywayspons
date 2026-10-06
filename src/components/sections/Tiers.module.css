@@ -263,8 +263,11 @@
 
 .table thead th {
   position: sticky;
-  /* clears the fixed navigation corners */
-  top: calc(var(--s-4) + 58px);
+  /* At the top edge, or just under the floating header while it is out */
+  top: var(--nav-offset);
+  transition:
+    top 0.42s var(--ease-out),
+    background var(--dur-ui) var(--ease-out);
   z-index: 1;
   background: var(--paper);
   border-bottom: var(--rule-heavy) solid var(--black);
@@ -329,14 +332,9 @@
   opacity: 0.55;
 }
 
-.table tr[data-passes] td {
-  font-variant-numeric: lining-nums tabular-nums;
-  font-weight: 800;
-  font-variation-settings:
-    'opsz' 96,
-    'wdth' 75;
-  font-size: clamp(2rem, 3.4vw, 3.4rem);
-  line-height: 0.9;
+/* Only shown where the table reads downwards (phones) */
+.cellTier {
+  display: none;
 }
 
 .plateFoot {
@@ -393,25 +391,63 @@
   .optionName {
     font-size: 1.45rem;
   }
-  /* The paper runs edge to edge; its contents start after the margin rail, so
-     the flight path's comet passes over paper, never over the table's words. */
+  /* The paper starts at the content column, so the flight path stays visible in
+     the margin rail beside it (on paper the route would vanish); it runs out to
+     the right edge. */
   .plate {
-    margin-left: calc((var(--gutter) + var(--rail)) * -1);
     margin-right: calc(var(--gutter) * -1);
-    padding-left: calc(var(--gutter) + var(--rail));
+    padding: var(--s-5) var(--gutter) var(--s-6) var(--s-4);
     scroll-margin-top: 4.5rem;
   }
   .compare {
     display: inline-flex;
   }
-  .scroller {
-    overflow-x: auto;
+  /* A plain vertical read, as on most sponsorship pages: one deliverable at a
+     time, each tier's line beneath it. No sideways scrolling, nothing to lose
+     track of. The column heads stay for screen readers only. */
+  .table,
+  .table tbody,
+  .table tr {
+    display: block;
   }
-  .table[data-compare] {
-    min-width: 720px;
+  .table thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
   }
-  .table:not([data-compare]) .corner {
-    width: 40%;
+  .table tbody tr + tr {
+    margin-top: var(--s-5);
+  }
+  .table tbody th {
+    display: block;
+    padding: 0 0 var(--s-2);
+    border-bottom: var(--rule-heavy) solid var(--black);
+    font-size: 1.15rem;
+    line-height: 1.15;
+  }
+  .table td {
+    display: grid;
+    grid-template-columns: 6.6rem minmax(0, 1fr);
+    column-gap: var(--s-3);
+    align-items: start;
+    padding: var(--s-3) var(--s-2);
+  }
+  .cellTier {
+    display: block;
+    padding-top: 0.12em;
+    font-weight: 800;
+    font-variation-settings:
+      'opsz' 72,
+      'wdth' 75;
+    text-transform: uppercase;
+    font-size: 0.95rem;
+    line-height: 1;
+  }
+  .tick {
+    width: 1.45rem;
   }
   .table[data-active='title']:not([data-compare]) [data-tier]:not([data-tier='title']),
   .table[data-active='powered']:not([data-compare]) [data-tier]:not([data-tier='powered']),
@@ -419,15 +455,13 @@
   .table[data-active='cosponsor']:not([data-compare]) [data-tier]:not([data-tier='cosponsor']) {
     display: none;
   }
-  .table thead th {
-    position: static;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .path,
   .option,
   .table th,
+  .table thead th,
   .table td {
     transition: none;
   }
