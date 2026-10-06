@@ -12,3 +12,6 @@ brand-kit/
 # Vercel
 .vercel
 .env*
+
+# deck build scratch (assets, HTML twin, slide renders)
+/deck/.build/

@@ -89,7 +89,7 @@ the campus tour video link and "auto play on hover" (chat).
 
 | Source | Requested change | Built state | Status |
 | --- | --- | --- | --- |
-| PDF p1 | PPT/PDF version, formatted as a deck rather than a copy of the site | See "Deck" below | Done |
+| PDF p1 | PPT/PDF version, formatted as a deck rather than a copy of the site | See "Deck (PPT/PDF)" below | Done |
 | PDF p1 | Replace 20K footfall at Yashobhoomi with "One of India's Most Sought After Spaces", bolder and bigger | The statement is the venue's largest type; the 20K figure is gone | Done |
 | PDF p1 | Replace "partner access passes" in the tier microcopy (brands don't care much about passes) | Each tier in the picker now reads its brand association (Title integration with Milky Way, "Powered By" association, Associate / Co-Sponsor designation); the passes row in the table is ordinary type, no longer oversized | Done |
 | PDF p2 | Dates 18th–21st February | Hero, metadata and share description; the two halves are named where they apply (campus 18th–19th, Yashobhoomi 20th–21st, footer lists both) | Done |
@@ -124,3 +124,20 @@ the campus tour video link and "auto play on hover" (chat).
 | New cities: Delhi, Jaipur, Bangalore, Chandigarh, Mumbai, Varanasi, Guwahati | Real coordinates; Pune, Ahmedabad, Kolkata removed | Done |
 | Rebuild route, constellation, labels, activation | `scripts/build-map.mjs` regenerated: the asteroid drops in over the Himalaya to Delhi and flies the cities in the given order, then home to Delhi. It runs down to Bangalore east of the Jaipur line and back up west of it, swings round the southern tip from Mumbai to Varanasi, and returns over the north. The figure is centred on Delhi; labels are placed by the existing collision solver | Done |
 | Delhi as the convergence | The last leg flies home to Delhi while the closing line (Guwahati–Delhi) draws beside it; on arrival Delhi's star flares, three rings, the whole figure brightens once, Delhi's name turns yellow, and the reading names "Delhi · Yashobhoomi", then "Everyone meets in Delhi". The page continues straight into the venue | Done |
+
+## Deck (PPT/PDF), 6 Oct 2026
+
+`deck/Milky-Way-Sponsorship-2027.pptx` and `.pdf`, 21 slides in the site's new order, set as a
+presentation rather than a copy of the site: cover; 45K–1L+ GenZs; the fest and its figures; the
+events; Road to Milky Way with the seven-city chart converging on Delhi; the venue (two slides);
+the campus days with the tour; the audience and the three ways in; guests; firsts; "we learn by
+doing"; moments; digital reach; company; tiers; the deliverables table (two slides); contact; close.
+
+- PowerPoint: editable text on theme colours and theme fonts (Bricolage Grotesque), a layout per
+  field colour with title placeholders, sections, speaker notes with the facts, alt text on every
+  picture, links on the campus tour, the reels and "Send a signal". Validated with the pptx skill's
+  checker. Google Slides has Bricolage Grotesque built in; in PowerPoint, install it (free, Google
+  Fonts) or PowerPoint substitutes a default font.
+- PDF: printed by Chrome from an HTML twin built from the same layout spec, so both match.
+- Rebuild after content changes: `node deck/build-deck.cjs` (reads `src/content/milky-way.ts` and
+  `src/content/india-map.json`).
