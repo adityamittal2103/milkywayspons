@@ -186,6 +186,7 @@
 
 /* The constellation: straight star-to-star lines, stopping short of each star */
 .figure {
+  fill: none;
   stroke: var(--paper);
   stroke-width: calc(var(--u, 1.4) * 1.5px);
   stroke-linecap: butt;

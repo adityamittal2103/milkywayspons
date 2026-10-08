@@ -2,52 +2,68 @@
   overflow: clip;
 }
 
-/* A crescent, tone on tone: the night before the main festival */
+/* A crescent, tone on tone: the night before the main festival. It rises behind
+   the film's right edge, clear of the two date lines */
 .moon {
   position: absolute;
   z-index: var(--z-art);
   right: -4vw;
-  top: clamp(2rem, 5vw, 5rem);
+  bottom: 12%;
   width: clamp(160px, 18vw, 300px);
   rotate: -12deg;
   opacity: 0.9;
 }
 
-/* After the venue, a change of scale: copy and the tour side by side */
-.grid {
+/* The festival's two halves side by side, in calendar order (deck of 8 Oct) */
+.legs {
   display: grid;
-  grid-template-columns: repeat(12, minmax(0, 1fr));
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
   column-gap: var(--s-6);
-  row-gap: var(--s-6);
-  align-items: center;
+  row-gap: var(--s-5);
+  align-items: start;
+  max-width: 76rem;
 }
 
-.copy {
-  grid-column: 1 / span 5;
+.leg {
   display: grid;
-  gap: var(--s-5);
+  gap: var(--s-2);
+  margin: 0;
 }
 
-.media {
-  grid-column: 6 / -1;
+/* The main festival follows: present, but behind the campus days in this section */
+.leg:not([data-here]) {
+  opacity: 0.62;
 }
 
-.kicker {
+.tag {
+  order: -1;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55em;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   color: var(--cyan);
 }
 
-/* "18th–19th February 2027 / Masters' Union University ✱ Gurugram, India" */
-.title {
-  display: grid;
-  gap: var(--s-3);
+.leg:not([data-here]) .tag {
+  color: var(--yellow);
+}
+
+.pin {
+  width: 0.95rem;
+  --ink-color: var(--vermilion);
 }
 
 .dates {
-  font-size: clamp(2.8rem, 5.4vw, 5.6rem);
+  font-size: clamp(2.4rem, 4.4vw, 4.6rem);
   color: var(--yellow);
   text-wrap: balance;
 }
 
+/* In the doc's own setting: capitals, the star between place and city */
 .place {
   font-weight: 750;
   font-variation-settings:
@@ -55,107 +71,54 @@
     'wdth' 80;
   font-size: var(--t-lede);
   line-height: 1.15;
+  text-transform: uppercase;
 }
 
 .star {
-  color: var(--yellow);
+  color: var(--cyan);
 }
 
-/* The two halves in calendar order, joined by the dotted line of the flight plan */
-.route {
-  position: relative;
-  display: grid;
-  gap: var(--s-5);
-  padding-top: var(--s-5);
-  border-top: var(--rule) solid color-mix(in srgb, var(--paper) 30%, transparent);
-}
-
-.route::before {
-  content: '';
-  position: absolute;
-  left: 0.7rem;
-  top: calc(var(--s-5) + 1.3rem);
-  bottom: 2.6rem;
-  border-left: 2px dotted var(--paper);
-  opacity: 0.5;
-}
-
-.leg {
-  position: relative;
-  display: grid;
-  grid-template-columns: 1.4rem minmax(0, 1fr);
-  column-gap: var(--s-3);
-  align-items: start;
-  opacity: 0.66;
-}
-
-.leg[data-here] {
-  opacity: 1;
-}
-
-.pin {
+/* Campus, then the main festival */
+.next {
+  align-self: center;
   display: grid;
   place-items: center;
+  width: 3rem;
+  height: 3rem;
+}
+
+.nextGlyph {
   width: 1.4rem;
-  padding-top: 0.15rem;
-  background: var(--black);
+  rotate: 45deg;
+  --ink-color: var(--paper);
+  opacity: 0.6;
 }
 
-.pinGlyph {
-  width: 0.9rem;
-  --ink-color: var(--vermilion);
-}
-
-.legText {
-  display: grid;
-  gap: 2px;
-  font-weight: 750;
-  font-variation-settings:
-    'opsz' 48,
-    'wdth' 80;
-  text-transform: uppercase;
-  font-size: 0.98rem;
-  line-height: 1.2;
-}
-
-.legTag {
-  font-family: var(--font-mono);
-  font-weight: 500;
-  font-size: 0.72rem;
-  letter-spacing: 0.08em;
-  color: var(--cyan);
-}
-
-.leg:not([data-here]) .legTag {
-  color: var(--yellow);
-}
-
-.legDates {
-  color: var(--yellow);
-  font-size: 1.15rem;
-}
-
-.legSep {
-  color: var(--cyan);
-}
-
-@media (max-width: 1023px) {
-  .grid {
-    grid-template-columns: minmax(0, 1fr);
-  }
-  .copy,
-  .media {
-    grid-column: 1;
-  }
+/* The tour across the column */
+.media {
+  margin-top: var(--s-7);
+  max-width: 76rem;
 }
 
 @media (max-width: 767px) {
   .moon {
-    width: 34vw;
-    right: -8vw;
-    top: 1rem;
+    display: none;
+  }
+  .legs {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .next {
+    justify-self: start;
+    width: auto;
+    height: auto;
+  }
+  .nextGlyph {
+    rotate: 135deg;
   }
   .dates {
-    font-size: clamp(2.6rem, 12.5vw, 3.6rem);
+    font-size: clamp(2.2rem, 10.5vw, 3rem);
+  }
+  .media {
+    margin-top: var(--s-6);
   }
 }

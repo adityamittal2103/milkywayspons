@@ -35,7 +35,8 @@ const smooth = (v: number) => v * v * (3 - 2 * v);
 const LEG_OPACITY = [0.3, 0.7, 0.82, 0.66, 0.74, 0.62, 0.92, 0.5];
 // The figure's lines, each with its own weight (map.figure order); the closing
 // line home to Delhi is the brightest.
-const FIGURE_OPACITY = [0.9, 0.7, 0.85, 0.75, 1];
+// The journey's lines, in order; the closing line home is the brightest.
+const FIGURE_OPACITY = [0.85, 0.8, 0.9, 0.75, 0.8, 1];
 // Small sparkles discovered along the course: [leg, fraction along it, size].
 const NODES: [number, number, number][] = [
   [0, 0.55, 0.8],
@@ -64,7 +65,7 @@ export function Road() {
       const one = <T extends Element>(sel: string) => st.querySelector<T>(sel)!;
       const camera = one<HTMLElement>('[data-camera]');
       const legEls = all<SVGPathElement>('[data-leg]');
-      const figEls = all<SVGLineElement>('[data-figure]');
+      const figEls = all<SVGPathElement>('[data-figure]');
       const course = one<SVGGElement>('[data-course]');
       const stars = all<SVGPathElement>('[data-star]');
       const tails = all<SVGPathElement>('[data-tail]');
@@ -634,13 +635,10 @@ export function Road() {
                 ))}
               </g>
               {map.figure.map((f, i) => (
-                <line
+                <path
                   key={i}
                   className={styles.figure}
-                  x1={f.x1}
-                  y1={f.y1}
-                  x2={f.x2}
-                  y2={f.y2}
+                  d={f.d}
                   style={{ '--o': FIGURE_OPACITY[i] } as CSSProperties}
                   data-figure
                 />

@@ -73,18 +73,19 @@ const ROUTE = [
   [292, 336],
 ];
 
-// The constellation the journey leaves behind: the six cities as stars, one
-// chain from Chandigarh through Delhi and Jaipur down to Bangalore and out to
-// Mumbai, with Varanasi joined to Delhi. No line crosses the course. Each line
-// forms as its later star lights (Jaipur's arrival joins it to Delhi and to
-// Bangalore); the last (Varanasi to Delhi, `final`) draws as the asteroid flies
-// home.
+// The constellation the journey leaves behind traces the journey itself (team
+// review, 8 Oct): each city joins the one before it as it lights, Delhi →
+// Bangalore → Jaipur → Chandigarh → Mumbai → Varanasi, and the last line
+// (Varanasi → Delhi, `final`) draws as the asteroid flies home. Lines are
+// straight, star-chart style, except Chandigarh → Mumbai, which would graze
+// Jaipur's star: it bows gently clear of it.
 const FIGURE = [
-  ['delhi', 'jaipur'],
-  ['jaipur', 'bangalore'],
-  ['delhi', 'chandigarh'],
-  ['bangalore', 'mumbai'],
-  ['varanasi', 'delhi', 'final'],
+  ['delhi', 'bangalore'],
+  ['bangalore', 'jaipur'],
+  ['jaipur', 'chandigarh'],
+  ['chandigarh', 'mumbai', { clear: 'jaipur', bow: 42 }],
+  ['mumbai', 'varanasi'],
+  ['varanasi', 'delhi', { final: true }],
 ];
 
 // Equirectangular, corrected for latitude at India's middle (22°N).
@@ -205,12 +206,29 @@ const d = `M${f1(pts[0][0])} ${f1(pts[0][1])}` + segs.join('');
 const legs = bounds.slice(0, -1).map((a, k) => `M${f1(pts[a][0])} ${f1(pts[a][1])}` + segs.slice(a, bounds[k + 1]).join(''));
 // Star-chart convention: a figure's lines stop just short of its stars.
 const GAP = 11;
-const figure = FIGURE.map(([a, b, final]) => {
+const figure = FIGURE.map(([a, b, opt = {}]) => {
   const [p, q] = [byId[a], byId[b]];
-  const len = Math.hypot(q.x - p.x, q.y - p.y);
-  const [ux, uy] = [(q.x - p.x) / len, (q.y - p.y) / len];
-  const line = { from: a, to: b, x1: f1(p.x + ux * GAP), y1: f1(p.y + uy * GAP), x2: f1(q.x - ux * GAP), y2: f1(q.y - uy * GAP) };
-  return final ? { ...line, final: true } : line;
+  let d;
+  if (opt.clear) {
+    // A quadratic bow: the control point sits off the midpoint, on the side away
+    // from the star to clear; the curve's deepest point is `bow` units out.
+    const c = byId[opt.clear];
+    const [mx, my] = [(p.x + q.x) / 2, (p.y + q.y) / 2];
+    const len = Math.hypot(q.x - p.x, q.y - p.y);
+    let [nx, ny] = [-(q.y - p.y) / len, (q.x - p.x) / len];
+    if ((c.x - mx) * nx + (c.y - my) * ny > 0) [nx, ny] = [-nx, -ny];
+    const [qx, qy] = [mx + nx * opt.bow * 2, my + ny * opt.bow * 2];
+    const ends = [p, q].map((e) => {
+      const l = Math.hypot(qx - e.x, qy - e.y);
+      return [e.x + ((qx - e.x) / l) * GAP, e.y + ((qy - e.y) / l) * GAP];
+    });
+    d = `M${f1(ends[0][0])} ${f1(ends[0][1])}Q${f1(qx)} ${f1(qy)} ${f1(ends[1][0])} ${f1(ends[1][1])}`;
+  } else {
+    const len = Math.hypot(q.x - p.x, q.y - p.y);
+    const [ux, uy] = [(q.x - p.x) / len, (q.y - p.y) / len];
+    d = `M${f1(p.x + ux * GAP)} ${f1(p.y + uy * GAP)}L${f1(q.x - ux * GAP)} ${f1(q.y - uy * GAP)}`;
+  }
+  return opt.final ? { from: a, to: b, d, final: true } : { from: a, to: b, d };
 });
 
 // ---------- stars: a sparse chart field, and a small cluster around each city ----------

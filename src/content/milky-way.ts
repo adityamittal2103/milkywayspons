@@ -43,13 +43,15 @@ export const sky = {
 export const fest = {
   // s3
   label: "Masters' Union University's Cultural Fest",
-  // Team review (6 Oct): this exact wording and casing
+  // Team review (6 Oct): this exact wording and casing. The deck of 8 Oct sets it in
+  // two tones: the first part in ink, the invitation in paper.
   title: "We are Building Asia's Largest College Festival, and We Want You to Shape it With Us.",
-  subhead: 'From our classrooms to a cultural experience like never before',
+  titleParts: ["We are Building Asia's Largest College Festival, and", 'We Want You to Shape it With Us.'],
+  subhead: 'From our classrooms to a cultural experience like never before.',
   // s3: four callouts side by side; one size for all four (team review, 6 Oct)
   stats: [
-    { value: '2L+', label: 'student registrations' }, // dc
-    { value: '2500+', label: 'target colleges' }, // final overrides (6 Oct)
+    { value: '1L+', label: 'Footfall' }, // deck of 8 Oct
+    { value: '2500+', label: 'colleges invited' }, // deck of 8 Oct
     { value: '70+', label: 'events' }, // dc
     { value: '6', label: 'cities' }, // RTM: six cities (8 Oct)
   ],
@@ -57,10 +59,12 @@ export const fest = {
   events: "It's bands, gaming, performing arts and informals all day long. And when the sun goes down, the pronites begin.",
   body: 'We are bringing the brightest stars from across India into one arena of music, competition and culture.',
   // s4 c: "use the visual symbols on this page for the previous slide where we introduce MW, and write about events"
+  // Deck of 8 Oct: the five worlds renamed (the guitar now stands for performing
+  // arts; the arena world for business events)
   symbols: [
-    { name: 'Bands', art: 'badge-guitar' },
-    { name: 'Gaming', art: 'badge-crystal' },
-    { name: 'Performing Arts', art: 'playground-5' },
+    { name: 'Performing Arts', art: 'badge-guitar' },
+    { name: 'Gaming and E-Sports', art: 'badge-crystal' },
+    { name: 'Business Events', art: 'playground-5' },
     { name: 'Informals', art: 'badge-rollercoaster' },
     { name: 'Pronites', art: 'badge-keyboard' },
   ],
@@ -107,7 +111,7 @@ export const venue = {
   // dc: replaces the 20K figure, "bolder and bigger"
   statement: "One of India's Most Sought After Spaces",
   memorable: 'We are making room for something memorable',
-  draw: 'With competitions, performances, branded experiences that draw students in.',
+  draw: 'With competitions, performances, and branded experiences that draw students in.', // deck of 8 Oct
   photos: [
     { id: 'venue-stage', alt: 'Two performers on a lit stage before a dark arena' },
     { id: 'yashobhoomi-outside', alt: 'The exterior of Yashobhoomi Convention Center' },
@@ -119,12 +123,11 @@ export const road = {
   // s8
   name: 'Road to Milky Way',
   title: 'The Journey',
-  strapline: "Before Delhi, there's a whole universe to cover",
+  strapline: "Before Delhi, there's a whole universe to cover.",
   // dc: the description, as given
-  what: 'brings one signature experience to each city on the map, free for UG students across India.',
-  // 8 Oct: six cities. The approved line was written for seven; this is the
-  // team's own fallback wording until a six-city line is approved.
-  subhead: 'Six cities. Six experiences. One Milky Way.',
+  what: 'brings a signature experience to each city on the map, free for UG students across India.', // deck of 8 Oct
+  // Deck of 8 Oct: the approved six-city line
+  subhead: 'Six cities. Six nights nobody forgets. Then everyone meets in Delhi.',
   body: 'Ride the full journey with us, from the first city to the final night in Delhi.',
   // The Milky Way team's RTM sheet (8 Oct 2026): one signature experience in each
   // of six cities, in event-date order (Delhi 31 Oct, Bangalore 21 Nov, Jaipur
@@ -137,12 +140,13 @@ export const learned = {
   // s9 (c: "a horizontal auto scroll of these people with their name underneath").
   // Names for the five the deck leaves unnamed were supplied by the Milky Way team.
   title: 'We’ve Learned From the Best,',
+  subtitle: 'Top voices on campus', // deck of 8 Oct
   people: [
     { photo: 'rohit-sharma', name: 'Rohit Sharma' },
     { photo: 'samay-raina', name: 'Samay Raina' },
     { photo: 'tanmay-bhat', name: 'Tanmay Bhat' },
     { photo: 'guest-fireside', name: 'Sahiba Bali' },
-    { photo: 'guest-01', name: 'Nuseir Yasin' },
+    { photo: 'guest-01', name: 'Nuseir Yassin' }, // spelling per the deck of 8 Oct
     { photo: 'guest-08', name: 'Ganeshprasad Sridharan' },
     { photo: 'guest-saree', name: 'Dr. Nandini Seth' },
     { photo: 'guest-07', name: 'Peyush Bansal' },
@@ -152,6 +156,7 @@ export const learned = {
 export const firsts = {
   // s10 (c: each photograph labelled)
   title: 'Pulled Off Our Firsts',
+  subtitle: 'From ideas to investments', // deck of 8 Oct
   items: [
     {
       figure: '40+',
@@ -159,12 +164,12 @@ export const firsts = {
       photo: { id: 'lexis-kitchen', caption: "Lexi's Gourmet Sandwiches", alt: "The Lexi's Gourmet Sandwiches team in their kitchen" },
     },
     {
-      figure: '₹1.2 crore+',
-      label: 'Cumulative revenue through Dropshipping Melas',
+      figure: '₹1.2 Cr+',
+      label: 'Cumulative revenue through Dropshipping Mela',
       photo: { id: 'dropshipping', caption: 'The Dropshipping Mela', alt: 'Visitors at a student stall at the Dropshipping Mela' },
     },
     {
-      figure: '₹5 crore',
+      figure: '₹5 Cr',
       label: 'Live student-managed investment fund',
       photo: { id: 'investment-fund', caption: "Masters' Union Investment Fund", alt: 'Students in conversation beneath a Nifty market ticker' },
     },
@@ -174,11 +179,11 @@ export const firsts = {
 export const moments = {
   // s11 (c: "only show text when they hover on the picture, horizontal scroll with arrows")
   title: 'And Crafted the Biggest Moments',
-  signature: "Masters' Union University",
+  signature: 'In-house and on the national stage', // deck of 8 Oct
   items: [
     {
       name: 'HYROX Delhi & Mumbai',
-      text: "Masters' Union University as Title Sponsor. 25K+ athletes across both cities.",
+      text: "Masters' Union University as the Title Sponsor reaching 25K+ athletes across both cities.",
       photo: { id: 'hyrox-delhi-sign', alt: "HYROX Delhi signage with the Masters' Union mark" },
     },
     {
@@ -198,7 +203,7 @@ export const reach = {
   // s12 (c: metrics above or below the reels; the icons all the same size)
   title: 'Enter Our Digital Multiverse',
   platforms: [
-    { id: 'instagram', name: 'Instagram', value: '200M+', unit: 'views', label: '@masters.union' },
+    { id: 'instagram', name: 'Instagram', value: '200M+', unit: 'views on', label: '@masters.union' },
     { id: 'youtube', name: 'YouTube', value: '112M', unit: 'lifetime views', label: null },
     { id: 'linkedin', name: 'LinkedIn', value: '139K', unit: 'followers', label: null },
   ],
@@ -280,12 +285,12 @@ export const companyLogos: { name: string; id: string }[] = [
 
 export type TierId = 'title' | 'powered' | 'associate' | 'cosponsor';
 
-export const tiers: { id: TierId; name: string; ink: string }[] = [
-  // s19–20, order as in the deck
-  { id: 'title', name: 'Title Partner', ink: 'yellow' },
-  { id: 'powered', name: 'Powered By', ink: 'purple' },
-  { id: 'associate', name: 'Associate', ink: 'cyan' },
-  { id: 'cosponsor', name: 'Co-Sponsor', ink: 'lime' },
+export const tiers: { id: TierId; name: string; ink: string; pitch: string }[] = [
+  // s19–20, order as in the deck; each tier's line from the deck of 8 Oct
+  { id: 'title', name: 'Title Partner', ink: 'yellow', pitch: 'Shape the Milky Way experience with us, from scratch.' },
+  { id: 'powered', name: 'Powered By', ink: 'purple', pitch: 'Take your brand to every touchpoint, on campus and beyond.' },
+  { id: 'associate', name: 'Associate', ink: 'cyan', pitch: 'Create a selective yet strong presence through the journey.' },
+  { id: 'cosponsor', name: 'Co-Sponsor', ink: 'lime', pitch: 'Join us in a curated capacity built around your brand’s vision.' },
 ];
 
 /** `null` renders the deck's em dash: not part of that tier. `true` is the deck's tick. */
@@ -415,13 +420,14 @@ export const deliverables: { name: string; values: Record<TierId, Entitlement> }
 export const tiersIntro = {
   // s16–17
   title: 'Mark Your Place in the Milky Way',
+  lede: 'Four orbits around one festival. Each designed for you, with you.', // deck of 8 Oct
   footnote: 'The deliverables can be further curated specific to the company.',
 } as const;
 
 export const signal = {
   // s18
   title: "Let's Build Something Out Of This World.", // title case (team review, 6 Oct)
-  line: 'Send us a signal.',
+  line: 'Just send us a signal.', // deck of 8 Oct
   team: 'Sponsorship Team',
   // Final overrides (6 Oct): a phone number for each; no postal line
   contacts: [

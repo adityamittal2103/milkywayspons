@@ -6,14 +6,13 @@ import { Waypoint } from '../Waypoint';
 import styles from './Campus.module.css';
 
 /**
- * Deck changes (Chirag), placed by the team's final overrides (6 Oct 2026): the
- * festival in calendar order, the campus days first, then Yashobhoomi. Two days
- * at Masters' Union University in Gurugram, with the campus tour, at a smaller
- * scale than the venue that follows (the main festival). The two date lines say
- * which half is which.
+ * The festival in calendar order (team's final overrides, 6 Oct): the campus days
+ * first, then Yashobhoomi. Composed as in the deck of 8 Oct: the two halves side
+ * by side, the campus days in front and the main festival after it, then the
+ * campus tour across the column.
  */
 export function Campus() {
-  const [onCampus] = festival.legs;
+  const [onCampus, atVenue] = festival.legs;
   return (
     <section id="campus" className={`section ${styles.campus}`} data-field="black" aria-labelledby="campus-title">
       <CutEdge seed={11} />
@@ -23,45 +22,42 @@ export function Campus() {
       <div className="wrap content">
         {/* The page's flight path lifts over the Road to Milky Way chart and resumes here */}
         <Waypoint glyph="location" breakBefore />
-        <div className={styles.grid}>
-          <div className={styles.copy}>
-            <p className={`coord ${styles.kicker}`}>{campus.kicker}</p>
-            <h2 id="campus-title" className={styles.title}>
-              <span className={`display ${styles.dates}`}>{onCampus.dates}</span>
-              <span className={styles.place}>
-                {onCampus.place} <span className={styles.star}>✱</span> {onCampus.city}
-              </span>
-            </h2>
 
-            {/* The festival in calendar order: the campus days, then the main festival */}
-            <ol className={styles.route} aria-label="Milky Way, day by day">
-              {festival.legs.map((l) => {
-                const here = l.iso === onCampus.iso;
-                return (
-                  <li key={l.iso} className={styles.leg} data-here={here || undefined}>
-                    <span className={styles.pin}>
-                      <Glyph name="location" className={styles.pinGlyph} />
-                    </span>
-                    <span className={styles.legText}>
-                      <span className={styles.legTag}>{here ? campus.kicker : venue.kicker}</span>
-                      <time dateTime={l.iso} className={styles.legDates}>
-                        {l.dates}
-                      </time>
-                      <span className={styles.legPlace}>
-                        {l.place}
-                        <span className={styles.legSep}> ✱ </span>
-                        {l.city}
-                      </span>
-                    </span>
-                  </li>
-                );
-              })}
-            </ol>
-          </div>
+        <div className={styles.legs}>
+          <h2 id="campus-title" className={styles.leg} data-here>
+            <time dateTime={onCampus.iso} className={`display ${styles.dates}`}>
+              {onCampus.dates}
+            </time>
+            <span className={styles.place}>
+              {onCampus.place} <span className={styles.star}>✱</span> {onCampus.city}
+            </span>
+            {/* Shown first (CSS order); after the date in the markup so the route's marker sits level with the date */}
+            <span className={styles.tag}>
+              <Glyph name="location" className={styles.pin} />
+              {campus.kicker}
+            </span>
+          </h2>
 
-          <div className={styles.media}>
-            <TourVideo id={campus.video.youtube} title={campus.video.title} />
-          </div>
+          <span className={styles.next} aria-hidden="true">
+            <Glyph name="forward" className={styles.nextGlyph} />
+          </span>
+
+          <p className={styles.leg}>
+            <time dateTime={atVenue.iso} className={`display ${styles.dates}`}>
+              {atVenue.dates}
+            </time>
+            <span className={styles.place}>
+              {atVenue.place} <span className={styles.star}>✱</span> {atVenue.city}
+            </span>
+            <span className={styles.tag}>
+              <Glyph name="location" className={styles.pin} />
+              {venue.kicker}
+            </span>
+          </p>
+        </div>
+
+        <div className={styles.media}>
+          <TourVideo id={campus.video.youtube} title={campus.video.title} />
         </div>
       </div>
     </section>

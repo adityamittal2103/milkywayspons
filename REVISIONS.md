@@ -206,3 +206,31 @@ Deck updated: campus slide before the venue, 2500+, "Brands In Our Orbit", phone
 
 Checked at 1440 and 390: the journey activates the six in order and ends on "Everyone meets in Delhi"; no label
 collisions; the whole map stays in view; no "seven", "7 cities" or "Guwahati" on the page. Deck updated to match.
+
+## RTM constellation and the deck of 8 Oct 2026 ("Milky Way 2027 Masters Union University (2).pdf")
+
+The team edited the exported deck; the site and the deck generator now follow it. Two page screenshots
+(slides 3 and 4) were references for those changes, not images to add.
+
+| Deck (8 Oct) | Site | Status |
+| --- | --- | --- |
+| RTM constellation should trace the journey (team, in chat) | Each city joins the one before it as it lights (Delhi → Bangalore → Jaipur → Chandigarh → Mumbai → Varanasi), the last line draws home to Delhi; Chandigarh → Mumbai bows gently clear of Jaipur's star | Done |
+| Headline in two tones | "We are Building Asia's Largest College Festival, and" in ink, "We Want You to Shape it With Us." in paper | Done |
+| Stats: 1L+ Footfall · 2500+ colleges invited · 70+ events · 6 cities | Same; "2L+ student registrations" and "target colleges" gone everywhere (page description too) | Done |
+| Subhead ends with a full stop | Done | Done |
+| Events: Performing Arts (guitar), Gaming and E-Sports, Business Events (arena), Informals, Pronites | Worlds renamed and re-spread so the longer names never touch (1024–1440); phones wrap names in their columns | Done |
+| RTM: "…whole universe to cover." · "brings a signature experience…" · "Six cities. Six nights nobody forgets. Then everyone meets in Delhi." | Verbatim (the fallback line is retired) | Done |
+| Campus slide: the two halves side by side, the tour beneath | Campus section recomposed: "Two days on campus" and "The main festival" side by side (calendar order, campus first), the film across the column | Done |
+| Venue: "Yashobhoomi, Delhi" in yellow; "performances, and branded experiences" | Done | Done |
+| Guests: "Top voices on campus"; "Nuseir Yassin" | Subtitle under the heading; spelling corrected | Done |
+| Firsts: "From ideas to investments"; ₹1.2 Cr+ · ₹5 Cr · "Dropshipping Mela" | Done | Done |
+| Moments: "In-house and on the national stage"; "…as the Title Sponsor reaching 25K+ athletes across both cities." | Done | Done |
+| Reach: "views on @masters.union" | Done | Done |
+| Brands heading: the deck reads "We've had some remarkable company." | Kept "Brands In Our Orbit" (the team's call, 8 Oct) | Kept |
+| Tiers: "Four orbits around one festival. Each designed for you, with you." and a line per tier | Lede and the four tier lines in the picker | Done |
+| CTA line: "Just send us a signal." | Done | Done |
+| Deck-only: cover names "Masters' Union University Campus" and drops the Sponsorship 2027 label; table titles without (1/2); guest cards | Deck generator matches | Done |
+
+Also: the phone fest headline no longer sits over the black galaxy (it steps out on phones); the campus crescent moved
+behind the film's edge. Checked at 1440, 1280, 1024, 430, 390, 375: all copy present, nothing stale, no overflow, no
+world-label collisions, RTM six pins with no label collisions; guests strip, reels and phone slider move on their own.

@@ -33,6 +33,10 @@
   max-width: 19ch;
 }
 
+.titleInk {
+  color: var(--black);
+}
+
 .subhead {
   max-width: 40ch;
 }
@@ -190,10 +194,10 @@
 
 /* Phones: the worlds become a two-column field */
 @media (max-width: 767px) {
+  /* No room beside the headline on phones: the black galaxy would sit behind the
+     headline's ink-coloured words (deck of 8 Oct), so it steps out */
   .galaxy {
-    top: 2%;
-    right: -40vw;
-    width: 90vw;
+    display: none;
   }
   .statValue {
     font-size: clamp(3rem, 15vw, 4.4rem);

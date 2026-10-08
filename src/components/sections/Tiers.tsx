@@ -20,9 +20,8 @@ const ORBITS = [
 const TILT = -16;
 const RY = 0.4;
 
-// Deck changes (Chirag): each tier is introduced by what the brand becomes, not by
-// its access passes ("brand doesn't care much about access passes").
-const association = (id: TierId) => deliverables.find((d) => d.name === 'Brand Association')!.values[id] as string;
+// Deck of 8 Oct: each tier is introduced by its own line (what the partnership
+// offers), not by its access passes.
 
 function Cell({ value }: { value: Entitlement }) {
   if (value === true)
@@ -85,7 +84,7 @@ export function Tiers() {
             <Distort text={tiersIntro.title} seed={31} amount={3.5} className="display" />
           </h2>
           <p className={`lede ${styles.lede}`}>
-            Four orbits around one festival. Pick one to see what it carries, then compare all four in the table below.
+            {tiersIntro.lede}
           </p>
         </header>
 
@@ -143,7 +142,7 @@ export function Tiers() {
                 />
                 <span className={`coord ${styles.optionN}`}>{String(i + 1).padStart(2, '0')}</span>
                 <span className={styles.optionName}>{t.name}</span>
-                <span className={styles.optionMeta}>{association(t.id)}</span>
+                <span className={styles.optionMeta}>{t.pitch}</span>
               </label>
             ))}
           </fieldset>

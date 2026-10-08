@@ -141,12 +141,12 @@ export function Origin() {
       <div className="wrap content">
         <Waypoint />
         <h2 id="origin-title" className={`headline ${styles.title}`}>
-          {learned.title}
+          {learned.title} <span className={styles.signature}>{learned.subtitle}</span>
         </h2>
       </div>
 
       {/* The guests, running past. The second copy closes the loop for sighted readers only. */}
-      <div ref={strip} className={`gate ${styles.marquee}`} role="region" aria-label="Guests who have spoken at Masters' Union" tabIndex={0}>
+      <div ref={strip} className={`gate ${styles.marquee}`} role="region" aria-label={`Guests: ${learned.subtitle}`} tabIndex={0}>
         <div className={styles.run}>
           {[0, 1].map((copy) => (
             <ul key={copy} className={styles.people} aria-hidden={copy === 1 || undefined}>
@@ -179,7 +179,9 @@ export function Origin() {
 
       <div className="wrap content">
         <div className={styles.firsts}>
-          <h3 className={`headline ${styles.beat}`}>{firsts.title}</h3>
+          <h3 className={`headline ${styles.beat}`}>
+            {firsts.title} <span className={styles.signature}>{firsts.subtitle}</span>
+          </h3>
           <ul className={styles.firstList}>
             {firsts.items.map((f) => (
               <li key={f.figure} className={styles.first}>

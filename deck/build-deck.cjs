@@ -97,6 +97,7 @@ const LAYOUTS = {
   COVER: { bg: 'black', ink: 'paper', title: null, footer: false },
   STATEMENT: { bg: 'black', ink: 'paper', title: { x: M, y: 1.35, w: 10.4, h: 3.4, size: 66 }, footer: true },
   DARK: { bg: 'black', ink: 'paper', title: TITLE, footer: true },
+  DARK_OPEN: { bg: 'black', ink: 'paper', title: null, footer: true },
   DEEP: { bg: 'deep', ink: 'paper', title: TITLE, footer: true },
   INDIGO: { bg: 'indigo', ink: 'paper', title: TITLE, footer: true },
   PLUM: { bg: 'plum', ink: 'paper', title: TITLE, footer: true },
@@ -173,8 +174,8 @@ class Slide {
     this.ops.push({ kind: 'image', x, y, w, h, file, o });
     return this;
   }
-  rect(x, y, w, h, color) {
-    this.ops.push({ kind: 'rect', x, y, w, h, color });
+  rect(x, y, w, h, color, o = {}) {
+    this.ops.push({ kind: 'rect', x, y, w, h, color, radius: o.radius, name: o.name });
     return this;
   }
   /** A cut plate, the site's skewed card: corners nudged by `k` inches */
@@ -226,8 +227,8 @@ async function compose() {
     s.text(0.6, 2.2 + 4.8 / mark.ratio + 0.2, 5.3, 0.45, festival.lockupLine, { size: 17, bold: true, color: 'paper', align: 'center', name: 'Descriptor' });
     s.text(6.55, 3.55, 6.2, 1.5, festival.line, { size: 36, bold: true, color: 'paper', line: 0.92, name: 'Line' });
     s.text(6.55, 5.15, 6.2, 0.45, festival.dates, { size: 20, bold: true, color: 'yellow', name: 'Dates' });
-    s.text(6.55, 5.62, 6.2, 0.7, `${onCampus.place}, Gurugram  ·  ${atVenue.place}, Delhi`, { size: 13, color: 'muted', name: 'Places' });
-    s.text(6.55, 6.62, 6.2, 0.3, 'SPONSORSHIP 2027', { size: 11, bold: true, color: 'yellow', charSpacing: 3, name: 'Label' });
+    // Deck of 8 Oct: "Campus" named; the Sponsorship 2027 label dropped
+    s.text(6.55, 5.62, 6.2, 0.7, `${onCampus.place} Campus, Gurugram  ·  ${atVenue.place}, Delhi`, { size: 13, color: 'muted', name: 'Places' });
     const sp = await ill('sparkle', 'yellow', 200);
     s.image(5.95, 1.0, 0.22, 0.22 / sp.ratio, sp.file);
     s.image(12.45, 4.6, 0.16, 0.16 / sp.ratio, sp.file);
@@ -262,7 +263,11 @@ async function compose() {
 
   // 3 · The fest
   {
-    const s = add('PLUM', { section: 'The festival', title: fest.title, notes: `${fest.label}. ${fest.title} ${fest.subhead}.` });
+    const s = add('PLUM', {
+      section: 'The festival',
+      title: [{ text: `${fest.titleParts[0]} `, o: { color: 'black' } }, { text: fest.titleParts[1] }],
+      notes: `${fest.label}. ${fest.title} ${fest.subhead}`,
+    });
     kicker(s, fest.label, 'yellow');
     const galaxy = await ill('spiral-galaxy', 'black', 1200);
     s.image(10.25, 0.35, 2.7, 2.7 / galaxy.ratio, galaxy.file, { name: 'Galaxy' });
@@ -288,7 +293,10 @@ async function compose() {
       const aw = 1.75;
       const x = M + i * (cw + 0.3);
       s.image(x + (cw - aw) / 2, 3.05, aw, aw / art.ratio, art.file, { name: sym.name });
-      s.text(x, 5.0, cw, 0.4, caps(sym.name), { size: 15, bold: true, color: 'paper', align: 'center', charSpacing: 1.5 });
+      // Two-word-plus names break after "and", never at a hyphen (deck of 8 Oct)
+      const [first, rest] = sym.name.split(/ and /i);
+      const label = rest ? [{ text: caps(`${first} and`), o: { br: true } }, { text: caps(rest) }] : caps(sym.name);
+      s.text(x, 5.0, cw, 0.6, label, { size: 13, bold: true, color: 'paper', align: 'center', charSpacing: 1 });
     }
     s.text(M, 5.9, 11.5, 0.8, fest.body, { size: 16, color: 'muted' });
   }
@@ -311,37 +319,35 @@ async function compose() {
     await roadMap(s, 6.15, 0.3, 6.6);
   }
 
-  // 6 · Campus (18th–19th, before the venue)
+  // 6 · Campus (18th–19th, before the venue), composed as in the deck of 8 Oct:
+  // the two halves side by side, the campus tour beneath
   {
-    const s = add('DARK', {
+    const s = add('DARK_OPEN', {
       section: 'The destination',
-      title: [{ text: onCampus.dates, o: { color: 'yellow' } }],
-      notes: `${campus.kicker}: ${onCampus.dates} at ${onCampus.place}, ${onCampus.city}. The campus tour: youtube.com/watch?v=${campus.video.youtube}`,
+      notes: `${campus.kicker}: ${onCampus.dates} at ${onCampus.place}, ${onCampus.city}. ${venue.kicker}: ${atVenue.dates} at ${atVenue.place}, ${atVenue.city}. The campus tour: youtube.com/watch?v=${campus.video.youtube}`,
     });
-    kicker(s, campus.kicker, 'cyan');
-    s.text(M, 1.75, 5.7, 0.45, caps(`${onCampus.place} ✱ ${onCampus.city}`), { size: 15, bold: true, color: 'paper' });
     const pin = await glyph('location', 'vermilion');
-    // Calendar order: the campus days, then the main festival (team review, 6 Oct)
     [onCampus, atVenue].forEach((l, i) => {
-      const y = 3.35 + i * 1.3;
+      const x = i === 0 ? M : 6.85;
       const here = l === onCampus;
-      s.image(M, y + 0.26, 0.26, 0.26, pin.file);
-      s.text(M + 0.45, y, 5.2, 1.15, [
+      s.image(x, 0.86, 0.28, 0.28, pin.file);
+      s.text(x + 0.45, 0.62, 5.6, 1.1, [
         { text: caps(here ? campus.kicker : venue.kicker), o: { color: here ? 'cyan' : 'yellow', size: 10, br: true } },
-        { text: caps(l.dates), o: { color: 'yellow', br: true } },
-        { text: caps(`${l.place} ✱ ${l.city}`), o: { color: here ? 'paper' : 'muted' } },
-      ], { size: 13, bold: true, line: 1.1 });
+        { text: caps(l.dates), o: { color: 'yellow', size: 15, br: true } },
+        { text: caps(`${l.place} ✱ ${l.city}`), o: { color: 'paper' } },
+      ], { size: 13, bold: true, line: 1.12, name: here ? 'Campus days' : 'Main festival' });
     });
-    const vx = 6.45;
-    const vw = W - M - vx;
+    const vw = 7.8;
     const vh = vw * (9 / 16);
+    const vx = (W - vw) / 2;
+    const vy = 2.05;
     const still = await remote(`https://i.ytimg.com/vi/${campus.video.youtube}/maxresdefault.jpg`, 'campus-tour.jpg');
     const link = `https://www.youtube.com/watch?v=${campus.video.youtube}`;
-    s.image(vx, 1.15, vw, vh, still, { link, name: 'Campus tour', alt: campus.video.title });
-    s.plate(vx + vw / 2 - 0.5, 1.15 + vh / 2 - 0.4, 1.0, 0.8, 'black', { link, name: 'Play' });
+    s.image(vx, vy, vw, vh, still, { link, name: 'Campus tour', alt: campus.video.title });
+    s.plate(vx + vw / 2 - 0.5, vy + vh / 2 - 0.4, 1.0, 0.8, 'black', { link, name: 'Play' });
     const play = await glyph('forward', 'cyan');
-    s.image(vx + vw / 2 - 0.17, 1.15 + vh / 2 - 0.17, 0.34, 0.34, play.file, { link });
-    s.text(vx, 1.3 + vh, vw, 0.35, [{ text: `${campus.video.title}  ·  watch on YouTube`, o: { link } }], { size: 12, color: 'muted' });
+    s.image(vx + vw / 2 - 0.17, vy + vh / 2 - 0.17, 0.34, 0.34, play.file, { link });
+    s.text(vx, vy + vh + 0.12, vw, 0.3, [{ text: `${campus.video.title}  ·  watch on YouTube`, o: { link } }], { size: 12, color: 'cyan', align: 'center' });
   }
 
   // 7 · The venue
@@ -354,7 +360,7 @@ async function compose() {
     kicker(s, venue.kicker, 'yellow');
     const vw = 5.55;
     s.image(W - vw, 0, vw, H, await photo('yashobhoomi-outside', vw, H), { name: 'Yashobhoomi', alt: venue.photos[1].alt });
-    s.text(M, 1.6, 6.6, 0.55, venue.place, { size: 26, bold: true, color: 'paper' });
+    s.text(M, 1.6, 6.6, 0.55, venue.place, { size: 26, bold: true, color: 'yellow' });
     s.text(M, 2.18, 6.6, 0.4, venue.booked, { size: 15, color: 'muted' });
     s.text(M, 3.3, 7.1, 2.4, venue.statement, { size: 46, bold: true, color: 'paper', line: 0.95, name: 'Statement' });
   }
@@ -408,27 +414,31 @@ async function compose() {
     );
   }
 
-  // 11 · Learned from the best
+  // 11 · Learned from the best (deck of 8 Oct: a subtitle, and each guest on a card)
   {
-    const s = add('INDIGO', { section: 'Our story', title: learned.title.replace(/,$/, ''), notes: `Guests at Masters' Union: ${learned.people.map((p) => p.name).join(', ')}.` });
-    s.text(M, 1.55, 9, 0.4, "Guests who have spoken at Masters' Union", { size: 16, color: 'paper' });
-    const g = 0.25;
-    const ph = 1.8;
-    const cw = 2.55;
+    const s = add('INDIGO', { section: 'Our story', title: learned.title.replace(/,$/, ''), notes: `${learned.subtitle}: ${learned.people.map((p) => p.name).join(', ')}.` });
+    s.text(M, 1.45, 9, 0.35, learned.subtitle, { size: 16, bold: true, color: 'yellow' });
+    const st = await ill('star-outline', 'yellow', 800);
+    s.image(11.85, 0.6, 0.85, 0.85 / st.ratio, st.file, { name: 'Star' });
+    const g = 0.22;
+    const cw = (W - 2 * M - 3 * g) / 4;
+    const ch = 2.38;
+    const inset = 0.08;
     for (let i = 0; i < learned.people.length; i++) {
       const p = learned.people[i];
       const x = M + (i % 4) * (cw + g);
-      const y = 2.2 + Math.floor(i / 4) * (ph + 0.5);
-      s.image(x, y, cw, ph, await photo(p.photo, cw, ph), { alt: p.name });
-      s.text(x, y + ph + 0.07, cw, 0.35, p.name, { size: 14, bold: true, color: 'paper' });
+      const y = 1.98 + Math.floor(i / 4) * (ch + g);
+      s.rect(x, y, cw, ch, 'deep', { radius: 0.1, name: `${p.name} card` });
+      const ph = 1.72;
+      s.image(x + inset, y + inset, cw - 2 * inset, ph, await photo(p.photo, cw - 2 * inset, ph), { alt: p.name });
+      s.text(x + 0.2, y + inset + ph + 0.14, cw - 0.4, 0.35, p.name, { size: 13, bold: true, color: 'paper' });
     }
-    const st = await ill('star-outline', 'yellow', 800);
-    s.image(11.8, 2.25, 0.95, 0.95 / st.ratio, st.file, { name: 'Star' });
   }
 
   // 12 · Firsts
   {
     const s = add('INDIGO', { section: 'Our story', title: firsts.title, notes: firsts.items.map((f) => `${f.figure} ${f.label} (${f.photo.caption}).`).join(' ') });
+    s.text(M, 1.45, 9, 0.35, firsts.subtitle, { size: 16, bold: true, color: 'yellow' });
     const cw = (W - 2 * M - 2 * 0.3) / 3;
     for (let i = 0; i < firsts.items.length; i++) {
       const f = firsts.items[i];
@@ -444,7 +454,7 @@ async function compose() {
   // 13 · Moments
   {
     const s = add('INDIGO', { section: 'Our story', title: moments.title, notes: moments.items.map((m) => `${m.name}: ${m.text}`).join(' ') });
-    kicker(s, moments.signature, 'yellow');
+    s.text(M, 1.45, 9, 0.35, moments.signature, { size: 16, bold: true, color: 'yellow' });
     const cw = (W - 2 * M - 2 * 0.3) / 3;
     for (let i = 0; i < moments.items.length; i++) {
       const m = moments.items[i];
@@ -467,8 +477,8 @@ async function compose() {
       s.image(M, y + 0.12, Math.min(1.1, ih * ic.ratio), Math.min(1.1, ih * ic.ratio) / ic.ratio, ic.file, { alt: p.name });
       s.text(M + 1.25, y - 0.05, 2.6, 0.8, p.value, { size: 40, bold: true, color: 'black', line: 0.9 });
       s.text(M + 1.25, y + 0.75, 2.6, 0.5, [
-        { text: p.unit, o: { bold: true } },
-        ...(p.label ? [{ text: `  ${p.label}` }] : []),
+        { text: p.unit, o: { bold: true, br: !!p.label } },
+        ...(p.label ? [{ text: p.label, o: { bold: true } }] : []),
       ], { size: 13, color: 'black' });
     }
     const rx = 4.55;
@@ -513,9 +523,9 @@ async function compose() {
 
   // 16 · Tiers
   {
-    const s = add('DARK', { section: 'Sponsorship', title: tiersIntro.title, notes: tiers.map((t) => `${t.name}: ${deliverables[0].values[t.id]}.`).join(' ') });
+    const s = add('DARK', { section: 'Sponsorship', title: tiersIntro.title, notes: `${tiersIntro.lede} ${tiers.map((t) => `${t.name}: ${t.pitch}`).join(' ')}` });
     kicker(s, 'Sponsorship 2027', 'yellow');
-    s.text(M, 2.0, 7.5, 0.5, 'Four orbits around one festival.', { size: 18, color: 'paper' });
+    s.text(M, 2.0, 9, 0.5, tiersIntro.lede, { size: 18, color: 'paper' });
     const ring = await ill('ringed-planet-4', 'paper', 1000);
     s.image(10.6, 0.45, 2.15, 2.15 / ring.ratio, ring.file, { name: 'Planet' });
     const cw = (W - 2 * M - 3 * 0.25) / 4;
@@ -524,7 +534,7 @@ async function compose() {
       s.plate(x, 3.05, cw, 3.55, t.ink, { name: t.name });
       s.text(x + 0.3, 3.35, cw - 0.6, 0.3, String(i + 1).padStart(2, '0'), { size: 12, bold: true, color: 'black' });
       s.text(x + 0.3, 3.75, cw - 0.5, 1.2, caps(t.name), { size: 24, bold: true, color: 'black', line: 0.92 });
-      s.text(x + 0.3, 5.15, cw - 0.6, 1.2, deliverables[0].values[t.id], { size: 15, color: 'black' });
+      s.text(x + 0.3, 5.15, cw - 0.6, 1.3, t.pitch, { size: 15, color: 'black' });
     });
   }
 
@@ -540,7 +550,7 @@ async function compose() {
     parts.forEach((rows, k) => {
       const s = add('PAPER', {
         section: 'Sponsorship',
-        title: `What Each Orbit Carries (${k + 1}/2)`,
+        title: 'What Each Orbit Carries',
         notes: rows.map((d) => `${d.name}: ${tiers.map((t) => `${t.name} ${cell(d.values[t.id])}`).join('; ')}.`).join(' '),
       });
       const start = k === 0 ? 0 : parts[0].length;
@@ -607,7 +617,7 @@ async function roadMap(s, x, y, h) {
     `<path d="${map.mainland}" fill="none" stroke="#${HEX.paper}" stroke-width="1.6" stroke-linejoin="round" opacity="0.9"/>`,
     `<path d="${map.islands}" fill="none" stroke="#${HEX.paper}" stroke-width="1" opacity="0.5"/>`,
     ...map.route.legs.slice(1, -1).map((d) => `<path d="${d}" fill="none" stroke="#${HEX.paper}" stroke-width="1.5" stroke-dasharray="1 7" stroke-linecap="round" opacity="0.6"/>`),
-    ...map.figure.map((f) => `<line x1="${f.x1}" y1="${f.y1}" x2="${f.x2}" y2="${f.y2}" stroke="#${f.final ? HEX.yellow : HEX.paper}" stroke-width="${f.final ? 2.6 : 2}" opacity="${f.final ? 1 : 0.85}"/>`),
+    ...map.figure.map((f) => `<path d="${f.d}" fill="none" stroke="#${f.final ? HEX.yellow : HEX.paper}" stroke-width="${f.final ? 2.6 : 2}" opacity="${f.final ? 1 : 0.85}"/>`),
     ...Object.values(map.stars.clusters).flat().map(([cx, cy, r]) => `<circle cx="${cx}" cy="${cy}" r="${r}" fill="#${HEX.paper}" opacity="0.55"/>`),
     ...map.cities.map((c) => {
       const home = c.id === 'delhi';
@@ -724,7 +734,16 @@ async function renderPptx(file) {
           ...(o.link ? { hyperlink: { url: op.o.link, tooltip: o.alt || o.name } } : {}),
         });
       } else if (op.kind === 'rect') {
-        slide.addShape(pres.shapes.RECTANGLE, { x: op.x, y: op.y, w: op.w, h: op.h, fill: { color: col(op.color) }, line: { type: 'none' }, objectName: 'Frame' });
+        slide.addShape(op.radius ? pres.shapes.ROUNDED_RECTANGLE : pres.shapes.RECTANGLE, {
+          x: op.x,
+          y: op.y,
+          w: op.w,
+          h: op.h,
+          fill: { color: col(op.color) },
+          line: { type: 'none' },
+          ...(op.radius ? { rectRadius: op.radius } : {}),
+          objectName: op.name || 'Frame',
+        });
       } else if (op.kind === 'plate') {
         slide.addShape(pres.shapes.CUSTOM_GEOMETRY, {
           x: op.x,
@@ -823,7 +842,7 @@ function renderHtml(file) {
       else if (op.kind === 'image') {
         const img = `<img src="${esc(path.relative(BUILD, op.file))}" alt="${esc(o.alt || '')}" style="left:${px(op.x)};top:${px(op.y)};width:${px(op.w)};height:${px(op.h)}">`;
         parts.push(o.link ? `<a href="${esc(o.link)}">${img}</a>` : img);
-      } else if (op.kind === 'rect') parts.push(`<div class="r" style="left:${px(op.x)};top:${px(op.y)};width:${px(op.w)};height:${px(op.h)};background:#${HEX[op.color]}"></div>`);
+      } else if (op.kind === 'rect') parts.push(`<div class="r" style="left:${px(op.x)};top:${px(op.y)};width:${px(op.w)};height:${px(op.h)};background:#${HEX[op.color]}${op.radius ? `;border-radius:${px(op.radius)}` : ''}"></div>`);
       else if (op.kind === 'plate') {
         const poly = op.pts.map(([a, b]) => `${((a / op.w) * 100).toFixed(2)}% ${((b / op.h) * 100).toFixed(2)}%`).join(',');
         const div = `<div class="r" style="left:${px(op.x)};top:${px(op.y)};width:${px(op.w)};height:${px(op.h)};background:#${HEX[op.color]};clip-path:polygon(${poly})"></div>`;
