@@ -16,13 +16,13 @@ type Cluster = keyof typeof map.stars.clusters;
 
 const [VX, VY, VW, VH] = map.viewBox;
 const cities = map.cities as City[];
-const LEGS = map.route.legs; // way in → Delhi, Delhi → Jaipur, … Guwahati → Delhi (home), settling
+const LEGS = map.route.legs; // way in → Delhi, Delhi → Bangalore, … Varanasi → Delhi (home), settling
 const order = Object.fromEntries(cities.map((c, i) => [c.id, i])) as Record<string, number>;
 // Each figure line belongs to the later of its two stars; the closing line
 // (`final`) to the flight home.
 const figureLit = map.figure.map((f) => ('final' in f ? -1 : Math.max(order[f.from], order[f.to])));
 const EXIT = LEGS.length - 1;
-const HOME = EXIT - 1; // Guwahati → Delhi: everyone meets in Delhi
+const HOME = EXIT - 1; // Varanasi → Delhi: everyone meets in Delhi
 const DELHI = order.delhi;
 const PARK = HOME; // reduced motion: mid-flight across the north, on the way home
 const pct = (x: number, y: number) => ({ left: `${((x - VX) / VW) * 100}%`, top: `${((y - VY) / VH) * 100}%` });
@@ -32,10 +32,10 @@ const smooth = (v: number) => v * v * (3 - 2 * v);
 
 // The flown course is art-directed: each leg carries its own weight, and the
 // way in from deep space stays faint.
-const LEG_OPACITY = [0.3, 0.7, 0.82, 0.66, 0.74, 0.62, 0.78, 0.92, 0.5];
+const LEG_OPACITY = [0.3, 0.7, 0.82, 0.66, 0.74, 0.62, 0.92, 0.5];
 // The figure's lines, each with its own weight (map.figure order); the closing
 // line home to Delhi is the brightest.
-const FIGURE_OPACITY = [0.9, 0.7, 0.85, 0.75, 0.85, 0.8, 1];
+const FIGURE_OPACITY = [0.9, 0.7, 0.85, 0.75, 1];
 // Small sparkles discovered along the course: [leg, fraction along it, size].
 const NODES: [number, number, number][] = [
   [0, 0.55, 0.8],
@@ -44,12 +44,11 @@ const NODES: [number, number, number][] = [
   [4, 0.5, 0.8],
   [5, 0.32, 1.2],
   [5, 0.7, 0.9],
-  [6, 0.5, 0.7],
-  [7, 0.45, 1],
+  [6, 0.45, 1],
 ];
 // The kit's four-point sparkle, cut unevenly like the Starfield's.
 const SPARK = 'M0 -7.5L1.4 -1.4L6.4 0L1.5 1.7L0 6.4L-1.6 1.5L-6 0L-1.4 -1.5Z';
-// The same sparkle at star size, for the seven cities.
+// The same sparkle at star size, for the cities.
 const STAR = 'M0 -12L2.2 -2.2L10.2 0L2.4 2.7L0 10.2L-2.6 2.4L-9.6 0L-2.2 -2.4Z';
 const DUST = 14;
 
@@ -571,7 +570,7 @@ export function Road() {
             <p className={`headline ${styles.subhead}`}>{road.subhead}</p>
           </div>
         </header>
-        <ol className="sr-only" aria-label={`${road.name}: the seven cities, in order`}>
+        <ol className="sr-only" aria-label={`${road.name}: the ${cities.length} cities, in order`}>
           {cities.map((c) => (
             <li key={c.id}>{c.name}</li>
           ))}

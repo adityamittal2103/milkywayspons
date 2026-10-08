@@ -618,7 +618,7 @@ async function roadMap(s, x, y, h) {
   ].join('');
   const file = path.join(ASSETS, 'road-map.png');
   await sharp(Buffer.from(svg)).png().toFile(file);
-  s.image(x, y, w, h, file, { name: 'Road to Milky Way map', alt: `India, with the seven Road to Milky Way cities: ${map.cities.map((c) => c.name).join(', ')}; the course returns to Delhi` });
+  s.image(x, y, w, h, file, { name: 'Road to Milky Way map', alt: `India, with the six Road to Milky Way cities: ${map.cities.map((c) => c.name).join(', ')}; the course returns to Delhi` });
   const pin = await glyph('location', 'vermilion');
   const at = (c) => ({ cx: x + ((c.x - VX) / VW) * w, cy: y + ((c.y - VY) / VH) * h });
   const left = new Set(['jaipur', 'mumbai']);
@@ -633,8 +633,7 @@ async function roadMap(s, x, y, h) {
     ];
     const lw = 1.5;
     if (left.has(c.id)) s.text(cx - 0.16 - lw, cy - 0.13, lw, 0.24, label, { size: 11, bold: true, align: 'right', charSpacing: 1 });
-    // Varanasi's line to Guwahati runs right through the usual spot: its name sits just below it.
-    else s.text(cx + 0.16, cy + (c.id === 'varanasi' ? 0.02 : -0.13), lw, 0.24, label, { size: home ? 13 : 11, bold: true, charSpacing: 1 });
+    else s.text(cx + 0.16, cy - 0.13, lw, 0.24, label, { size: home ? 13 : 11, bold: true, charSpacing: 1 });
   });
 }
 

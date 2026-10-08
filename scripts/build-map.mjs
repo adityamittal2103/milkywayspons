@@ -11,46 +11,46 @@ import path from 'node:path';
 const ROOT = path.resolve(import.meta.dirname, '..');
 const GEO = path.join(ROOT, '.cache/geo');
 
-// Road to Milky Way stops, in the order the journey runs (the Milky Way team's
-// final revision, 6 Oct 2026): Delhi, Jaipur, Bangalore, Chandigarh, Mumbai,
-// Varanasi, Guwahati. Then the course turns home: everyone meets in Delhi,
-// where the festival itself happens at Yashobhoomi.
+// Road to Milky Way stops, in the order the journey runs: the Milky Way team's
+// RTM sheet (8 Oct 2026, six cities, Guwahati removed), by event date:
+// Delhi 31 Oct, Bangalore 21 Nov, Jaipur 28 Nov, Chandigarh 5 Dec, Mumbai 12 Dec,
+// Varanasi 20 Dec. Then the course turns home: everyone meets in Delhi, where the
+// festival itself happens at Yashobhoomi.
 const CITIES = [
   { id: 'delhi', name: 'Delhi', state: 'Delhi', lat: 28.6139, lon: 77.209 },
-  { id: 'jaipur', name: 'Jaipur', state: 'Rajasthan', lat: 26.9124, lon: 75.7873 },
   { id: 'bangalore', name: 'Bangalore', state: 'Karnataka', lat: 12.9716, lon: 77.5946 },
+  { id: 'jaipur', name: 'Jaipur', state: 'Rajasthan', lat: 26.9124, lon: 75.7873 },
   { id: 'chandigarh', name: 'Chandigarh', state: 'Chandigarh', lat: 30.7333, lon: 76.7794 },
   { id: 'mumbai', name: 'Mumbai', state: 'Maharashtra', lat: 19.076, lon: 72.8777 },
   { id: 'varanasi', name: 'Varanasi', state: 'Uttar Pradesh', lat: 25.3176, lon: 82.9739 },
-  { id: 'guwahati', name: 'Guwahati', state: 'Assam', lat: 26.1445, lon: 91.7362 },
 ];
 
 // The asteroid's course, in map units (x east, y south). Cities are fixed by
 // their coordinates; between them the course bows clear of the constellation
 // it is drawing and of itself. It drops in from deep space above the
-// Himalaya, straight down to Delhi; runs down to Bangalore east of the Jaipur line and
-// back up west of it; swings round the southern tip on its way from Mumbai to
-// Varanasi; crosses to Guwahati below the figure; and returns over the north to
-// Delhi, the convergence, where it settles.
+// Himalaya, straight down to Delhi; runs south to Bangalore east of the
+// Jaipur–Bangalore line and back up west of it to Jaipur; slips past Delhi to
+// Chandigarh; down the west to Mumbai; swings round the southern tip and up the
+// east to Varanasi; and arcs home over the north to Delhi, the convergence.
 const ROUTE = [
   [430, -170],
   [376, -20],
   [342, 120],
   [326, 236],
   'delhi',
-  [310, 352],
-  'jaipur',
-  [300, 450],
-  [350, 620],
-  [368, 780],
-  [366, 852],
+  [350, 380],
+  [372, 520],
+  [380, 700],
+  [366, 840],
   'bangalore',
   [300, 866],
   [290, 800],
   [262, 660],
   [236, 500],
-  [226, 400],
-  [258, 290],
+  [240, 420],
+  'jaipur',
+  [256, 330],
+  [276, 270],
   'chandigarh',
   [292, 208],
   [236, 218],
@@ -64,30 +64,27 @@ const ROUTE = [
   [470, 760],
   [494, 560],
   'varanasi',
-  [620, 470],
-  [730, 456],
-  'guwahati',
-  [812, 366],
-  [760, 322],
-  [640, 296],
-  [480, 280],
-  [380, 290],
+  [534, 380],
+  [500, 316],
+  [430, 290],
+  [372, 294],
   'delhi',
   [298, 332],
   [292, 336],
 ];
 
-// The constellation the journey leaves behind: the seven cities as stars, a
-// figure centred on Delhi. Each line forms as its later star lights; the last
-// (Guwahati to Delhi, `final`) draws as the asteroid flies home, completing it.
+// The constellation the journey leaves behind: the six cities as stars, one
+// chain from Chandigarh through Delhi and Jaipur down to Bangalore and out to
+// Mumbai, with Varanasi joined to Delhi. No line crosses the course. Each line
+// forms as its later star lights (Jaipur's arrival joins it to Delhi and to
+// Bangalore); the last (Varanasi to Delhi, `final`) draws as the asteroid flies
+// home.
 const FIGURE = [
   ['delhi', 'jaipur'],
   ['jaipur', 'bangalore'],
   ['delhi', 'chandigarh'],
   ['bangalore', 'mumbai'],
-  ['delhi', 'varanasi'],
-  ['varanasi', 'guwahati'],
-  ['guwahati', 'delhi', 'final'],
+  ['varanasi', 'delhi', 'final'],
 ];
 
 // Equirectangular, corrected for latitude at India's middle (22°N).
@@ -202,7 +199,7 @@ function bezier(p0, p1, p2, p3) {
   return `C${f1(c1[0])} ${f1(c1[1])} ${f1(c2[0])} ${f1(c2[1])} ${f1(p2[0])} ${f1(p2[1])}`;
 }
 const segs = pts.slice(0, -1).map((p, i) => bezier(pts[i - 1] || p, p, pts[i + 1], pts[i + 2] || pts[i + 1]));
-// One leg per stretch between stops: entry → Delhi, Delhi → Jaipur, … Guwahati → Delhi, settling.
+// One leg per stretch between stops: entry → Delhi, Delhi → Jaipur, … Varanasi → Delhi, settling.
 const bounds = [0, ...stopAt, pts.length - 1];
 const d = `M${f1(pts[0][0])} ${f1(pts[0][1])}` + segs.join('');
 const legs = bounds.slice(0, -1).map((a, k) => `M${f1(pts[a][0])} ${f1(pts[a][1])}` + segs.slice(a, bounds[k + 1]).join(''));

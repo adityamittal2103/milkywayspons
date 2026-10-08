@@ -193,3 +193,16 @@ Deck updated to match (20 slides: "We learn by doing" removed, 1L+, the exact he
 
 Also: the campus tour's still now stays up until the player is running, so YouTube's loading screen never shows.
 Deck updated: campus slide before the venue, 2500+, "Brands In Our Orbit", phone numbers, no address line.
+
+## RTM: six cities, 8 Oct 2026
+
+| Change | Built state | Status |
+| --- | --- | --- |
+| Guwahati removed; six cities | Map data rebuilt (`scripts/build-map.mjs`), not hidden: six pins, six labels, six stars, six activations, readout to 06/06 | Done |
+| City order (team's RTM sheet, by event date) | Delhi 31 Oct → Bangalore 21 Nov → Jaipur 28 Nov → Chandigarh 5 Dec → Mumbai 12 Dec → Varanasi 20 Dec, then home to Delhi | Done |
+| Route and constellation recalculated | The asteroid drops in to Delhi, runs south to Bangalore east of the Jaipur line and back up west of it, slips past Delhi to Chandigarh, down the west to Mumbai, round the southern tip and up to Varanasi, and arcs home over the north. The figure is one chain (Chandigarh–Delhi–Jaipur–Bangalore–Mumbai) with Varanasi joined to Delhi by the final line, drawn on the flight home; no line crosses the course | Done |
+| "7 cities" → "6 cities" | Fest stat; tiers ("Pan-city presence across all 6 cities"); page description ("A 6-city Road to Milky Way") | Done |
+| "Seven cities…" line | No approved six-city line exists, so the brief's fallback is used verbatim: "Six cities. Six experiences. One Milky Way." | Done (swap when the team approves a line) |
+
+Checked at 1440 and 390: the journey activates the six in order and ends on "Everyone meets in Delhi"; no label
+collisions; the whole map stays in view; no "seven", "7 cities" or "Guwahati" on the page. Deck updated to match.

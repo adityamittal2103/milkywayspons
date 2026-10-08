@@ -51,7 +51,7 @@ export const fest = {
     { value: '2L+', label: 'student registrations' }, // dc
     { value: '2500+', label: 'target colleges' }, // final overrides (6 Oct)
     { value: '70+', label: 'events' }, // dc
-    { value: '7', label: 'cities' },
+    { value: '6', label: 'cities' }, // RTM: six cities (8 Oct)
   ],
   // dc: sports becomes performing arts
   events: "It's bands, gaming, performing arts and informals all day long. And when the sun goes down, the pronites begin.",
@@ -122,12 +122,15 @@ export const road = {
   strapline: "Before Delhi, there's a whole universe to cover",
   // dc: the description, as given
   what: 'brings one signature experience to each city on the map, free for UG students across India.',
-  subhead: 'Seven cities. Seven nights nobody forgets. Then everyone meets in Delhi.',
+  // 8 Oct: six cities. The approved line was written for seven; this is the
+  // team's own fallback wording until a six-city line is approved.
+  subhead: 'Six cities. Six experiences. One Milky Way.',
   body: 'Ride the full journey with us, from the first city to the final night in Delhi.',
-  // The Milky Way team's final revision (6 Oct 2026): one signature experience in
-  // each of seven cities, in this order, and then everyone meets in Delhi. The
-  // chart (scripts/build-map.mjs) flies them in this order and returns to Delhi.
-  stops: ['Delhi', 'Jaipur', 'Bangalore', 'Chandigarh', 'Mumbai', 'Varanasi', 'Guwahati'],
+  // The Milky Way team's RTM sheet (8 Oct 2026): one signature experience in each
+  // of six cities, in event-date order (Delhi 31 Oct, Bangalore 21 Nov, Jaipur
+  // 28 Nov, Chandigarh 5 Dec, Mumbai 12 Dec, Varanasi 20 Dec), then everyone meets
+  // in Delhi. The chart (scripts/build-map.mjs) flies them in this order.
+  stops: ['Delhi', 'Bangalore', 'Jaipur', 'Chandigarh', 'Mumbai', 'Varanasi'],
 } as const;
 
 export const learned = {
@@ -302,8 +305,8 @@ export const deliverables: { name: string; values: Record<TierId, Entitlement> }
   {
     name: 'Road to Milky Way',
     values: {
-      title: 'Pan-city presence across all 7 cities',
-      powered: 'Pan-city presence across all 7 cities',
+      title: 'Pan-city presence across all 6 cities',
+      powered: 'Pan-city presence across all 6 cities',
       associate: 'Select city / RTM touchpoints',
       cosponsor: null,
     },
